@@ -1,0 +1,58 @@
+$themecolor: (
+  twitter: #1DA1F2,
+  tumblr: #36465d,
+  lineat: #00b900,
+  youtube: #cd201f,
+  note: #2dcdb5,
+  amazon: #FF9900,
+  marsh: #F3969A,
+  skeb: #30B396,
+  pixiv: #0096FA,
+  booth: #FC4D50,
+  fantia: #FF5600,
+);
+
+$btncolor: (
+  blue: #4d94ab,
+  red: #cc445d,
+  yellow: #ecc844,
+  green: #6ecc75,
+  navy: #1c438a,
+  gray: #a5a5a5,
+);
+
+%btn {
+  display: inline-block;
+  position: relative;
+  font-family: $fonts;
+  text-decoration: none;
+  font-weight: normal;
+  padding: 10px 40px;
+  border-radius: 3px;
+  border: 1px solid;
+  cursor: pointer;
+  @include transition(background-color 0.14s ease-in-out);
+  transition: all .3s;
+
+  // hovering on the btn
+  &:hover, &:focus {
+    color: $white !important;
+    text-decoration: none;
+    outline: none;
+  }
+
+} // end .button
+
+@each $name, $color in $btncolor {
+  .#{$name}-btn a {
+    @extend %btn;
+    color: $color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $color;
+      border: 1px solid $color;
+      color: white !important;
+    } // end hover.
+  }
+}

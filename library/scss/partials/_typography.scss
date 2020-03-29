@@ -1,0 +1,42 @@
+
+  @font-face {
+      font-family: 'biko';
+      src: url('../Biko_Regular.otf') format('woff');
+      font-weight: normal;
+  }
+
+  @font-face {
+      font-family: 'biko-light';
+      src: url('../Biko_Light-Restricted.otf') format('woff');
+      font-weight: normal;
+  }
+
+// font stacks
+$sans-serif:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif:             "Georgia", Cambria, Times New Roman, Times, serif;
+$number:  'biko', serif;
+$number-light:  'biko-light', serif;
+
+/*
+ i imported this one in the functions file so bones would look sweet.
+ don't forget to remove it for your site.
+*/
+$fonts: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+
+/*
+some nice typographical defaults
+more here: http://www.newnet-soft.com/blog/csstypography
+*/
+p {
+  -ms-word-wrap: break-word;
+  word-break: break-word; //non-standart css for webkit
+  word-wrap: break-word;
+  // cleaning up the ragged lines and breaks
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+  // sets a minimum number of characters before and after the break
+  -webkit-hyphenate-before: 2;
+   -webkit-hyphenate-after: 3;
+           hyphenate-lines: 3;
+}

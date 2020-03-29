@@ -1,0 +1,291 @@
+main#main {
+    margin-right: 30px;
+}
+
+		.hentry {
+			margin-bottom: 1.5em;
+	    padding-bottom: 40px;
+
+			&:not(:last-of-type) {
+		    border-bottom: 1px solid #ddd;
+			}
+
+			header {
+				padding: 1.5em;
+			}
+
+			footer {
+				padding: 1.5em;
+
+				p {
+					margin: 0;
+				}
+			}
+
+		} /* end .hentry */
+
+	.entry-content {
+    padding: 1.5em 1.5em 0;
+
+		blockquote {
+		    margin: 0 0.75em 1.5em 0.75em;
+		    padding: 2.5em 1em 1em 1.5em;
+			}
+}
+
+.shortcode-illust {
+  display: flex;
+  flex-wrap: wrap;
+  &.default li {
+    width: calc(33% - 3px);
+    height: 220px;
+    &:not(:nth-of-type(2n)) {
+      margin-right: 0;
+    }
+    &:not(:nth-of-type(3n)) {
+      margin-right: 7.5px;
+    }
+  }
+  li {
+    position: relative;
+    margin-bottom: 7.5px;
+  }
+}
+
+.wrap {
+	width: 760px;
+}
+
+// 投稿内容
+.col2-wrap {
+  flex-direction: row;
+}
+
+.col3-wrap {
+  flex-direction: row;
+}
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+  text-align: center;
+	a.logo {
+    width: fit-content;
+    margin: 40px auto 0;
+
+		img {
+			max-width: 500px;
+			max-height: 200px;
+			object-fit: contain;
+		}
+	}
+	#logo {
+    margin: 60px 0 0px;
+	}
+
+	.site-desc {
+		display: block;
+	}
+}
+
+	#logo {}
+
+	figure.eye-catch {
+	    height: 250px;
+	}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+
+header {
+	nav {
+    visibility: visible;
+    position: relative;
+    z-index: 100;
+    opacity: 1;
+    width: 100%;
+    padding-top: 0;
+	}
+
+	label#formenubar {
+		display: none;
+	}
+}
+
+ul.nav {
+	border: 0;
+	margin-top:0;
+	height: 50px;
+  display: flex;
+  justify-content: center;
+li {
+	position: relative;
+
+	a {
+		border-bottom: 0;
+		color: $black;
+    display: block;
+    min-width: 120px;
+
+	}
+	ul.sub-menu,
+	ul.children {
+    border-top: 0;
+		background: #fffffff0;
+    position: absolute;
+    visibility: hidden;
+    z-index: 8999;
+    opacity: 0;
+    transition: .3s;
+    transform: translateY(-20px);
+		margin: 0;
+    top: 100%;
+
+		li {
+
+			a {
+				padding-left: 10px;
+				border-right: 0;
+				display: block;
+				width: 180px;
+			}
+			ul {
+				top:0;
+				left:100%;
+			}
+		}
+	}
+
+	/* showing sub-menus */
+	&:hover > ul.sub-menu,
+	&:hover > ul.children {
+		visibility:visible;
+    opacity: 1;
+    transform: translateY(0);
+	}
+
+} /* end .menu ul li */
+
+/* highlight current page */
+li.current-menu-item,
+li.current_page_item,
+li.current_page_ancestor {
+	a {}
+}  /* end current highlighters */
+
+} /* end .nav */
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+.sidebar {
+	margin-top: 0;
+	width: 250px;
+  padding-left: 10px;
+}
+
+	.widgettitle {
+    text-align: center;
+		margin-bottom: 0.75em;
+		position: relative;
+
+		&:after {
+		  content: '';
+		  display: block;
+		  width: 50px;
+		  height: 2px;
+		  background: $text-color;
+		  margin: 10px auto;
+		}
+	}
+
+	.widget {
+		padding: 0 10px;
+		margin: 3em 0;
+
+		ul {
+			li {
+				margin-bottom: 0.75em;
+
+				&:first-child {}
+				&:last-child {}
+				a {}
+
+				ul {
+					margin-top: 0.75em;
+					padding-left: 1em;
+				}
+			}
+		}
+	}
+
+
+/*********************
+FOOTER STYLES
+*********************/
+
+/*
+you'll probably need to do quite a bit
+of overriding here if you styled them for
+mobile. Make sure to double check these!
+*/
+.footer-links {
+	ul {
+		li {
+			a {
+				&:hover {}
+			}
+			/*
+			be careful with the depth of your menus.
+			it's very rare to have multi-depth menus in
+			the footer.
+			*/
+			ul {}
+		}
+	}
+} /* end .footer-links */
+
+// イラスト表示
+
+a.illust {
+  flex: none;
+  width: calc(33% - 4px);
+
+	&:nth-of-type(2n-1) {
+		margin-right: 0;
+	}
+	&:nth-of-type(2n) {
+		margin-left: 0;
+	}
+
+	&:nth-of-type(3n-2) {
+		margin-right: 4px;
+	}
+	&:nth-of-type(3n-1) {
+		margin-right: 2px;
+		margin-left: 2px;
+	}
+	&:nth-of-type(3n) {
+		margin-left: 4px;
+	}
+  article {
+    figure.eye-catch {
+      height: 220px;
+    }
+  }
+}
+
+// 小説一覧
+
+.text-wrap article {
+    display: flex;
+    flex-direction: row;
+
+    figure.eye-catch {
+    margin: 20px;
+    }
+}
