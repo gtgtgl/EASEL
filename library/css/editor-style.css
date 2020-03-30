@@ -7,8 +7,8 @@ body#tinymce.wp-editor {
   line-height: 1.5;
   color: #57595d;
   -webkit-font-smoothing: antialiased;
-  padding: 0.5em;
-  margin: 0;
+  padding: 10px !important;
+  margin: 0 !important;
   box-sizing: border-box;
 }
 
@@ -159,8 +159,8 @@ body#tinymce.wp-editor menu {
 
 body#tinymce.wp-editor ol,
 body#tinymce.wp-editor ul {
-  padding: 0;
-  list-style-type: none;
+  padding: 0 0 0 1.5em;
+  list-style-position: outside;
 }
 
 body#tinymce.wp-editor nav ul,
@@ -324,9 +324,9 @@ body#tinymce.wp-editor h2 {
   border-bottom: 1px solid;
 }
 
-@media only screen and (min-width: 1030px) {
+@media only screen and (min-width: 730px) {
   body#tinymce.wp-editor {
-    padding: 1.5em 1.5em 0;
+    padding: 20px !important;
   }
 }
 
@@ -700,6 +700,7 @@ body#tinymce.wp-editor .news_list {
   padding: 20px;
   border: 1px solid #ddd;
   margin: 40px auto;
+  list-style: none;
 }
 
 body#tinymce.wp-editor .news_list li a {
@@ -728,6 +729,8 @@ body#tinymce.wp-editor .shortcode-illust {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
 }
 
 body#tinymce.wp-editor .shortcode-illust.default li {
@@ -801,6 +804,11 @@ body#tinymce.wp-editor .shortcode-illust li section p {
 
 body#tinymce.wp-editor .shortcode-illust li a:hover section {
   opacity: 1;
+}
+
+body#tinymce.wp-editor .shortcode-text {
+  padding: 0;
+  list-style: none;
 }
 
 body#tinymce.wp-editor .shortcode-text h4 {

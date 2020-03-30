@@ -50,13 +50,12 @@ body#tinymce.wp-editor {
     padding: 9px 10px;
     border-bottom: 1px solid;
 	}
-
-    padding: 0.5em;
-    margin: 0;
+		padding: 10px !important;
+    margin: 0 !important;
     box-sizing: border-box;
 
-		@media only screen and (min-width: 1030px) {
-			 padding: 1.5em 1.5em 0;
+		@media only screen and (min-width: 730px) {
+			padding: 20px !important;
 		}
 
 		p {
