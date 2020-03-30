@@ -26,6 +26,24 @@ add_action( 'wp_dashboard_setup', 'add_my_widget' );
 // カスタム投稿タイプの設定
 require_once( 'library/custom-post-type.php' );
 
+// カスタム投稿画面にターム別ソート機能を追加
+function add_post_taxonomy_restrict_filter() {
+    global $post_type;
+    if ( 'works' == $post_type ) {
+        ?>
+        <select name="custom_cat">
+            <option value="">すべての作品タイプ</option>
+            <?php
+            $terms = get_terms('custom_cat');
+            foreach ($terms as $term) { ?>
+                <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>
+        </select>
+        <?php
+    }
+}
+add_action( 'restrict_manage_posts', 'add_post_taxonomy_restrict_filter' );
+
 // EASEL用のメニューを追加する
 add_action('admin_menu', 'register_easel_menu_page');
 function register_easel_menu_page() {
@@ -53,11 +71,11 @@ $easel_terms = array(
 function setup_easel_terms() {
   global $easel_terms;
     foreach ($easel_terms as $easel_term) {
-      $check_term = term_exists( $easel_term[0], 'custom_cat' ); // タクソノミーが存在すれば配列が返される
+      $check_term = term_exists( $easel_term[0], 'work_type' ); // タクソノミーが存在すれば配列が返される
       if ( $check_term == 0 ) {
         wp_insert_term(
           $easel_term[1], // ターム名
-          'custom_cat', // タクソノミー
+          'work_type', // タクソノミー
           array(
             'description'=> $easel_term[2],
             'slug' => $easel_term[0],
