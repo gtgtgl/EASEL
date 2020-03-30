@@ -1,9 +1,7 @@
 <?php get_header(); ?>
 
-<?php if ( has_post_thumbnail() ) : ?>
 <figure class="eye-catch" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-<?php
-  if (has_post_thumbnail()) {
+<?php if ( has_post_thumbnail() ) :
     $thumbnail_id = get_post_thumbnail_id();
     $eye_img = wp_get_attachment_image_src( $thumbnail_id , 'full' );
     $url = $eye_img[0];
@@ -18,18 +16,11 @@
       the_post_thumbnail(array($width, $height), $attr);
     } else {
       the_post_thumbnail('full', $attr);
-    }
-
-  } else {
-    $url = get_singular_eyecatch_image_url();
-    $size = get_image_width_and_height($url);
-    $width = isset($size['width']) ? $size['width'] : 800;
-    $height = isset($size['height']) ? $size['height'] : 600;
-    echo ' <img src="'.$url.'" width="'.$width.'" height="'.$height.'" alt="">';
-  }
-  ?>
+    } ?>
+<?php else :
+	echo get_the_image();
+endif; ?>
 </figure>
-<?php endif; ?>
 
 			<div id="content">
 
@@ -72,7 +63,7 @@
 										) );
 									?>
 								</section> <?php // end article section ?>
-                
+
 							</article>
 
 							<?php endwhile; endif; ?>

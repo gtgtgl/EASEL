@@ -1,21 +1,21 @@
 <?php
+
+// bonesの設定
 function bones_head_cleanup() {
 	remove_action( 'wp_head', 'rsd_link' );
-	// windows live writer
 	remove_action( 'wp_head', 'wlwmanifest_link' );
-	// previous link
 	remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
-	// start link
 	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
-	// links for adjacent posts
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-	// WP version
 	remove_action( 'wp_head', 'wp_generator' );
-	// remove WP version from css
 	add_filter( 'style_loader_src', 'bones_remove_wp_ver_css_js', 9999 );
-	// remove Wp version from scripts
 	add_filter( 'script_loader_src', 'bones_remove_wp_ver_css_js', 9999 );
+}
 
+// コメント機能を使わないので打shすぼーどから消す
+add_action( 'admin_menu', 'remove_menus' );
+function remove_menus(){
+    remove_menu_page( 'edit-comments.php' ); //コメントメニュー
 }
 
 // A better title
@@ -174,38 +174,6 @@ function bones_theme_support() {
 	) );
 
 } /* end bones theme support */
-
-
-/*********************
-RELATED POSTS FUNCTION
-*********************/
-
-// Related Posts Function (call using bones_related_posts(); )
-function bones_related_posts() {
-	echo '<ul id="bones-related-posts">';
-	global $post;
-	$tags = wp_get_post_tags( $post->ID );
-	if($tags) {
-		foreach( $tags as $tag ) {
-			$tag_arr .= $tag->slug . ',';
-		}
-		$args = array(
-			'tag' => $tag_arr,
-			'numberposts' => 5, /* you can change this to show more */
-			'post__not_in' => array($post->ID)
-		);
-		$related_posts = get_posts( $args );
-		if($related_posts) {
-			foreach ( $related_posts as $post ) : setup_postdata( $post ); ?>
-				<li class="related_post"><a class="entry-unrelated" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
-			<?php endforeach; }
-		else { ?>
-			<?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'bonestheme' ) . '</li>'; ?>
-		<?php }
-	}
-	wp_reset_postdata();
-	echo '</ul>';
-} /* end bones related posts function */
 
 /*********************
 PAGE NAVI

@@ -11,7 +11,8 @@ body#tinymce.wp-editor {
 	// Sass functions
 	@import "partials/functions";
 
-	width: 770px;
+  width: 100%;
+  max-width: 770px;
 	font-family: $fonts;
 	font-size: 100%;
 	line-height: 1.5;
@@ -32,7 +33,6 @@ body#tinymce.wp-editor {
 		}
 
 		&:link {
-
 			-webkit-tap-highlight-color : rgba( 0, 0, 0, 0.3 );
 		}
 	}
@@ -51,7 +51,13 @@ body#tinymce.wp-editor {
     border-bottom: 1px solid;
 	}
 
-	padding: 1.5em 1.5em 0;
+    padding: 0.5em;
+    margin: 0;
+    box-sizing: border-box;
+
+		@media only screen and (min-width: 1030px) {
+			 padding: 1.5em 1.5em 0;
+		}
 
 		p {
 			margin: 0 0 1.5em;
@@ -98,13 +104,30 @@ body#tinymce.wp-editor {
 		}
 
 		blockquote {
-			margin: 0 0 1.5em 0.75em;
-			padding: 0 0 0 0.75em;
-			border-left: 3px solid $blue;
-			font-style: italic;
-			color: $meta-gray;
+				margin: 0 0 1.5em 0;
+				padding: 2.5em .5em 1em 1.0em;
+				font-style: italic;
+				color: #707175;
+				background: #f5f5f5;
+				position: relative;
 
-			&:before {}
+			&:before {
+				content: '“';
+				display: block;
+				font-size: 50px;
+				position: absolute;
+				opacity: 0.3;
+				top: 0;
+			}
+			&:after {
+				content: '”';
+				display: block;
+				font-size: 50px;
+				position: absolute;
+				opacity: 0.3;
+				bottom: -0.3em;
+				right: 0.5em;
+			}
 
 		}
 
@@ -174,7 +197,7 @@ body#tinymce.wp-editor {
 	    background: rgb(193, 246, 229);
 	  }
 	}
- 
+
 	@import "modules/buttons";
 
 }

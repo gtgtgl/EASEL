@@ -124,7 +124,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 	font-weight: 700;
   margin-top: 2em;
 
-	/* removing text decoration from all headline links */
 	a {
 		text-decoration: none;
 	}
@@ -133,6 +132,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 h1, .h1 {
 	font-size: 2em;
 	line-height: 1.5em;
+}
+
+h1.page-title {
+  text-align: center;
+  margin: 40px auto 20px;
 }
 
 h2, .h2 {
@@ -183,10 +187,14 @@ HEADER STYLES
 			display: none;
 		}
 
-	.nav li a {
-		color: $black;
-		&:hover {
-			color: $link-color;
+	.nav li {
+		padding: 0;
+
+		a {
+			color: $black;
+			&:hover {
+				color: $link-color;
+			}
 		}
 	}
 }
@@ -206,17 +214,10 @@ HEADER STYLES
 NAVIGATION STYLES
 *********************/
 
-/*
-all navs have a .nav class applied via
-the wp_menu function; this is so we can
-easily write one group of styles for
-the navs on the site so our css is cleaner
-and more scalable.
-*/
-
 .nav {
 	border-bottom: 0;
 	margin: 0;
+	padding: 0;
 
 	li {
 
@@ -225,31 +226,11 @@ and more scalable.
 			color: $bones-pink;
 			text-decoration: none;
 			padding: 0.75em;
-
-			/*
-			remember this is for mobile ONLY, so there's no need
-			to even declare hover styles here, you can do it in
-			the style.scss file where it's relevant. We want to
-			keep this file as small as possible!
-			*/
-			&:hover, &:focus {
-
-			}
 		}
 
-		&:first-child {}
-
-		&:last-child {}
-
-		/*
-		so you really have to rethink your dropdowns for mobile.
-		you don't want to have it expand too much because the
-		screen is so small. How you manage your menu should
-		depend on the project. Here's some great info on it:
-		http://www.alistapart.com/articles/organizing-mobile/
-		*/
 		ul.sub-menu,
 		ul.children {
+			padding: 0;
 
 			li {
 
@@ -273,7 +254,6 @@ and more scalable.
 
 	} /* end .menu li */
 
-	/* highlight current page */
 	li.current-menu-item,
 	li.current_page_item,
 	li.current_page_ancestor {
@@ -292,7 +272,6 @@ header {
     z-index: -9999;
     -webkit-transition: .5s;
     transition: .5s;
-    background: #ffffff;
     opacity: 0;
     width: 100%;
     padding-top: 50px;
@@ -690,16 +669,6 @@ COMMENT STYLES
 
 }
 
-.comment-nav {
-
-	ul {
-
-		li {}
-
-	}
-}
-
-
 .commentlist {
 	margin: 0;
 	list-style-type: none;
@@ -944,6 +913,8 @@ SIDEBARS & ASIDES
 	.widget {
 
 		ul {
+			padding: 0;
+			list-style: none;
 
 			li {
 

@@ -5,7 +5,7 @@ require_once( 'library/bones.php' );
 // テーマ更新の確認
 require_once( 'theme-update-checker.php' );
 $update_checker = new ThemeUpdateChecker(
-    'EASEL',
+    'easel',
     'https://easel.gt-gt.org/downloads/theme-update.json'
 );
 
@@ -14,7 +14,7 @@ function add_custom_widget() {
 	echo '<h2>EASELをはじめる手順</h2>
         <p>WordPressのサイト設定が終わったら、ダッシュボード　サイドバーの設定＞EASEL設定を開いてください。<br>
         タイトル画像の設定や、「作品タイプ」の初期設定ができたら、EASELの準備は完了です。<br>
-        もっと詳しく知りたい、わからないことがあれば、<a href="https://easel.gt-gt.org" target="_blank">EASELマニュアルページ</a>をご参照ください。</p>
+        もっと詳しく知りたい、わからないことがあれば、<a href="https://easel.gt-gt.org/" target="_blank">EASELマニュアルページ</a>をご参照ください。</p>
         <p>また、テーマを利用する中で不具合や要望があれば、お気軽にお申し出ください。</p>
           ';
 }
@@ -26,7 +26,7 @@ add_action( 'wp_dashboard_setup', 'add_my_widget' );
 // カスタム投稿タイプの設定
 require_once( 'library/custom-post-type.php' );
 
-// admin_menu にフック
+// EASEL用のメニューを追加する
 add_action('admin_menu', 'register_easel_menu_page');
 function register_easel_menu_page() {
     // add_menu_page でカスタムメニューを追加
@@ -67,6 +67,7 @@ function setup_easel_terms() {
     }
 }
 
+// EASEL設定ページの中身を読み込み
 function easel_settings_page() {
   include 'library/setting.php';
 }
@@ -190,7 +191,6 @@ class VisualEditorExcerptDemo{
     );
   }
 
-
   //メタボックスの出力
   public static function show( $post )  {
   ?>
@@ -235,6 +235,7 @@ function myplugin_add_meta_box() {
 }
 add_action( 'add_meta_boxes', 'myplugin_add_meta_box' );
 
+// 記事・固定ページにカスタムCSSが使えるようにする
 function create_custom_css() {
     $keyname = 'custom_css';
     global $post;

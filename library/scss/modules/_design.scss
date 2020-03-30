@@ -223,6 +223,7 @@ a.illust {
     padding: 20px;
     border: 1px solid #ddd;
     margin: 40px auto;
+    list-style: none;
 
   li a {
     display: flex;
@@ -248,6 +249,9 @@ a.illust {
 .shortcode-illust {
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+
   &.default li {
     width: calc(50% - 3px);
     height: 150px;
@@ -308,6 +312,8 @@ a.illust {
 }
 
 .shortcode-text {
+  padding: 0;
+  list-style: none;
   h4 {
     margin: 0 0 10px;
   }
