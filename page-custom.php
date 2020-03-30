@@ -69,15 +69,6 @@
 									?>
 								</section>
 
-
-								<footer class="article-footer">
-
-                  <?php the_tags( '<p class="tags"><span class="tags-title">' . __( 'Tags:', 'bonestheme' ) . '</span> ', ', ', '</p>' ); ?>
-
-								</footer>
-
-								<?php comments_template(); ?>
-
 							</article>
 
 							<?php endwhile; else : ?>
