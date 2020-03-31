@@ -31,6 +31,7 @@ a {
 
 main#main {
 	flex: 1;
+  max-width: 100%;
 }
 
 /********************
@@ -472,9 +473,9 @@ POSTS & CONTENT STYLES
 		} /* end .entry-content */
 
 		.wp-caption {
-			max-width: 100%;
-			background: #eee;
-			padding: 5px;
+	    max-width: 100%;
+	    padding: 5px;
+	    margin: 30px auto;
 
 			/* images inside wp-caption */
 			img {
@@ -490,23 +491,6 @@ POSTS & CONTENT STYLES
 			}
 
 		} /* end .wp-caption */
-
-		/* image gallery styles */
-		.gallery {
-
-			dl {
-
-				a {}
-
-				img {}
-
-			}
-
-			dt {}
-
-			dd {}
-
-		} /* end .gallery */
 
 		/* gallery caption styles */
 		.gallery-caption {}

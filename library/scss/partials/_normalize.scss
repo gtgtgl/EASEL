@@ -160,6 +160,7 @@ nav ol {
 
 img {
     border: 0;
+    max-width: 100%;
 }
 
 figure {
@@ -178,6 +179,10 @@ legend {
     padding: 0;
 }
 
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
 
 button,
 input,

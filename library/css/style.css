@@ -158,6 +158,7 @@ nav ol {
 
 img {
   border: 0;
+  max-width: 100%;
 }
 
 figure {
@@ -173,6 +174,11 @@ fieldset {
 legend {
   border: 0;
   padding: 0;
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 button,
@@ -542,11 +548,6 @@ you hate oysters, then the world is your peanut butter & jelly sandwich.
   background-color: #a5a5a5;
   border: 1px solid #a5a5a5;
   color: white !important;
-}
-
-input[type="submit"] {
-  -webkit-appearance: none;
-  border-radius: 0;
 }
 
 input[type="text"],
@@ -1359,6 +1360,7 @@ a {
 main#main {
   -webkit-box-flex: 1;
           flex: 1;
+  max-width: 100%;
 }
 
 /********************
@@ -1760,8 +1762,8 @@ POSTS & CONTENT STYLES
 /* end .entry-content */
 .wp-caption {
   max-width: 100%;
-  background: #eee;
   padding: 5px;
+  margin: 30px auto;
   /* images inside wp-caption */
 }
 
@@ -1778,8 +1780,6 @@ POSTS & CONTENT STYLES
 }
 
 /* end .wp-caption */
-/* image gallery styles */
-/* end .gallery */
 /* gallery caption styles */
 .tags {
   margin: 0;

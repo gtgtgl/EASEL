@@ -18,43 +18,26 @@
 		<meta name="MobileOptimized" content="320">
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<?php // icons & favicons (for more: http://www.jonathantneal.com/blog/understand-the-favicon/) ?>
-		<link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/library/images/apple-touch-icon.png">
-		<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png">
-		<!--[if IE]>
-			<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico">
-		<![endif]-->
-		<?php // or, set /favicon.ico for IE10 win ?>
-		<meta name="msapplication-TileColor" content="#f01d4f">
-		<meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/library/images/win8-tile-icon.png">
-            <meta name="theme-color" content="#121212">
-
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
 		<link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<?php if (is_singular() )
-{
-$article_css = get_post_meta($post->ID,'custom_css',true);
-    if($article_css)
-    {
-    echo <<<EOS
-<style>
-$article_css
-</style>
-EOS;
-    }
-}
-?>
-
-		<?php // wordpress head functions ?>
 		<?php wp_head(); ?>
-		<?php // end of wordpress head ?>
 
-		<?php // drop Google Analytics Here ?>
-		<?php // end analytics ?>
-
+		<?php if (is_singular() )
+		{
+		$article_css = get_post_meta($post->ID,'custom_css',true);
+		    if($article_css)
+		    {
+		    echo <<<EOS
+		<style>
+		$article_css
+		</style>
+		EOS;
+		    }
+		}
+		?>
 	</head>
 
 	<body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">

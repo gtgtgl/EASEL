@@ -287,6 +287,9 @@ function save_custom_field( $post_id ) {
     }
 }
 
+// キャプション付き画像が記事外にはみ出るのを修正する
+add_filter( 'img_caption_shortcode_width', function(){ return 0; } );
+
 /*********************
 LAUNCH BONES
 Let's get everything up and running.
