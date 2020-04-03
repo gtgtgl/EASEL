@@ -108,9 +108,8 @@ q:after {
   content: none;
 }
 
-small, .small {
+small {
   font-size: 75%;
-  opacity: 0.8;
 }
 
 sub,
@@ -1177,6 +1176,14 @@ a.illust article figure.eye-catch {
   margin-right: 3px;
 }
 
+.shortcode-illust.default li section h3 {
+  font-size: 18px;
+}
+
+.shortcode-illust.default li section p {
+  font-size: 14px;
+}
+
 .shortcode-illust.small li {
   width: calc(33% - 3px);
   height: 120px;
@@ -1185,6 +1192,14 @@ a.illust article figure.eye-catch {
 
 .shortcode-illust.small li:not(:nth-of-type(3n)) {
   margin-right: 3px;
+}
+
+.shortcode-illust.small li section h3 {
+  font-size: 16px;
+}
+
+.shortcode-illust.small li section p {
+  font-size: 12px;
 }
 
 .shortcode-illust li {
@@ -1234,6 +1249,7 @@ a.illust article figure.eye-catch {
   font-style: initial;
   font-size: 14px;
   opacity: .8;
+  color: #ededed;
 }
 
 .shortcode-illust li a:hover section {
@@ -1576,6 +1592,7 @@ header nav {
   width: 100%;
   padding-top: 50px;
   left: 0;
+  background: #fff;
 }
 
 header label#formenubar {
@@ -2146,30 +2163,6 @@ larger than an iPhone but smaller than a tablet. Let's call them
 tweeners.
 *********************/
 @media only screen and (min-width: 481px) {
-  /* .menu is clearfixed inside mixins.scss */
-  .menu {
-    /* end .menu ul */
-  }
-  .menu ul {
-    /* end .menu ul li */
-    /* highlight current page */
-    /* end current highlighters */
-  }
-  .menu ul li {
-    /*
-				plan your menus and drop-downs wisely.
-				*/
-  }
-  .menu ul li a {
-    /*
-					you can use hover styles here even though this size
-					has the possibility of being a mobile device.
-					*/
-  }
-  /* end .menu */
-  /*********************
-POSTS & CONTENT STYLES
-*********************/
   /* entry content */
   .entry-content {
     /* at this larger size, we can start to align images */
@@ -2191,14 +2184,6 @@ POSTS & CONTENT STYLES
     clear: both;
   }
   /* end .entry-content */
-  /*********************
-FOOTER STYLES
-*********************/
-  /*
-check your menus here. do they look good?
-do they need tweaking?
-*/
-  /* end .footer-links */
   a.illust {
     -webkit-box-flex: calc(50% - 5px);
             flex: calc(50% - 5px);
@@ -2211,6 +2196,17 @@ do they need tweaking?
   }
   a.illust article figure.eye-catch {
     height: 200px;
+  }
+  .shortcode-illust.small li {
+    width: calc(25% - 3px);
+    height: 140px;
+    margin-bottom: 4px;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(3n)) {
+    margin-right: 0;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(4n)) {
+    margin-right: 4px;
   }
 }
 
@@ -2262,6 +2258,17 @@ you can add resource intensive styles.
   }
   .shortcode-illust.default li:not(:nth-of-type(3n)) {
     margin-right: 7.5px;
+  }
+  .shortcode-illust.small li {
+    width: calc(20% - 4px);
+    height: 150px;
+    margin-bottom: 5px;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(4n)) {
+    margin-right: 0;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(5n)) {
+    margin-right: 5px;
   }
   .shortcode-illust li {
     position: relative;
@@ -2317,6 +2324,7 @@ NAVIGATION STYLES
     opacity: 1;
     width: 100%;
     padding-top: 0;
+    background: transparent;
   }
   header label#formenubar {
     display: none;
@@ -2363,7 +2371,8 @@ NAVIGATION STYLES
     padding-left: 10px;
     border-right: 0;
     display: block;
-    width: 180px;
+    min-width: 180px;
+    word-break: keep-all;
   }
   ul.nav li ul.sub-menu li ul,
   ul.nav li ul.children li ul {
@@ -2518,6 +2527,16 @@ you can add resource intensive styles.
   }
   .shortcode-illust.default li:not(:nth-of-type(4n)) {
     margin-right: 4px;
+  }
+  .shortcode-illust.small li {
+    width: calc(100%/6 - 3px);
+    height: 160px;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(5n)) {
+    margin-right: 0;
+  }
+  .shortcode-illust.small li:not(:nth-of-type(6n)) {
+    margin-right: 3.5px;
   }
   .shortcode-illust li {
     position: relative;

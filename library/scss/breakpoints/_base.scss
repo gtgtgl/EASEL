@@ -237,17 +237,7 @@ NAVIGATION STYLES
 
 				a {
 					padding-left: 30px;
-
-					&:hover,
-					&:focus {}
-
-					&:link {}
-
 				}
-
-				&:first-child {}
-
-				&:last-child {}
 
 			}
 
@@ -277,6 +267,7 @@ header {
     width: 100%;
     padding-top: 50px;
     left: 0;
+		background: $white;
 	}
 
 	label#formenubar {

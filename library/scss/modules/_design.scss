@@ -259,6 +259,14 @@ a.illust {
     &:not(:nth-of-type(2n)) {
       margin-right: 3px;
     }
+    section {
+      h3 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
   }
   &.small li {
     width: calc(33% - 3px);
@@ -266,6 +274,14 @@ a.illust {
     margin-bottom: 3px;
     &:not(:nth-of-type(3n)) {
       margin-right: 3px;
+    }
+    section {
+      h3 {
+        font-size: 16px;
+      }
+      p {
+        font-size: 12px;
+      }
     }
   }
   li {
@@ -303,6 +319,7 @@ a.illust {
     font-style: initial;
     font-size: 14px;
     opacity: .8;
+    color: #ededed;
       }
     }
     a:hover section {

@@ -1,54 +1,4 @@
 
-.nav {}
-
-	/* .menu is clearfixed inside mixins.scss */
-	.menu {
-		ul {
-			li {
-				a {
-
-					/*
-					you can use hover styles here even though this size
-					has the possibility of being a mobile device.
-					*/
-					&:hover, &:focus {
-
-					}
-				}
-
-				&:first-child {}
-				&:last-child {}
-
-				/*
-				plan your menus and drop-downs wisely.
-				*/
-				ul.sub-menu,
-				ul.children {
-					li {
-						a {
-							&:hover,
-							&:focus {}
-							&:link {}
-						}
-						&:first-child {}
-						&:last-child {}
-					}
-				}
-			} /* end .menu ul li */
-
-			/* highlight current page */
-			li.current-menu-item,
-			li.current_page_item,
-			li.current_page_ancestor {
-				a {}
-			}  /* end current highlighters */
-		} /* end .menu ul */
-	} /* end .menu */
-
-/*********************
-POSTS & CONTENT STYLES
-*********************/
-
 /* entry content */
 .entry-content {
 
@@ -73,20 +23,6 @@ POSTS & CONTENT STYLES
 
 } /* end .entry-content */
 
-/*********************
-FOOTER STYLES
-*********************/
-
-/*
-check your menus here. do they look good?
-do they need tweaking?
-*/
-.footer-links {
-	ul {
-		li {}
-	}
-} /* end .footer-links */
-
 //イラスト表示
 
 a.illust {
@@ -100,6 +36,23 @@ a.illust {
   article {
     figure.eye-catch {
       height: 200px;
+    }
+  }
+}
+
+// ショートコード表示
+
+
+.shortcode-illust {
+  &.small li {
+    width: calc(25% - 3px);
+    height: 140px;
+    margin-bottom: 4px;
+    &:not(:nth-of-type(3n)) {
+      margin-right: 0;
+    }
+    &:not(:nth-of-type(4n)) {
+      margin-right: 4px;
     }
   }
 }

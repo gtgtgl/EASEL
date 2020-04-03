@@ -57,6 +57,16 @@
       margin-right: 4px;
     }
   }
+  &.small li {
+    width: calc(100%/6 - 3px);
+    height: 160px;
+    &:not(:nth-of-type(5n)) {
+      margin-right: 0;
+    }
+    &:not(:nth-of-type(6n)) {
+      margin-right: 3.5px;
+    }
+  }
   li {
     position: relative;
     margin-bottom: 4px;

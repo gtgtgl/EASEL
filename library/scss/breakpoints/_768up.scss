@@ -46,6 +46,17 @@ main#main {
       margin-right: 7.5px;
     }
   }
+  &.small li {
+    width: calc(20% - 4px);
+    height: 150px;
+    margin-bottom: 5px;
+    &:not(:nth-of-type(4n)) {
+      margin-right: 0;
+    }
+    &:not(:nth-of-type(5n)) {
+      margin-right: 5px;
+    }
+  }
   li {
     position: relative;
     margin-bottom: 7.5px;
@@ -108,6 +119,7 @@ header {
     opacity: 1;
     width: 100%;
     padding-top: 0;
+    background: transparent;
 	}
 
 	label#formenubar {
@@ -150,7 +162,8 @@ li {
 				padding-left: 10px;
 				border-right: 0;
 				display: block;
-				width: 180px;
+        min-width: 180px;
+        word-break: keep-all;
 			}
 			ul {
 				top:0;
