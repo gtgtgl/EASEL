@@ -54,7 +54,7 @@ function register_easel_menu_page() {
 add_action( 'admin_init', 'register_easel_settings' );
 
 function register_easel_settings() {
-  $my_options = ['title_image_url', 'set_terms', 'twitter', 'pixiv'];
+  $my_options = ['title_image_url', 'set_terms', 'footer_text', 'twitter', 'pixiv'];
   foreach($my_options as $my_option){
     register_setting( 'easel_settings', 'easel_'.$my_option );
   }
@@ -349,26 +349,6 @@ if ( ! isset( $content_width ) ) {
 add_image_size( 'bones-thumb-600', 600, 150, true );
 add_image_size( 'bones-thumb-300', 300, 100, true );
 
-/*
-to add more sizes, simply copy a line from above
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
-
-To call a different size, simply change the text
-inside the thumbnail function.
-
-For example, to call the 300 x 100 sized image,
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 150 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
-
 add_filter( 'image_size_names_choose', 'bones_custom_image_sizes' );
 
 function bones_custom_image_sizes( $sizes ) {
@@ -377,14 +357,6 @@ function bones_custom_image_sizes( $sizes ) {
         'bones-thumb-300' => __('300px by 100px'),
     ) );
 }
-
-/*
-The function above adds the ability to use the dropdown menu to select
-the new images sizes you have just created from within the media manager
-when you add media to your content blocks. If you add more image sizes,
-duplicate one of the lines in the array and name it according to your
-new image size.
-*/
 
 // アイキャッチのない場合に記事内の最初の画像を拾ってくる
 
@@ -419,25 +391,6 @@ function get_the_image() {
     }
 }
 
-function bones_theme_customizer($wp_customize) {
-  // $wp_customize calls go here.
-  //
-  // Uncomment the below lines to remove the default customize sections
-
-  // $wp_customize->remove_section('title_tagline');
-  // $wp_customize->remove_section('colors');
-  // $wp_customize->remove_section('background_image');
-  // $wp_customize->remove_section('static_front_page');
-  // $wp_customize->remove_section('nav');
-
-  // Uncomment the below lines to remove the default controls
-  // $wp_customize->remove_control('blogdescription');
-
-  // Uncomment the following to change the default section titles
-  // $wp_customize->get_section('colors')->title = __( 'Theme Colors' );
-  // $wp_customize->get_section('background_image')->title = __( 'Images' );
-}
-
 add_action( 'customize_register', 'bones_theme_customizer' );
 
 // サイドバー他ウィジェットエリアの設定
@@ -456,6 +409,36 @@ function bones_register_sidebars() {
 		'id' => 'sidebar2',
 		'name' => __( 'サイドバー２', 'bonestheme' ),
 		'description' => __( '固定ページ用のサイドバーです', 'bonestheme' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widgettitle">',
+		'after_title' => '</h4>',
+	));
+
+	register_sidebar(array(
+		'id' => 'footer_left',
+		'name' => __( 'フッター左', 'bonestheme' ),
+		'description' => __( 'フッターエリアの左側です', 'bonestheme' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widgettitle">',
+		'after_title' => '</h4>',
+	));
+
+	register_sidebar(array(
+		'id' => 'footer_center',
+		'name' => __( 'フッター中央', 'bonestheme' ),
+		'description' => __( 'フッターエリアの中央です', 'bonestheme' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widgettitle">',
+		'after_title' => '</h4>',
+	));
+
+	register_sidebar(array(
+		'id' => 'footer_right',
+		'name' => __( 'フッター右', 'bonestheme' ),
+		'description' => __( 'フッターエリアの右側です', 'bonestheme' ),
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widgettitle">',

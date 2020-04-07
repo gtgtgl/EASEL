@@ -1305,20 +1305,48 @@ footer.footer {
   font-size: 14px;
 }
 
-footer.footer ul {
+footer.footer #footer_widget ul {
   margin-right: 20px;
 }
 
-footer.footer ul li a {
-  color: #ffffff;
-  opacity: 0.6;
+footer.footer #footer_widget ul li a {
+  color: #57595d;
+  min-width: 80px;
 }
 
-footer.footer ul li a:hover {
+footer.footer #footer_widget ul li a:hover {
+  color: #f01d4f;
+}
+
+footer.footer #footer_widget .footer_left, footer.footer #footer_widget .footer_center, footer.footer #footer_widget .footer_right {
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+
+footer.footer #footer_widget .widget_my_profile {
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+footer.footer #inner-footer {
+  font-size: 12px;
+}
+
+footer.footer #inner-footer ul {
+  margin-right: 20px;
+}
+
+footer.footer #inner-footer ul li a {
+  color: #ffffff;
+  opacity: 0.6;
+  min-width: 80px;
+}
+
+footer.footer #inner-footer ul li a:hover {
   opacity: 1;
 }
 
-footer.footer ul .sub-menu {
+footer.footer #inner-footer ul .sub-menu {
   display: none;
 }
 
@@ -1327,7 +1355,7 @@ footer.footer #inner-footer .copyright {
   color: #8c8c8c;
 }
 
-.widget_my_profile img {
+footer.footer .widget_my_profile img {
   border-radius: 50%;
   display: block;
   width: 150px;
@@ -2143,19 +2171,30 @@ FOOTER STYLES
 .footer {
   clear: both;
   background-color: #323438;
+}
+
+.footer #footer_widget {
+  background: #ecf0f7;
+}
+
+.footer #footer_widget .wrap {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.footer #footer_widget .widgettitle {
+  text-align: left;
+}
+
+.footer #footer_widget .widgettitle:after {
+  display: none;
+}
+
+.footer #inner-footer {
   color: #f8f9fa;
 }
 
-/*
-	if you checked out the link above:
-	http://www.alistapart.com/articles/organizing-mobile/
-	you'll want to style the footer nav
-	a bit more in-depth. Remember to keep
-	it simple because you'll have to
-	override these styles for the desktop
-	view.
-	*/
-/* end .footer-links */
 /*********************
 LARGER MOBILE DEVICES
 This is for devices like the Galaxy Note or something that's
@@ -2422,19 +2461,11 @@ SIDEBARS & ASIDES
   /*********************
 FOOTER STYLES
 *********************/
-  /*
-you'll probably need to do quite a bit
-of overriding here if you styled them for
-mobile. Make sure to double check these!
-*/
-  .footer-links ul li {
-    /*
-			be careful with the depth of your menus.
-			it's very rare to have multi-depth menus in
-			the footer.
-			*/
+  .footer #footer_widget .wrap {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
   }
-  /* end .footer-links */
   a.illust {
     -webkit-box-flex: 0;
             flex: none;

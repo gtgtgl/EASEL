@@ -36,6 +36,12 @@
         </td>
     </tr>
     <tr valign="top">
+        <th scope="row"><label for="easel_footer_text">サイト最下部コピーライト</label>
+        </th>
+        <td><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo get_option('easel_footer_text'); ?>" class="regular-text" placeholder="copyright (c) サイト名等"><br>
+        サイト最下部に表示されるコピーライトテキストを変更できます。</td>
+    </tr>
+    <tr valign="top">
         <th scope="row"><label for="easel_twitter">TwitterURL</label></th>
         <td><input name="easel_twitter" id="easel_twitter" type="text" value="<?php echo get_option('easel_twitter'); ?>" class="regular-text" placeholder="https://twitter.com/userID"><br>
         ※現在のバージョンでは使用しませんが、後々のアップデートで使用するかもです</td>

@@ -368,33 +368,60 @@ a.illust {
 
 footer.footer {
   font-size: 14px;
-  ul {
-    margin-right: 20px;
-    li a {
-      color: #ffffff;
-      opacity: 0.6;
-      &:hover {
-        opacity: 1;
+  #footer_widget {
+
+    ul {
+      margin-right: 20px;
+      li a {
+        color: $text-color;
+        min-width: 80px;
+        &:hover {
+          color: $bones-pink;
+        }
       }
     }
-    .sub-menu {
-      display: none;
+
+    .footer_left, .footer_center, .footer_right {
+      flex: 1;
+    }
+
+    .widget_my_profile {
+    max-width: 300px;
+    margin: 20px auto;
     }
   }
-  #inner-footer .copyright {
-    margin: 1em 0 1em auto;
-    color: #8c8c8c;
-  }
-}
 
-// ウィジェット
-.widget_my_profile {
-  img {
-    border-radius: 50%;
-    display: block;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin: 20px auto 30px;
+  #inner-footer {
+    font-size: 12px;
+
+    ul {
+      margin-right: 20px;
+      li a {
+        color: #ffffff;
+        opacity: 0.6;
+        min-width: 80px;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .sub-menu {
+        display: none;
+      }
+    }
+    .copyright {
+      margin: 1em 0 1em auto;
+      color: #8c8c8c;
+    }
+  }
+
+  .widget_my_profile {
+    img {
+      border-radius: 50%;
+      display: block;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin: 20px auto 30px;
+    }
   }
 }

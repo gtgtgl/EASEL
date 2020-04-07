@@ -924,27 +924,21 @@ FOOTER STYLES
 .footer {
 	clear: both;
 	background-color: $black;
-	color: $light-gray;
-}
 
-	/*
-	if you checked out the link above:
-	http://www.alistapart.com/articles/organizing-mobile/
-	you'll want to style the footer nav
-	a bit more in-depth. Remember to keep
-	it simple because you'll have to
-	override these styles for the desktop
-	view.
-	*/
-	.footer-links {
-
-		ul {
-
-			li {}
-
+	#footer_widget {
+		background: $gray;
+		.wrap {
+			flex-direction: column;
 		}
+		.widgettitle {
+    text-align: left;
+		&:after {
+			display: none;
+			}
+		}
+	}
 
-	} /* end .footer-links */
-
-
-	.copyright {}
+	#inner-footer {
+		color: $light-gray;
+	}
+}
