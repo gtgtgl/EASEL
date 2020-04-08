@@ -413,15 +413,15 @@ footer.footer {
       color: #8c8c8c;
     }
   }
+}
 
-  .widget_my_profile {
-    img {
-      border-radius: 50%;
-      display: block;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      margin: 20px auto 30px;
-    }
+.widget_my_profile {
+  img {
+    border-radius: 50%;
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 20px auto 30px;
   }
 }

@@ -1355,7 +1355,7 @@ footer.footer #inner-footer .copyright {
   color: #8c8c8c;
 }
 
-footer.footer .widget_my_profile img {
+.widget_my_profile img {
   border-radius: 50%;
   display: block;
   width: 150px;
