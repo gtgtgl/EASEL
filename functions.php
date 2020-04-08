@@ -26,29 +26,11 @@ add_action( 'wp_dashboard_setup', 'add_my_widget' );
 // カスタム投稿タイプの設定
 require_once( 'library/custom-post-type.php' );
 
-// カスタム投稿画面にターム別ソート機能を追加
-function add_post_taxonomy_restrict_filter() {
-    global $post_type;
-    if ( 'works' == $post_type ) {
-        ?>
-        <select name="custom_cat">
-            <option value="">すべての作品タイプ</option>
-            <?php
-            $terms = get_terms('custom_cat');
-            foreach ($terms as $term) { ?>
-                <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
-            <?php } ?>
-        </select>
-        <?php
-    }
-}
-add_action( 'restrict_manage_posts', 'add_post_taxonomy_restrict_filter' );
-
 // EASEL用のメニューを追加する
 add_action('admin_menu', 'register_easel_menu_page');
 function register_easel_menu_page() {
     // add_menu_page でカスタムメニューを追加
-    add_options_page('EASEL設定', 'EASEL設定', 'administrator', 'easel_settings', 'easel_settings_page', 'dashicons-edit', 3);
+    add_options_page('EASEL設定', 'EASEL設定', 'administrator', 'easel_settings', 'easel_settings_page');
 }
 // フィールドの作成
 add_action( 'admin_init', 'register_easel_settings' );
@@ -71,11 +53,11 @@ $easel_terms = array(
 function setup_easel_terms() {
   global $easel_terms;
     foreach ($easel_terms as $easel_term) {
-      $check_term = term_exists( $easel_term[0], 'work_type' ); // タクソノミーが存在すれば配列が返される
+      $check_term = term_exists( $easel_term[0], 'custom_cat' ); // タクソノミーが存在すれば配列が返される
       if ( $check_term == 0 ) {
         wp_insert_term(
           $easel_term[1], // ターム名
-          'work_type', // タクソノミー
+          'custom_cat', // タクソノミー
           array(
             'description'=> $easel_term[2],
             'slug' => $easel_term[0],
@@ -96,6 +78,24 @@ if ( $check_setup_easel_terms == 1 ) {
   add_action('admin_init', 'setup_easel_terms');
   update_option('easel_set_terms', '0');
 }
+
+// カスタム投稿画面にターム別ソート機能を追加
+function add_post_taxonomy_restrict_filter() {
+    global $post_type;
+    if ( 'works' == $post_type ) {
+        ?>
+        <select name="custom_cat">
+            <option value="">すべての作品タイプ</option>
+            <?php
+            $terms = get_terms('custom_cat');
+            foreach ($terms as $term) { ?>
+                <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>
+        </select>
+        <?php
+    }
+}
+add_action( 'restrict_manage_posts', 'add_post_taxonomy_restrict_filter' );
 
 //画像アップロード用のタグを出力する
 function generate_upload_image_tag($name, $value){?>
@@ -390,8 +390,6 @@ function get_the_image() {
         return $img;
     }
 }
-
-add_action( 'customize_register', 'bones_theme_customizer' );
 
 // サイドバー他ウィジェットエリアの設定
 function bones_register_sidebars() {
