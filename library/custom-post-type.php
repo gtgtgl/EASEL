@@ -25,7 +25,6 @@ function custom_post_example() {
 			'view_item' => __( '作品を見る', 'bonestheme' ), /* View Display Title */
 			'search_items' => __( '作品を検索', 'bonestheme' ), /* Search Custom Type Title */
 			'not_found' =>  __( 'まだ作品がありません', 'bonestheme' ), /* This displays if there are no entries yet */
-			// 'not_found_in_trash' => __( 'Nothing found in Trash', 'bonestheme' ), /* This displays if there is nothing in the trash */
 			'parent_item_colon' => ''
 			), /* end of arrays */
 			'public' => true,
@@ -43,23 +42,9 @@ function custom_post_example() {
 			'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'sticky')
 		) /* end of options */
 	); /* end of register post type */
-
-	/* this adds your post categories to your custom post type */
-	// register_taxonomy_for_object_type( 'category', 'custom_type' );
-	/* this adds your post tags to your custom post type */
-	// register_taxonomy_for_object_type( 'post_tag', 'custom_type' );
-
 }
-
-	// adding the function to the Wordpress init
 	add_action( 'init', 'custom_post_example');
 
-	/*
-	for more information on taxonomies, go here:
-	http://codex.wordpress.org/Function_Reference/register_taxonomy
-	*/
-
-	// now let's add custom categories (these act like categories)
 	register_taxonomy( 'custom_cat',
 		array('works'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
 		array('hierarchical' => true,     /* if this is true, it acts like categories */
@@ -92,5 +77,74 @@ function change_posts_per_page($query) {
   }
 }
 add_action( 'pre_get_posts', 'change_posts_per_page' );
+
+// 作品タイプに説明文を追加させる
+// function add_term_fields() {
+//   echo '<div class="form-field">
+//        <label for="easel_term_disc">一覧ページに表示するテキスト</label>';
+// 			 wp_editor(
+// 				'',
+// 				'easel_term_disc',
+// 				array (
+// 				'textarea_rows' => 5
+// 			 ,	'textarea_name' => 'easel_term_disc'
+// 			 ,   'media_buttons' => true
+// 			 ,   'teeny'     => true
+// 			 ,   'tinymce'     => true
+// 				)
+// 			);
+// echo '<p>ここに入力したテキストがアーカイブページのタイトル下に表示されます。タグも使えます。</p>
+//      </div>';
+// }
+// add_action('custom_cat_add_form_fields', 'add_term_fields');
+
+// ターム一覧ページの編集画面に要素を追加する関数
+function edit_term_fields( $tag ) {
+    //まずは、すでに設定されている情報を取得
+    $value = get_term_meta($tag->term_id, 'easel_term_disc', 1);
+    echo '<tr class="form-field">
+             <th><label for="easel_term_disc">一覧ページに表示するテキスト</label></th>
+             <td>';
+						 wp_editor(
+						 	$value,
+						 	'easel_term_disc',
+						 	array (
+						 	'textarea_rows' => 5
+						 ,   'media_buttons' => true
+						 ,   'teeny'     => true
+						 ,   'tinymce'     => true
+						 	)
+						);
+		echo '<p>ここに入力したテキストがアーカイブページのタイトル下に表示されます。タグも使えます。</p>
+   </td>
+	 </tr>';
+}
+//フック
+add_action('custom_cat_edit_form_fields', 'edit_term_fields');
+
+function save_terms( $term_id ) {
+  if (array_key_exists('easel_term_disc', $_POST)) {
+    update_term_meta( $term_id, 'easel_term_disc', $_POST['easel_term_disc']);
+  }
+}
+//新規追加用フック
+add_action( 'create_term', 'save_terms' );   // => 他が保存される前
+add_action( 'created_term', 'save_terms' );  // => 他が保存された後
+
+//編集画面用フック
+add_action( 'edit_terms', 'save_terms' );    // => 他が保存される前
+add_action( 'edited_terms', 'save_terms' );  // => 他が保存された後
+
+// 作品管理画面で作品を日付順に並べる
+function set_post_types_admin_order( $wp_query ) {
+  if (is_admin()) {
+    $post_type = $wp_query->query['post_type'];
+    if ( $post_type == 'works' ) {
+      $wp_query->set('orderby', 'date');
+      $wp_query->set('order', 'DESC');
+    }
+  }
+}
+add_filter('pre_get_posts', 'set_post_types_admin_order');
 
 ?>

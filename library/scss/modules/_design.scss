@@ -119,7 +119,16 @@ span.category a {
 h1.archive-title.h2 {
     width: 100%;
     text-align: center;
-    margin: 40px auto;
+    margin: 40px auto 0;
+}
+
+.easel_term_disc {
+    width: 100%;
+    margin: 0 0 60px;
+	.easel_term_disc_inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
 }
 
 main.illust-wrap {

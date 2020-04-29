@@ -6,6 +6,16 @@
 
 							<h1 class="archive-title h2"><?php single_cat_title(); ?></h1>
 
+							<div class="easel_term_disc">
+								<div class="easel_term_disc_inner">
+									<?php
+									$term_id = get_queried_object_id(); // タームのIDを取得
+									$easel_term_disc = get_term_meta($term_id, 'easel_term_disc', 1); // タームの説明を取得
+									echo nl2br($easel_term_disc);
+									?>
+								</div>
+							</div>
+
 							<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 							<a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="illust">
