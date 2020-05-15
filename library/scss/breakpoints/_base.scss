@@ -847,6 +847,21 @@ SIDEBARS & ASIDES
 		margin-bottom: 1.5em;
 	}
 
+	div#calendar_wrap {
+    width: fit-content;
+    margin: auto;
+	}
+
+	table#wp-calendar {
+    margin: auto;
+    text-align: center;
+		th, td {
+	    padding: 2px 4px;
+	    font-size: 14px;
+		}
+	}
+
+
 /*********************
 FOOTER STYLES
 *********************/
@@ -870,5 +885,6 @@ FOOTER STYLES
 
 	#inner-footer {
 		color: $light-gray;
+		flex-direction: column;
 	}
 }

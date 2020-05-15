@@ -7,10 +7,10 @@
     $slug = $parent_term->slug; // タームスラッグを取得
 
 	if ( $slug == "illust" || $term == "illust" ) {
-	include( 'parts/works-illust.php' );
+	include( 'library/parts/works-illust.php' );
 }	elseif ( $slug == "update" || $term == "update" ) {
-	include( 'parts/works-update.php' );
+	include( 'library/parts/works-update.php' );
 } else {
-	include( 'parts/works-text.php' );
+	include( 'library/parts/works-text.php' );
 };
 	 ?>

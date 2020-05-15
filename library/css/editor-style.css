@@ -271,7 +271,7 @@ body#tinymce.wp-editor span.amp {
 @font-face {
   body#tinymce.wp-editor {
     font-family: 'biko';
-    src: url("../Biko_Regular.otf") format("woff");
+    src: url("../fonts/Biko_Regular.otf") format("woff");
     font-weight: normal;
   }
 }
@@ -279,7 +279,7 @@ body#tinymce.wp-editor span.amp {
 @font-face {
   body#tinymce.wp-editor {
     font-family: 'biko-light';
-    src: url("../Biko_Light-Restricted.otf") format("woff");
+    src: url("../fonts/Biko_Light-Restricted.otf") format("woff");
     font-weight: normal;
   }
 }

@@ -36,6 +36,21 @@
         </td>
     </tr>
     <tr valign="top">
+        <th scope="row"><label for="easel_base_color">ベースデザイン変更</label>
+        </th>
+        <td>
+          <p>サイトのデザインを変更します。子テーマでカスタマイズがされている場合はそちらが優先されます。</p>
+          <label><input type="radio" name="easel_base_color" value="basic_color" <?php checked(get_option('easel_base_color') , 'basic_color'); ?>>
+          ベーシック</label><br>
+          <label><input type="radio" name="easel_base_color" value="blue_white" <?php checked(get_option('easel_base_color') , 'blue_white'); ?>>
+          ブルー＆ホワイト</label><br>
+          <label><input type="radio" name="easel_base_color" value="pink_white" <?php checked(get_option('easel_base_color') , 'pink_white'); ?>>
+          ピンク＆ホワイト</label><br>
+          <label><input type="radio" name="easel_base_color" value="orange_white" <?php checked(get_option('easel_base_color') , 'orange_white'); ?>>
+          オレンジ＆ホワイト</label><br>
+        </td>
+    </tr>
+    <tr valign="top">
         <th scope="row"><label for="easel_footer_text">サイト最下部コピーライト</label>
         </th>
         <td><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo get_option('easel_footer_text'); ?>" class="regular-text" placeholder="copyright (c) サイト名等"><br>

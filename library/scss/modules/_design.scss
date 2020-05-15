@@ -45,8 +45,14 @@ span.tag a {
     margin: 0 3px;
     color: $meta-gray;
 }
+
 footer.article-footer {
     text-align: right;
+
+    .day {
+      color: $meta-gray;
+      font-size: 12px;
+    }
 }
 // アイキャッチの表示
 

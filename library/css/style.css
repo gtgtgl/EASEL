@@ -262,13 +262,13 @@ span.amp {
 
 @font-face {
   font-family: 'biko';
-  src: url("../Biko_Regular.otf") format("woff");
+  src: url("../fonts/Biko_Regular.otf") format("woff");
   font-weight: normal;
 }
 
 @font-face {
   font-family: 'biko-light';
-  src: url("../Biko_Light-Restricted.otf") format("woff");
+  src: url("../fonts/Biko_Light-Restricted.otf") format("woff");
   font-weight: normal;
 }
 
@@ -937,6 +937,11 @@ span.tag a {
 
 footer.article-footer {
   text-align: right;
+}
+
+footer.article-footer .day {
+  color: #cbcfd8;
+  font-size: 12px;
 }
 
 figure.eye-catch {
@@ -2112,6 +2117,23 @@ SIDEBARS & ASIDES
   margin-bottom: 1.5em;
 }
 
+div#calendar_wrap {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+table#wp-calendar {
+  margin: auto;
+  text-align: center;
+}
+
+table#wp-calendar th, table#wp-calendar td {
+  padding: 2px 4px;
+  font-size: 14px;
+}
+
 /*********************
 FOOTER STYLES
 *********************/
@@ -2140,6 +2162,9 @@ FOOTER STYLES
 
 .footer #inner-footer {
   color: #f8f9fa;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
 
 /*********************
@@ -2409,6 +2434,11 @@ SIDEBARS & ASIDES
 FOOTER STYLES
 *********************/
   .footer #footer_widget .wrap {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+  }
+  .footer #inner-footer {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;

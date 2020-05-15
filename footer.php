@@ -1,12 +1,14 @@
 			<footer class="footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
 
+				<?php if ( is_active_sidebar( 'footer_left' ) || is_active_sidebar( 'footer_center' ) || is_active_sidebar( 'footer_right' )  ) : ?>
 				<div id="footer_widget">
 					<div class="wrap">
-						<?php get_sidebar('footer_left'); ?>
-						<?php get_sidebar('footer_center'); ?>
-						<?php get_sidebar('footer_right'); ?>
+						<div class="footer_left"><?php dynamic_sidebar( 'footer_left' ); ?></div>
+						<div class="footer_center"><?php dynamic_sidebar( 'footer_center' ); ?></div>
+						<div class="footer_right"><?php dynamic_sidebar( 'footer_right' ); ?></div>
 					</div>
 				</div>
+				<?php endif; ?>
 
 				<div id="inner-footer" class="wrap">
 
