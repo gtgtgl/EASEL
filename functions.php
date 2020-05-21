@@ -472,10 +472,10 @@ Let's get everything up and running.
 function bones_ahoy() {
 
   //Allow editor style.
-  add_editor_style( get_stylesheet_directory_uri() . '/library/css/editor-style.css' );
+  add_editor_style( get_template_directory_uri() . '/library/css/editor-style.css' );
 
   // let's get language support going, if you need it
-  load_theme_textdomain( 'bonestheme', get_template_directory() . '/library/translation' );
+  load_theme_textdomain( 'bonestheme', get_template_directory_uri() . '/library/translation' );
 
   // launching operation cleanup
   add_action( 'init', 'bones_head_cleanup' );
@@ -491,7 +491,7 @@ function bones_ahoy() {
   add_filter( 'gallery_style', 'bones_gallery_style' );
 
   // enqueue base scripts and styles
-  add_action( 'wp_enqueue_scripts', 'bones_scripts_and_styles', 999 );
+  add_action( 'wp_enqueue_scripts', 'bones_scripts_and_styles', 8 );
   // ie conditional wrapper
 
   // launching this stuff after theme setup
@@ -638,6 +638,6 @@ function easel_change_color() {
     wp_enqueue_style( 'change_base_color' );
   }
 }
-add_action( 'wp_enqueue_scripts', 'easel_change_color', 997 );
+add_action( 'wp_enqueue_scripts', 'easel_change_color', 9 );
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>
