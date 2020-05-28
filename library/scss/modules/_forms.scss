@@ -31,13 +31,14 @@ textarea,
   width: 100%;
   max-width: 400px;
   font-family: $fonts;
-  background-color: $gray;
+  background-color: #f3f4f7;
+  border: 1px solid #c5c5c5;
   @include transition(background-color 0.24s ease-in-out);
 
   // a focused input (or hovered on)
   &:focus,
   &:active {
-    background-color: lighten($gray, 4%);
+    background-color: #ffffff;
     outline: none;
   } // end hover or focus
 

@@ -1,5 +1,19 @@
 <?php
 // ショートコードの実装
+function make_list_excerpt() {
+  global $post;
+  if( !post_password_required() ) {
+    $excerption = get_the_excerpt();
+  } else {
+    if( !has_excerpt() ) {
+      $excerption = 'この作品を見るにはパスワードの入力が必要です。';
+    } else {
+      $excerption = apply_filters('the_excerpt', get_post_field( 'post_excerpt', $post->ID ));
+    }
+  }
+  return $excerption;
+}
+
 /* 最新記事リスト */
 function getNewItems($atts) {
     extract(shortcode_atts(array(
@@ -82,7 +96,7 @@ function getNewItems2($atts) {
 }
 add_shortcode("new_illust", "getNewItems2");
 
-/* 最新記事リスト */
+/* 最新小説リスト */
 function getNewItems3($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
@@ -100,7 +114,7 @@ function getNewItems3($atts) {
   foreach($myposts as $post) :
     setup_postdata($post);
     $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
-    $retHtml.='<p>'.get_the_excerpt().'</p>';
+    $retHtml.='<p>'.make_list_excerpt().'</p></li>';
   endforeach;
   $retHtml.='</ul>';
   $post = $oldpost;

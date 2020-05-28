@@ -56,6 +56,7 @@ EOS;
 				<input type="checkbox" name="menubar" id="menubar">
 
 				<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+				<label id="nav-back" for="menubar"></label>
 					<?php wp_nav_menu(array(
   					         'container' => false,                           // remove nav container
   					         'container_class' => 'menu',                 // class of container (should you choose to use it)

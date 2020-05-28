@@ -624,6 +624,26 @@ function bones_fonts() {
 
 add_action('wp_enqueue_scripts', 'bones_fonts');
 
+
+// パスワード付き記事のタイトル調整
+function edit_protected_word () {
+return '%s <i class="fas fa-lock locked-icon"></i>';
+}
+add_filter('protected_title_format','edit_protected_word');
+
+// パスワード付き記事の本文調整
+function protected_excerpt( $excerpt ) {
+  if ( post_password_required() ) {
+    if ( 'works' === get_post_type() ) {
+      return 'この作品を見るにはパスワードの入力が必要です。';
+    } else {
+      return 'この記事を見るにはパスワードの入力が必要です。';
+    }
+  }
+  return $excerpt;
+}
+add_filter('the_excerpt', 'protected_excerpt' );
+
 get_template_part( 'library/shortcode' );
 get_template_part( 'library/widget' );
 

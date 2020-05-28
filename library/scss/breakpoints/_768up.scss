@@ -1,3 +1,8 @@
+
+h1, .h1 {
+	font-size: 2em;
+}
+
 main#main {
     margin-right: 30px;
 }
@@ -63,6 +68,17 @@ main#main {
   }
 }
 
+.shortcode-text {
+  &.line1 {
+    li {
+      display: flex;
+      h4 {
+        word-break: keep-all;
+      }
+    }
+  }
+}
+
 .wrap {
 	width: 760px;
 }
@@ -80,7 +96,23 @@ HEADER STYLES
 *********************/
 
 .header {
+  position: relative;
+  top: auto;
   text-align: center;
+  height: auto;
+
+  .nav {
+
+          li {
+            a {
+              margin-left: 0;
+
+              &:before {
+                display: none;
+              }
+            }
+          }
+  }
 	a.logo {
     width: fit-content;
     margin: 40px auto 0;
@@ -115,16 +147,24 @@ header {
 	nav {
     visibility: visible;
     position: relative;
+    overflow-y: hidden;
+    right: auto;
     z-index: 100;
     opacity: 1;
-    width: 100%;
+    width: auto;
+    height: auto;
     padding-top: 0;
     background: transparent;
+
 	}
 
 	label#formenubar {
 		display: none;
 	}
+
+  label#nav-back {
+    display: none;
+  }
 }
 
 ul.nav {
@@ -137,6 +177,7 @@ li {
 	position: relative;
 
 	a {
+    margin-left: 0;
 		border-bottom: 0;
 		color: $black;
     display: block;

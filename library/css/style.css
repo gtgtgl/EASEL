@@ -580,7 +580,8 @@ textarea,
   width: 100%;
   max-width: 400px;
   font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial", "Hiragino Sans", "ヒラギノ角ゴシック", YuGothic, "Yu Gothic", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  background-color: #ecf0f7;
+  background-color: #f3f4f7;
+  border: 1px solid #c5c5c5;
   -webkit-transition: background-color 0.24s ease-in-out;
   transition: background-color 0.24s ease-in-out;
 }
@@ -618,7 +619,7 @@ textarea:focus,
 textarea:active,
 .field:focus,
 .field:active {
-  background-color: #fafbfd;
+  background-color: #ffffff;
   outline: none;
 }
 
@@ -1388,6 +1389,7 @@ body {
   color: #57595d;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 a {
@@ -1443,7 +1445,7 @@ h1 a, .h1 a, h2 a, .h2 a, h3 a, .h3 a, h4 a, .h4 a, h5 a, .h5 a {
 }
 
 h1, .h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   line-height: 1.5em;
 }
 
@@ -1484,11 +1486,17 @@ HEADER STYLES
 *********************/
 .header {
   color: #323438;
+  height: 70px;
+  background: #ffffff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
 }
 
 .header a.logo img {
   max-width: 200px;
-  max-height: 80px;
+  max-height: 70px;
   -o-object-fit: contain;
      object-fit: contain;
 }
@@ -1506,6 +1514,21 @@ HEADER STYLES
 
 .header .nav li a {
   color: #323438;
+  position: relative;
+  margin-left: 28px;
+}
+
+.header .nav li a:before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 3px;
+  background: #f01d4f;
+  position: absolute;
+  margin: auto;
+  top: 1.5em;
+  bottom: auto;
+  left: -8px;
 }
 
 .header .nav li a:hover {
@@ -1513,7 +1536,7 @@ HEADER STYLES
 }
 
 #logo {
-  margin: 0.75em 0;
+  margin: 0.9em 5px;
 }
 
 #logo a {
@@ -1560,14 +1583,22 @@ body {
 header nav {
   visibility: hidden;
   position: absolute;
-  z-index: -9999;
+  z-index: 9999;
   -webkit-transition: .5s;
   transition: .5s;
   opacity: 0;
-  width: 100%;
-  padding-top: 50px;
-  left: 0;
+  width: 300px;
+  height: 100vh;
+  padding-top: 70px;
+  right: -310px;
   background: #fff;
+  background: #fff;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+header nav::-webkit-scrollbar {
+  display: none;
 }
 
 header label#formenubar {
@@ -1576,9 +1607,9 @@ header label#formenubar {
   height: 50px;
   display: block;
   position: absolute;
-  top: 30px;
+  top: 14px;
   right: 20px;
-  font-size: 30px;
+  font-size: 26px;
   background: transparent;
   z-index: 10000;
   text-align: center;
@@ -1590,8 +1621,18 @@ header input#menubar {
 
 header input#menubar:checked + nav {
   visibility: visible;
-  z-index: 9999;
-  opacity: .95;
+  opacity: 1;
+  right: 0;
+}
+
+header label#nav-back {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /*********************
@@ -2223,6 +2264,9 @@ in general anyone not viewing on a mobile device. Here's where
 you can add resource intensive styles.
 *********************/
 @media only screen and (min-width: 768px) {
+  h1, .h1 {
+    font-size: 2em;
+  }
   main#main {
     margin-right: 30px;
   }
@@ -2280,6 +2324,13 @@ you can add resource intensive styles.
     position: relative;
     margin-bottom: 7.5px;
   }
+  .shortcode-text.line1 li {
+    display: -webkit-box;
+    display: flex;
+  }
+  .shortcode-text.line1 li h4 {
+    word-break: keep-all;
+  }
   .wrap {
     width: 760px;
   }
@@ -2297,7 +2348,16 @@ you can add resource intensive styles.
 HEADER STYLES
 *********************/
   .header {
+    position: relative;
+    top: auto;
     text-align: center;
+    height: auto;
+  }
+  .header .nav li a {
+    margin-left: 0;
+  }
+  .header .nav li a:before {
+    display: none;
   }
   .header a.logo {
     width: -webkit-fit-content;
@@ -2326,13 +2386,19 @@ NAVIGATION STYLES
   header nav {
     visibility: visible;
     position: relative;
+    overflow-y: hidden;
+    right: auto;
     z-index: 100;
     opacity: 1;
-    width: 100%;
+    width: auto;
+    height: auto;
     padding-top: 0;
     background: transparent;
   }
   header label#formenubar {
+    display: none;
+  }
+  header label#nav-back {
     display: none;
   }
   ul.nav {
@@ -2352,6 +2418,7 @@ NAVIGATION STYLES
     /* showing sub-menus */
   }
   ul.nav li a {
+    margin-left: 0;
     border-bottom: 0;
     color: #323438;
     display: block;

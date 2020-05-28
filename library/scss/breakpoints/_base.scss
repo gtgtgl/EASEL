@@ -5,6 +5,7 @@ body {
 	color: $text-color;
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
 }
 
 a {
@@ -61,7 +62,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 }
 
 h1, .h1 {
-	font-size: 2em;
+	font-size: 1.5em;
 	line-height: 1.5em;
 }
 
@@ -105,10 +106,15 @@ HEADER STYLES
 
 .header {
 	color: $black;
+	height: 70px;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
 
 	a.logo img {
     max-width: 200px;
-    max-height: 80px;
+    max-height: 70px;
     object-fit: contain;
 	}
 	.site-desc {
@@ -123,6 +129,22 @@ HEADER STYLES
 
 		a {
 			color: $black;
+	    position: relative;
+	    margin-left: 28px;
+
+			&:before {
+		    content: '';
+		    display: block;
+		    width: 10px;
+		    height: 3px;
+		    background: $link-color;
+		    position: absolute;
+		    margin: auto;
+    		top: 1.5em;
+		    bottom: auto;
+		    left: -8px;
+			}
+
 			&:hover {
 				color: $link-color;
 			}
@@ -131,7 +153,7 @@ HEADER STYLES
 }
 
 	#logo {
-		margin: 0.75em 0;
+    margin: 0.9em 5px;
 
 		a {
 			color: $black;
@@ -184,20 +206,28 @@ NAVIGATION STYLES
 	}  /* end current highlighters */
 
 } /* end .nav */
+
 body { position: relative; }
 
 header {
 	nav {
     visibility: hidden;
     position: absolute;
-    z-index: -9999;
+    z-index: 9999;
     -webkit-transition: .5s;
     transition: .5s;
     opacity: 0;
-    width: 100%;
-    padding-top: 50px;
-    left: 0;
+    width: 300px;
+    height: 100vh;
+    padding-top: 70px;
+    right: -310px;
+    background: #fff;
 		background: $white;
+		overflow-y: scroll;
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+        display:none;
+    }
 	}
 
 	label#formenubar {
@@ -206,9 +236,9 @@ header {
 		height: 50px;
 		display: block;
 		position: absolute;
-		top: 30px;
+		top: 14px;
 		right: 20px;
-		font-size: 30px;
+		font-size: 26px;
 		background: transparent;
 		z-index: 10000;
 		text-align: center;
@@ -219,9 +249,19 @@ header {
 
 		&:checked + nav {
 			visibility: visible;
-			z-index: 9999;
-			opacity: .95;
+			opacity: 1;
+	    right: 0;
 		}
+	}
+
+	label#nav-back {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
 	}
 }
 
