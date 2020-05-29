@@ -467,7 +467,11 @@ POSTS & CONTENT STYLES
 	}
 
 figure.has_pass {
-	filter: blur(15px);
+	overflow: hidden;
+
+	img {
+		filter: blur(15px);
+	}
 }
 /******************************************************************
 PAGE NAVI STYLES

@@ -86,7 +86,7 @@ function getNewItems2($atts) {
   foreach($myposts as $post) :
     setup_postdata($post);
     $new_illusts_thum = get_new_illusts_thum();
-    if (post_password_required($post)) {
+    if (post_password_required($post) && get_option('easel_pass_blur') === '1') {
       $pass = ' class="has_pass"';
     } else {
       $pass = null;
@@ -122,7 +122,7 @@ function getNewItems3($atts) {
   foreach($myposts as $post) :
     setup_postdata($post);
     $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
-    $retHtml.='<p>'.make_list_excerpt().'</p></li>';
+    $retHtml.='<div><p>'.make_list_excerpt().'</p></div></li>';
   endforeach;
   $retHtml.='</ul>';
   $post = $oldpost;

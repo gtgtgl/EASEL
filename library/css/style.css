@@ -1819,6 +1819,10 @@ POSTS & CONTENT STYLES
 }
 
 figure.has_pass {
+  overflow: hidden;
+}
+
+figure.has_pass img {
   -webkit-filter: blur(15px);
           filter: blur(15px);
 }
@@ -2391,7 +2395,7 @@ NAVIGATION STYLES
   header nav {
     visibility: visible;
     position: relative;
-    overflow-y: hidden;
+    overflow-y: visible;
     right: auto;
     z-index: 100;
     opacity: 1;

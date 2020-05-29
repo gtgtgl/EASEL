@@ -631,7 +631,7 @@ return '%s <i class="fas fa-lock locked-icon"></i>';
 }
 add_filter('protected_title_format','edit_protected_word');
 
-// パスワード付き記事の本文調整
+// パスワード付き記事の抜粋調整
 function protected_excerpt( $excerpt ) {
   if ( post_password_required() ) {
     if ( 'works' === get_post_type() ) {
@@ -643,6 +643,18 @@ function protected_excerpt( $excerpt ) {
   return $excerpt;
 }
 add_filter('the_excerpt', 'protected_excerpt' );
+
+// パスワード付き記事の本文調整
+function my_password_form() {
+    $text = the_excerpt();
+    $text = '<h5>パスワードを入力してください</h5>
+    <form class="post_password" action="' . home_url() . '/wp-login.php?action=postpass" method="post">
+    <input name="post_password" type="password" size="24" />
+    <input type="submit" name="Submit" value="' . esc_attr__("送信") . '" />
+    </form>';
+    return $text;
+}
+add_filter('the_password_form', 'my_password_form');
 
 get_template_part( 'library/shortcode' );
 get_template_part( 'library/widget' );

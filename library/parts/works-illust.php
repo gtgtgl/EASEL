@@ -21,7 +21,15 @@
 							<a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="illust">
 							<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article">
 
-							<figure class="eye-catch" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+								<?php
+								if (post_password_required($post) && get_option('easel_pass_blur') === '1') {
+									$pass = ' has_pass"';
+								} else {
+									$pass = null;
+								}
+								 ?>
+
+							<figure class="eye-catch<?php echo $pass; ?>" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
 							<?php if ( has_post_thumbnail() ) :
 							    $thumbnail_id = get_post_thumbnail_id();
 							    $eye_img = wp_get_attachment_image_src( $thumbnail_id , 'full' );
