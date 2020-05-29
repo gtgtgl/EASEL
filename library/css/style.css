@@ -1818,6 +1818,11 @@ POSTS & CONTENT STYLES
   margin: 0;
 }
 
+figure.has_pass {
+  -webkit-filter: blur(15px);
+          filter: blur(15px);
+}
+
 /******************************************************************
 PAGE NAVI STYLES
 ******************************************************************/

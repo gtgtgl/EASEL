@@ -2,17 +2,20 @@
 // ショートコードの実装
 function make_list_excerpt() {
   global $post;
+  //エスケープ解除
   if( !post_password_required() ) {
     $excerption = get_the_excerpt();
   } else {
     if( !has_excerpt() ) {
       $excerption = 'この作品を見るにはパスワードの入力が必要です。';
     } else {
-      $excerption = apply_filters('the_excerpt', get_post_field( 'post_excerpt', $post->ID ));
+      $excerption =  VisualEditorExcerptDemo::unescape($post->post_excerpt);
     }
   }
+
   return $excerption;
 }
+add_filter('the_excerpt','make_list_excerpt' );
 
 /* 最新記事リスト */
 function getNewItems($atts) {
@@ -83,8 +86,13 @@ function getNewItems2($atts) {
   foreach($myposts as $post) :
     setup_postdata($post);
     $new_illusts_thum = get_new_illusts_thum();
+    if (post_password_required($post)) {
+      $pass = ' class="has_pass"';
+    } else {
+      $pass = null;
+    }
     $retHtml.='<li><a href="'.get_permalink().'">';
-    $retHtml.='<figure>'.$new_illusts_thum.'</figure>';
+    $retHtml.='<figure' .$pass. '>'.$new_illusts_thum.'</figure>';
     $retHtml.= '<section><div><h3 class="h2">'.the_title("","",false).'</h3>';
     $retHtml.= '<p class="byline vcard"><time class="updated" itemprop="datePublished">'.get_the_time('Y-m-j').'</time></p>';
     $retHtml.= '</div></section></a></li>';

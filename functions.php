@@ -36,7 +36,7 @@ function register_easel_menu_page() {
 add_action( 'admin_init', 'register_easel_settings' );
 
 function register_easel_settings() {
-  $my_options = ['title_image_url', 'set_terms', 'base_color', 'footer_text', 'twitter', 'pixiv'];
+  $my_options = ['title_image_url', 'set_terms', 'base_color', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
   foreach($my_options as $my_option){
     register_setting( 'easel_settings', 'easel_'.$my_option );
   }
@@ -559,7 +559,7 @@ function get_the_image() {
         return false;
     } else{
         // 画像表示設定
-        $alt = get_the_title();
+        $alt = $post->post_title;
         $img = '<img src="'.$get_img.'" alt="'.$alt.'" class="attachment-post-thumbnail size-post-thumbnail wp-post-image">';
         return $img;
     }
