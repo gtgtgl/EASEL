@@ -648,7 +648,7 @@ add_filter('the_excerpt', 'protected_excerpt' );
 function my_password_form() {
     $text = the_excerpt();
     $text = '<h5>パスワードを入力してください</h5>
-    <form class="post_password" action="' . home_url() . '/wp-login.php?action=postpass" method="post">
+    <form class="post_password" action="' . wp_login_url() . '?action=postpass" method="post">
     <input name="post_password" type="password" size="24" />
     <input type="submit" name="Submit" value="' . esc_attr__("送信") . '" />
     </form>';
