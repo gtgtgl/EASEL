@@ -1,4 +1,6 @@
 <?php
+if ( !defined( 'ABSPATH' ) ) exit;
+
 // ショートコードの実装
 function make_list_excerpt() {
   global $post;
@@ -174,4 +176,37 @@ function my_register_mce_button( $buttons ) {
 	return $buttons;
 }
 
+// ショートコード挿入をもっと便利にする
+// http://www.paka3.net/wpplugin92/
+add_filter( "media_buttons_context", "add_easel_shortcode_button");
+function add_easel_shortcode_button ( $context ) {
+  $context .= '<a href="media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550" class="thickbox button" title="作品リスト挿入">作品リスト挿入</a>';
+
+  return $context;
+}
+
+function easel_upload_tabs( $tabs )
+{
+	$tabs=array();
+	$tabs[ "easel_tab" ] = "ショートコード生成" ;
+	return $tabs;
+}
+add_action( 'media_upload_easel_type',  'easel_wp_iframe' );
+function easel_wp_iframe() {
+		wp_iframe( 'media_easel_make_shortcode_window' );
+}
+function media_easel_make_shortcode_window() {
+	add_filter( "media_upload_tabs", "easel_upload_tabs"  ,1000);
+	media_upload_header();
+	include 'add_shortcode.php';
+}
+
+// ブロックエディタでもショートコードを簡単に挿入する
+// https://wemo.tech/2163
+// https://qiita.com/harapeko_momiji/items/83cd0953d030c0d8a59f
+// https://gist.github.com/k-ishiwata/bc1698839c9755ad84eac5a13988f02f
+// function add_easel_shortcode_to_block_editor() {
+//     wp_enqueue_script( 'block-custom', get_template_directory_uri().'/library/js/block_editor.js',array(), "", true);
+// }
+// add_action( 'enqueue_block_editor_assets', 'add_easel_shortcode_to_block_editor' );
  ?>

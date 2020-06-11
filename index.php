@@ -58,9 +58,13 @@
 
 								<footer class="article-footer">
 
-                 	<?php printf( '<span class="category">' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_category_list(' ') ); ?>
-                 	<?php printf( '<span class="tag">' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_tag_list('', ',','') ); ?>
-
+									<?php
+										printf( '<span class="category"><i class="fas fa-folder"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_category_list(' ') );
+									if ( has_tag())	{
+										printf( '<span class="tag"><i class="fas fa-tag"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_tag_list('', ',','') );
+									}
+									?>
+										
 								</footer>
 
 							</article>

@@ -13,8 +13,8 @@ function bones_head_cleanup() {
 }
 
 // コメント機能を使わないのでダッシュボードから消す
-add_action( 'admin_menu', 'remove_menus' );
-function remove_menus(){
+add_action( 'admin_menu', 'easel_remove_comment' );
+function easel_remove_comment(){
     remove_menu_page( 'edit-comments.php' ); //コメントメニュー
 }
 

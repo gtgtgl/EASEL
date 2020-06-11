@@ -1,6 +1,6 @@
 
 h1, .h1 {
-	font-size: 2em;
+	font-size: 1.8em;
 }
 
 main#main {
@@ -155,6 +155,12 @@ header {
     height: auto;
     padding-top: 0;
     background: transparent;
+
+		ul.nav {
+			box-shadow: none;
+		  overflow-y: visible;
+			padding-top: 0;
+		}
 
 	}
 
@@ -328,6 +334,10 @@ a.illust {
 .text-wrap article {
     display: flex;
     flex-direction: row;
+
+		a h3 {
+			font-size: 20px;
+		}
 
     figure.eye-catch {
     margin: 20px;

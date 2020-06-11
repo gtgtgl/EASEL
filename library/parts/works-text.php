@@ -1,7 +1,4 @@
 <?php get_header(); ?>
-<?php
-$term_id = get_queried_object_id();
-?>
 
 	<div id="content">
 		<div id="inner-content" class="wrap cf">
@@ -59,16 +56,22 @@ $term_id = get_queried_object_id();
 
 
 					<a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="text"><h3 class="h2"><?php the_title(); ?></h3></a>
-						<p class="byline vcard"><?php
-							printf(__('<time class="updated" datetime="%1$s" itemprop="datePublished">%2$s</time>', 'bonestheme'), get_the_time('Y-m-d'), get_the_time(__('Y-m-d', 'bonestheme')), get_the_term_list( get_the_ID(), 'custom_cat', "", ", ", "" ));
-						?></p>
 
 						<div class="excerpt">
 						<?php the_excerpt(); ?>
-					</div>
+						</div>
 
-						</section>
+						<p class="byline vcard">
+							<?php
+							the_date('', '<span class="day">', '</span>' );
+							printf('<span class="category"><i class="fas fa-folder"></i>' . __('', 'bonestheme' ) . '%1$s</span>', get_the_term_list( $post->ID,'custom_cat', '', ' ', '' ));
+							if ( has_term( '', 'custom_tag', $post->ID ))	{
+								printf( '<span class="tag"><i class="fas fa-tag"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_term_list( $post->ID,'custom_tag', '', ',', '' ) );
+							}
+							?>
+						</p>
 
+					</section>
 					</article>
 
 					<?php endwhile; ?>

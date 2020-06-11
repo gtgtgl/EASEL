@@ -51,7 +51,6 @@ function custom_post_example() {
 			'labels' => array(
 				'name' => __( '作品タイプ', 'bonestheme' ), /* name of the custom taxonomy */
 				'singular_name' => __( '作品タイプ', 'bonestheme' ), /* single taxonomy name */
-				'search_items' =>  __( '作品タイプを探す', 'bonestheme' ), /* search title for taxomony */
 				'all_items' => __( '作品タイプ一覧', 'bonestheme' ), /* all title for taxonomies */
 				'parent_item' => __( '親作品タイプ', 'bonestheme' ), /* parent title for taxonomy */
 				'parent_item_colon' => __( '親作品タイプ：', 'bonestheme' ), /* parent taxonomy title */
@@ -68,15 +67,36 @@ function custom_post_example() {
 		)
 	);
 
+	// now let's add custom tags (these act like categories)
+	register_taxonomy( 'custom_tag',
+		array('works'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
+		array('hierarchical' => false,    /* if this is false, it acts like tags */
+			'labels' => array(
+				'name' => __( '作品タグ', 'bonestheme' ), /* name of the custom taxonomy */
+				'singular_name' => __( '作品タグ', 'bonestheme' ), /* single taxonomy name */
+				'all_items' => __( '作品タグ一覧', 'bonestheme' ), /* all title for taxonomies */
+				'edit_item' => __( '編集', 'bonestheme' ), /* edit custom taxonomy title */
+				'update_item' => __( '更新', 'bonestheme' ), /* update title for taxonomy */
+				'add_new_item' => __( '作品タグを追加する', 'bonestheme' ), /* add new title for taxonomy */
+				'new_item_name' => __( '作品タグの名前', 'bonestheme' ) /* name title for taxonomy */
+			),
+			'show_admin_column' => true,
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'work_tag' ),
+      'has_archive' => true,  //trueにすると投稿した記事の一覧ページを作成することができる
+		)
+	);
+
 // カスタム投稿タイプの表示件数を指定
-function change_posts_per_page($query) {
+function easel_change_posts_per_page($query) {
   if ( is_admin() || ! $query->is_main_query() )
       return;
   if ( $query->is_archive('works') ) { //カスタム投稿タイプを指定
       $query->set( 'posts_per_page', '12' ); //表示件数を指定
   }
 }
-add_action( 'pre_get_posts', 'change_posts_per_page' );
+add_action( 'pre_get_posts', 'easel_change_posts_per_page' );
 
 // 作品タイプに説明文を追加させる
 // function add_term_fields() {

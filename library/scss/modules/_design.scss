@@ -33,17 +33,39 @@ main#main {
     margin-bottom: 40px;
 }
 
-span.category a {
+span.category {
     display: inline-block;
     font-size: 12px;
     color: $meta-gray;
+    margin: 0 0 0 15px;
+
+    a {
+    color: $meta-gray;
+    margin: 0 0 0 5px;
+
+    &:hover {
+      color: $link-color;
+    }
+    }
 }
 
-span.tag a {
+span.tag {
     display: inline-block;
     font-size: 12px;
-    margin: 0 3px;
+    margin: 0 0 0 15px;
     color: $meta-gray;
+
+    a {
+    color: $meta-gray;
+        &:hover {
+          color: $link-color;
+        }
+    }
+
+    i {
+
+    margin: 0 5px;
+    }
 }
 
 footer.article-footer {
@@ -90,7 +112,7 @@ header.article-header.entry-header {
     display: flex;
     border-bottom: 1px solid #ddd;
     h1 {
-    font-size: 2.2em;
+    font-size: 1.5em;
     line-height: 1.6;
     align-items: center;
     font-weight: 600;
@@ -159,6 +181,7 @@ a.illust {
     height: 100%;
     h3 {
     margin-top: 0;
+    margin-bottom: 0;
     font-size: 16px;
     color: $text-color;
     }
@@ -183,7 +206,7 @@ a.illust {
 
     a h3 {
     margin-top: 0;
-    font-size: 24px;
+    font-size: 18px;
     }
 
     figure.eye-catch {
