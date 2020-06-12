@@ -1,5 +1,7 @@
 <?php
 
+if ( !defined( 'ABSPATH' ) ) exit;
+
 // bonesの設定
 function bones_head_cleanup() {
 	remove_action( 'wp_head', 'rsd_link' );

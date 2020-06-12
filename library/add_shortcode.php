@@ -1,6 +1,5 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) exit;
-
 ?>
 
 <form  action="" id="makelist" name="makelist">
@@ -22,7 +21,12 @@ if ( !defined( 'ABSPATH' ) ) exit;
           </th>
           <td>
               <?php
-                $terms = get_terms('custom_cat');
+              $args = array(
+                'orderby'       => 'ID',
+                'order'         => 'ASC',
+                'hierarchical'  => true,
+              );
+                $terms = get_terms('custom_cat', $args);
                 foreach ( $terms as $term ) {
                     echo '<label for="' . $term->slug . '"><input name="easel_list_worktype" type="checkbox" id="' . $term->slug . '" value="' . $term->slug . '"> ' . $term->name . '</label><br>';
                 } ?>
@@ -48,6 +52,16 @@ if ( !defined( 'ABSPATH' ) ) exit;
           </td>
       </tr>
       <tr valign="top">
+          <th scope="row"><label for="easel_list_worktype">バッジ表示</label>
+          </th>
+          <td>
+            <p>リストに作品タイプ・作品タグを表示することができます。<br>
+            ※現在、リストタイプ「文章」の場合のみ有効です</p>
+              <label for="easel_show_worktype"><input name="easel_show_worktype" type="checkbox" id="easel_show_worktype"> 作品タイプを表示する</label><br>
+              <label for="easel_show_worktag"><input name="easel_show_worktag" type="checkbox" id="easel_show_worktag"> 作品タグを表示する</label>
+          </td>
+      </tr>
+      <tr valign="top">
           <th scope="row"><label for="easel_original_class">class追加</label>
           </th>
           <td>
@@ -58,15 +72,15 @@ if ( !defined( 'ABSPATH' ) ) exit;
       </tr>
       </table>
 
-  <input type="button" value="OK" id="paka3_ei_btn_yes" class="button button-primary" />
-  <input type="button" value="キャンセル" id="paka3_ei_btn_no"  class="button" />
+  <input type="button" value="挿入" id="easel_insert_button" class="button button-primary" />
+  <input type="button" value="キャンセル" id="easel_cancel_button"  class="button" />
 </form>
 
 <script type="text/javascript">
 jQuery(function($) {
 
 	$(document).ready(function() {
-		$('#paka3_ei_btn_yes').on('click', function() {
+		$('#easel_insert_button').on('click', function() {
       var makelist = document.getElementById( "makelist" ) ;
 
       // リストタイプを取得
@@ -134,6 +148,22 @@ jQuery(function($) {
           break;
       }
 
+      // 作品タイプ・タグを表示するかどうか
+      var showtype = makelist.easel_show_worktype.checked;
+      var showtag = makelist.easel_show_worktag.checked;
+      var text5;
+      var text6;
+      if (showtype == true) {
+        text5 = ' showtype=true';
+      } else {
+        text5 = '';
+      }
+      if (showtag == true) {
+        text6 = ' showtag=true';
+      } else {
+        text6 = '';
+      }
+
       // クラスの取得
       var orgClass = $('#easel_original_class').val() ;
       if (orgClass == '') {
@@ -143,17 +173,17 @@ jQuery(function($) {
       }
 
 			//inlineのときはwindow
-			top.send_to_editor( '[' + text1 + text2 + text3 + 'count=' + counts + text4 + ']' );
+			top.send_to_editor( '[' + text1 + text2 + text3 + 'count=' + counts + text4 + text5 + text6 + ']' );
 			top.tb_remove();
 		});
-		$('#paka3_ei_btn_no').on('click', function() {
+		$('#easel_cancel_button').on('click', function() {
 			top.tb_remove();
 		});
 
 		//Enterキーが入力されたとき
 		$('#paka3_editer_insert_content').on('keypress',function () {
 			if(event.which == 13) {
-				$('#paka3_ei_btn_yes').trigger("click");
+				$('#easel_insert_button').trigger("click");
 			}
 			//Form内のエンター：サブミット回避
 			return event.which !== 13;

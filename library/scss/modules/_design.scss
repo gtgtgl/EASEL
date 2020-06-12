@@ -372,8 +372,31 @@ a.illust {
   h4 {
     margin: 0 0 10px;
   }
-  p {
+  div {
     padding-left: 20px;
+    p {
+      margin-bottom: 0 !important;
+        width: 100%;
+    }
+    .category {
+      margin: 0;
+      a {
+        margin: 0 10px 0 0;
+      }
+    }
+    .tag {
+      margin: 0;
+      a {
+        background: #eff2f7;
+        color: #b7b7b7;
+        padding: 3px 8px;
+        border-radius: 2px;
+      }
+    }
+
+  }
+  li:not(:last-of-type) {
+    margin-bottom: 20px;
   }
 }
 

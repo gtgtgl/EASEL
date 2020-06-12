@@ -1,3 +1,7 @@
+<?php
+if ( !defined( 'ABSPATH' ) ) exit;
+ ?>
+
 <h2>EASEL設定</h2>
 <p>WordPressテーマ「EASEL」で行える設定です。
   詳しくは<a href="https://easel.gt-gt.org/" target="_blank">EASEL設定マニュアル</a>をご確認ください。</p>

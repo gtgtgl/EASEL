@@ -96,7 +96,7 @@ function easel_add_worktype_filter() {
       	'hide_if_empty'      => false,
       	'value_field'	     => 'slug',
       );
-      
+
       $args2 = array(
       	'show_option_all'    => 'すべての作品タグ',
       	'orderby'            => 'ID',
@@ -641,10 +641,10 @@ add_action('wp_enqueue_scripts', 'bones_fonts');
 
 
 // パスワード付き記事のタイトル調整
-function edit_protected_word () {
+function easel_edit_protected_word () {
 return '%s <i class="fas fa-lock locked-icon"></i>';
 }
-add_filter('protected_title_format','edit_protected_word');
+add_filter('protected_title_format','easel_edit_protected_word');
 
 // パスワード付き記事の抜粋調整
 function easel_protected_excerpt( $excerpt ) {

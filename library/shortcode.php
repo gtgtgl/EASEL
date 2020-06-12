@@ -116,6 +116,8 @@ function getNewItems3($atts) {
       "orderby" => 'post_date', //表示の順番は何によるか
       "order" => 'ASC', //表示順は順か逆か
       "class" => null, //クラス
+      "showtype" => false, //作品タイプを表示するかどうか
+      "showtag" => false, //作品タグを表示するかどうか
   ), $atts));
   global $post;
   $oldpost = $post;
@@ -123,8 +125,14 @@ function getNewItems3($atts) {
   $retHtml='<ul class="shortcode-text '.$type.' '.$class.'">';
   foreach($myposts as $post) :
     setup_postdata($post);
+    if ($showtype == true) {
+      $showtypeHtml = get_the_term_list( $post->ID , 'custom_cat', '<span class="category">', ' ', '</span>' );
+    }
+    if ($showtag == true) {
+      $showtagHtml = get_the_term_list( $post->ID , 'custom_tag', '<span class="tag">', ' ', '</span>' );
+    }
     $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
-    $retHtml.='<div><p>'.make_list_excerpt().'</p></div></li>';
+    $retHtml.='<div><p>'.make_list_excerpt().'</p>' . $showtypeHtml . ' ' . $showtagHtml . '</div></li>';
   endforeach;
   $retHtml.='</ul>';
   $post = $oldpost;
@@ -180,8 +188,7 @@ function my_register_mce_button( $buttons ) {
 // http://www.paka3.net/wpplugin92/
 add_filter( "media_buttons_context", "add_easel_shortcode_button");
 function add_easel_shortcode_button ( $context ) {
-  $context .= '<a href="media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550" class="thickbox button" title="作品リスト挿入">作品リスト挿入</a>';
-
+  $context .= '<a href="media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550" class="thickbox button" title="作品リスト挿入(β)"><span class="dashicons dashicons-art" style="vertical-align: text-top;margin: 0 5px 0 0;"></span>作品リスト挿入(β)</a>';
   return $context;
 }
 

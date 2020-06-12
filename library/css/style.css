@@ -1299,8 +1299,36 @@ a.illust article figure.eye-catch {
   margin: 0 0 10px;
 }
 
-.shortcode-text p {
+.shortcode-text div {
   padding-left: 20px;
+}
+
+.shortcode-text div p {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+.shortcode-text div .category {
+  margin: 0;
+}
+
+.shortcode-text div .category a {
+  margin: 0 10px 0 0;
+}
+
+.shortcode-text div .tag {
+  margin: 0;
+}
+
+.shortcode-text div .tag a {
+  background: #eff2f7;
+  color: #b7b7b7;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.shortcode-text li:not(:last-of-type) {
+  margin-bottom: 20px;
 }
 
 .col2-wrap {

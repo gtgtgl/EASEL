@@ -1,5 +1,7 @@
 <?php
 
+if ( !defined( 'ABSPATH' ) ) exit;
+
 // Flush rewrite rules for custom post types
 add_action( 'after_switch_theme', 'bones_flush_rewrite_rules' );
 
