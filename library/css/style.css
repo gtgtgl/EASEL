@@ -1440,7 +1440,6 @@ body {
   color: #57595d;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 a {
@@ -1634,14 +1633,16 @@ body {
 
 header nav {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   -webkit-transition: .5s;
   transition: .5s;
   opacity: 0;
-  width: 300px;
+  width: 0px;
   height: 100vh;
-  right: -310px;
+  right: 0;
+  -webkit-transform: translateX(300px);
+          transform: translateX(300px);
   background: #fff;
   background: #fff;
 }
@@ -1680,7 +1681,14 @@ header input#menubar {
 header input#menubar:checked + nav {
   visibility: visible;
   opacity: 1;
-  right: 0;
+  width: 300px;
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+}
+
+header input#menubar:checked + nav label {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
 }
 
 header label#nav-back {
@@ -1691,6 +1699,8 @@ header label#nav-back {
   position: absolute;
   top: 0;
   right: 0;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
 }
 
 /*********************
@@ -2457,6 +2467,8 @@ NAVIGATION STYLES
     position: relative;
     overflow-y: visible;
     right: auto;
+    -webkit-transform: none;
+            transform: none;
     z-index: 100;
     opacity: 1;
     width: auto;

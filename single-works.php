@@ -24,7 +24,7 @@
 										$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
 										$slug = $parent_term->slug; // タームスラッグを取得
 									}
-								} 
+								}
 								if ( has_term( 'update', 'custom_cat') || $slug == 'update' ) { ?>
 								<div class="post-date">
 									<span class="day"><?php the_date('d'); ?></span>
@@ -70,10 +70,10 @@
 
 									<article id="post-not-found" class="hentry cf">
 										<header class="article-header">
-											<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+											<h1><?php _e( '投稿が見つかりません。', 'bonestheme' ); ?></h1>
 										</header>
 										<section class="entry-content">
-											<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
+											<p><?php _e( '誤りがないか確認してください。', 'bonestheme' ); ?></p>
 										</section>
 									</article>
 

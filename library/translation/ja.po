@@ -53,13 +53,13 @@ msgstr "次の記事へ &raquo;"
 #: ../../archive-custom_type.php:53 ../../archive.php:88 ../../index.php:53
 #: ../../page-custom.php:46 ../../page.php:40 ../../single-custom_type.php:58
 #: ../../single.php:41 ../../taxonomy-custom_cat.php:67
-msgid "Oops, Post Not Found!"
+msgid "投稿が見つかりません。"
 msgstr "投稿が見つかりません"
 
 #: ../../archive-custom_type.php:56 ../../archive.php:91 ../../index.php:56
 #: ../../page-custom.php:49 ../../page.php:43 ../../single-custom_type.php:61
 #: ../../single.php:44 ../../taxonomy-custom_cat.php:70
-msgid "Uh Oh. Something is missing. Try double checking things."
+msgid "誤りがないか確認してください。"
 msgstr ""
 
 #: ../../archive-custom_type.php:59
