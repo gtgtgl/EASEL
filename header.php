@@ -40,8 +40,7 @@ EOS;
 			<div id="inner-header" class="wrap cf">
 
 				<?php
-				$site_logo = get_option('easel_title_image_url');
-				if ($site_logo == false) : ?>
+				if ( !get_option('easel_title_image_url') ) : ?>
 					<p id="logo" class="h1" itemscope itemtype="http://schema.org/Organization" itemprop="name about"><a href="<?php echo home_url(); ?>" rel="nofollow" itemprop="url"><?php bloginfo('name'); ?></a></p>
 
 				<?php else : ?>

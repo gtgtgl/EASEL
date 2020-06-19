@@ -1,4 +1,6 @@
 <?php
+if ( !defined( 'ABSPATH' ) ) exit;
+
 // ショートコードの実装
 function make_list_excerpt() {
   global $post;
@@ -114,6 +116,8 @@ function getNewItems3($atts) {
       "orderby" => 'post_date', //表示の順番は何によるか
       "order" => 'ASC', //表示順は順か逆か
       "class" => null, //クラス
+      "showtype" => false, //作品タイプを表示するかどうか
+      "showtag" => false, //作品タグを表示するかどうか
   ), $atts));
   global $post;
   $oldpost = $post;
@@ -121,8 +125,14 @@ function getNewItems3($atts) {
   $retHtml='<ul class="shortcode-text '.$type.' '.$class.'">';
   foreach($myposts as $post) :
     setup_postdata($post);
+    if ($showtype == true) {
+      $showtypeHtml = get_the_term_list( $post->ID , 'custom_cat', '<span class="category">', ' ', '</span>' );
+    }
+    if ($showtag == true) {
+      $showtagHtml = get_the_term_list( $post->ID , 'custom_tag', '<span class="tag">', ' ', '</span>' );
+    }
     $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
-    $retHtml.='<div><p>'.make_list_excerpt().'</p></div></li>';
+    $retHtml.='<div><p>'.make_list_excerpt().'</p>' . $showtypeHtml . ' ' . $showtagHtml . '</div></li>';
   endforeach;
   $retHtml.='</ul>';
   $post = $oldpost;
@@ -174,4 +184,36 @@ function my_register_mce_button( $buttons ) {
 	return $buttons;
 }
 
+// ショートコード挿入をもっと便利にする
+// http://www.paka3.net/wpplugin92/
+add_filter( "media_buttons_context", "add_easel_shortcode_button");
+function add_easel_shortcode_button ( $context ) {
+  $context .= '<a href="media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550" class="thickbox button" title="作品リスト挿入(β)"><span class="dashicons dashicons-art" style="vertical-align: text-top;margin: 0 5px 0 0;"></span>作品リスト挿入(β)</a>';
+  return $context;
+}
+
+function easel_upload_tabs( $tabs )
+{
+	$tabs=array();
+	$tabs[ "easel_tab" ] = "ショートコード生成" ;
+	return $tabs;
+}
+add_action( 'media_upload_easel_type',  'easel_wp_iframe' );
+function easel_wp_iframe() {
+		wp_iframe( 'media_easel_make_shortcode_window' );
+}
+function media_easel_make_shortcode_window() {
+	add_filter( "media_upload_tabs", "easel_upload_tabs"  ,1000);
+	media_upload_header();
+	include 'add_shortcode.php';
+}
+
+// ブロックエディタでもショートコードを簡単に挿入する
+// https://wemo.tech/2163
+// https://qiita.com/harapeko_momiji/items/83cd0953d030c0d8a59f
+// https://gist.github.com/k-ishiwata/bc1698839c9755ad84eac5a13988f02f
+// function add_easel_shortcode_to_block_editor() {
+//     wp_enqueue_script( 'block-custom', get_template_directory_uri().'/library/js/block_editor.js',array(), "", true);
+// }
+// add_action( 'enqueue_block_editor_assets', 'add_easel_shortcode_to_block_editor' );
  ?>

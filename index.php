@@ -58,9 +58,13 @@
 
 								<footer class="article-footer">
 
-                 	<?php printf( '<span class="category">' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_category_list(' ') ); ?>
-                 	<?php printf( '<span class="tag">' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_tag_list('', ',','') ); ?>
-
+									<?php
+										printf( '<span class="category"><i class="fas fa-folder"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_category_list(' ') );
+									if ( has_tag())	{
+										printf( '<span class="tag"><i class="fas fa-tag"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_tag_list('', ',','') );
+									}
+									?>
+										
 								</footer>
 
 							</article>
@@ -73,10 +77,10 @@
 
 									<article id="post-not-found" class="hentry cf">
 											<header class="article-header">
-												<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+												<h1><?php _e( '投稿が見つかりません。', 'bonestheme' ); ?></h1>
 										</header>
 											<section class="entry-content">
-												<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
+												<p><?php _e( '誤りがないか確認してください。', 'bonestheme' ); ?></p>
 										</section>
 										<footer class="article-footer">
 												<p><?php _e( 'This is the error message in the index.php template.', 'bonestheme' ); ?></p>

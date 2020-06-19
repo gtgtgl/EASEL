@@ -49,7 +49,7 @@ $term_id = get_queried_object_id();
 
 							<article id="post-not-found" class="hentry cf">
 								<header class="article-header">
-									<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+									<h1><?php _e( '投稿が見つかりません。', 'bonestheme' ); ?></h1>
 								</header>
 							</article>
 

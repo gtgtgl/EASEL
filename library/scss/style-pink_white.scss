@@ -191,6 +191,22 @@ a, a:visited {
 
 } /* end .bones_page_navi */
 
+span.category {
+    a {
+			&:hover {
+				color: $link-color;
+			}
+    }
+}
+
+span.tag {
+    a {
+        &:hover {
+          color: $link-color;
+        }
+    }
+}
+
 button#searchsubmit {
     &:hover {
       color: $style-color;

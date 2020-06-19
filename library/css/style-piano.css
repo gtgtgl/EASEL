@@ -1,13 +1,13 @@
 #logo a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 .header .nav li a:before {
-  background: #67c1ec;
+  background: #3e3e3e;
 }
 
 .header .nav li a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 .nav {
@@ -15,16 +15,16 @@
 }
 
 .nav li a {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 /* end .nav */
 .post-date {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 .update .wrap .byline.vcard {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 footer.footer {
@@ -42,7 +42,7 @@ footer.footer #footer_widget ul {
 }
 
 footer.footer #footer_widget ul li a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 footer.footer #inner-footer {
@@ -54,7 +54,7 @@ footer.footer #inner-footer ul li a {
 }
 
 footer.footer #inner-footer ul li a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 footer.footer #inner-footer .copyright {
@@ -62,11 +62,11 @@ footer.footer #inner-footer .copyright {
 }
 
 a, a:visited {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 a:hover, a:focus, a:visited:hover, a:visited:focus {
-  color: #3eb0e7;
+  color: #dc608e;
   text-decoration: none;
 }
 
@@ -88,13 +88,13 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   line-height: 45px;
   font-size: 1em;
   padding: 0;
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 .pagination a:hover, .pagination a:focus {
-  background-color: #67c1ec;
+  background-color: #3e3e3e;
   color: white;
-  border-color: #67c1ec;
+  border-color: #3e3e3e;
 }
 
 .pagination .current {
@@ -173,13 +173,13 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
 
 /* end .bones_page_navi */
 span.category a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 span.tag a:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
 
 button#searchsubmit:hover {
-  color: #67c1ec;
+  color: #3e3e3e;
 }
