@@ -55,7 +55,7 @@
 
 								<h3 class="h2"><?php the_title(); ?></h3>
 								<p class="byline vcard"><?php
-									printf(__('<time class="updated" datetime="%1$s" itemprop="datePublished">%2$s</time>', 'bonestheme'), get_the_time('Y-m-j'), get_the_time(__('Y-m-d', 'bonestheme')), get_the_term_list( get_the_ID(), 'custom_cat', "", ", ", "" ));
+									printf(__('<time class="updated" datetime="%1$s" itemprop="datePublished">%2$s</time>', 'bonestheme'), get_the_time('Y-m-j'), get_the_time(__('Y-m-d', 'bonestheme')));
 								?></p>
 
 								<div class="excerpt">
@@ -75,7 +75,7 @@
 
 									<article id="post-not-found" class="hentry cf">
 										<header class="article-header">
-											<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
+											<h1><?php _e( '投稿が見つかりません。', 'bonestheme' ); ?></h1>
 										</header>
 									</article>
 

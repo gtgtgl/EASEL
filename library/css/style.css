@@ -918,17 +918,39 @@ main#main {
   margin-bottom: 40px;
 }
 
-span.category a {
+span.category {
   display: inline-block;
   font-size: 12px;
+  color: #cbcfd8;
+  margin: 0 0 0 15px;
+}
+
+span.category a {
+  color: #cbcfd8;
+  margin: 0 0 0 5px;
+}
+
+span.category a:hover {
+  color: #f01d4f;
+}
+
+span.tag {
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 0 0 15px;
   color: #cbcfd8;
 }
 
 span.tag a {
-  display: inline-block;
-  font-size: 12px;
-  margin: 0 3px;
   color: #cbcfd8;
+}
+
+span.tag a:hover {
+  color: #f01d4f;
+}
+
+span.tag i {
+  margin: 0 5px;
 }
 
 footer.article-footer {
@@ -979,7 +1001,7 @@ header.article-header.entry-header {
 }
 
 header.article-header.entry-header h1 {
-  font-size: 2.2em;
+  font-size: 1.5em;
   line-height: 1.6;
   -webkit-box-align: center;
           align-items: center;
@@ -1058,6 +1080,7 @@ a.illust article {
 
 a.illust article h3 {
   margin-top: 0;
+  margin-bottom: 0;
   font-size: 16px;
   color: #57595d;
 }
@@ -1085,7 +1108,7 @@ a.illust article figure.eye-catch {
 
 .text-wrap article a h3 {
   margin-top: 0;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .text-wrap article figure.eye-catch {
@@ -1276,8 +1299,36 @@ a.illust article figure.eye-catch {
   margin: 0 0 10px;
 }
 
-.shortcode-text p {
+.shortcode-text div {
   padding-left: 20px;
+}
+
+.shortcode-text div p {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+.shortcode-text div .category {
+  margin: 0;
+}
+
+.shortcode-text div .category a {
+  margin: 0 10px 0 0;
+}
+
+.shortcode-text div .tag {
+  margin: 0;
+}
+
+.shortcode-text div .tag a {
+  background: #eff2f7;
+  color: #b7b7b7;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.shortcode-text li:not(:last-of-type) {
+  margin-bottom: 20px;
 }
 
 .col2-wrap {
@@ -1389,7 +1440,6 @@ body {
   color: #57595d;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 a {
@@ -1455,13 +1505,13 @@ h1.page-title {
 }
 
 h2, .h2 {
-  font-size: 1.5em;
+  font-size: 1.3em;
   line-height: 1.4em;
   margin-bottom: 1em;
 }
 
 h3, .h3 {
-  font-size: 1.25em;
+  font-size: 1.2em;
 }
 
 h4, .h4 {
@@ -1470,7 +1520,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 0.846em;
+  font-size: 1.1em;
   line-height: 2.09em;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -1479,6 +1529,11 @@ h5, .h5 {
 article h2 {
   padding: 9px 10px;
   border-bottom: 1px solid;
+}
+
+article.text .byline {
+  margin: 20px 0 0 auto;
+  text-align: right;
 }
 
 /*********************
@@ -1568,11 +1623,7 @@ NAVIGATION STYLES
 .nav li ul.sub-menu,
 .nav li ul.children {
   padding: 0;
-}
-
-.nav li ul.sub-menu li a,
-.nav li ul.children li a {
-  padding-left: 30px;
+  margin: 0 0 0 20px;
 }
 
 /* end .nav */
@@ -1582,22 +1633,30 @@ body {
 
 header nav {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   -webkit-transition: .5s;
   transition: .5s;
   opacity: 0;
-  width: 300px;
+  width: 0px;
   height: 100vh;
-  padding-top: 70px;
-  right: -310px;
+  right: 0;
+  -webkit-transform: translateX(300px);
+          transform: translateX(300px);
   background: #fff;
   background: #fff;
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
-header nav::-webkit-scrollbar {
+header nav ul.nav {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: 100%;
+  padding-top: 70px;
+  background: #ffffff;
+  box-shadow: 0 0 10px -5px;
+}
+
+header nav ul.nav::-webkit-scrollbar {
   display: none;
 }
 
@@ -1622,7 +1681,14 @@ header input#menubar {
 header input#menubar:checked + nav {
   visibility: visible;
   opacity: 1;
-  right: 0;
+  width: 300px;
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+}
+
+header input#menubar:checked + nav label {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
 }
 
 header label#nav-back {
@@ -1633,6 +1699,8 @@ header label#nav-back {
   position: absolute;
   top: 0;
   right: 0;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
 }
 
 /*********************
@@ -1674,12 +1742,14 @@ POSTS & CONTENT STYLES
 /* post meta */
 .byline {
   color: #cbcfd8;
+  font-size: 13px;
   margin: 0;
 }
 
 /* entry content */
 .entry-content {
   padding: 1.5em .5em 0;
+  width: 100%;
   /*
 			image alignment on a screen this size may be
 			a bit difficult. It's set to start aligning
@@ -2274,7 +2344,7 @@ you can add resource intensive styles.
 *********************/
 @media only screen and (min-width: 768px) {
   h1, .h1 {
-    font-size: 2em;
+    font-size: 1.8em;
   }
   main#main {
     margin-right: 30px;
@@ -2397,12 +2467,19 @@ NAVIGATION STYLES
     position: relative;
     overflow-y: visible;
     right: auto;
+    -webkit-transform: none;
+            transform: none;
     z-index: 100;
     opacity: 1;
     width: auto;
     height: auto;
     padding-top: 0;
     background: transparent;
+  }
+  header nav ul.nav {
+    box-shadow: none;
+    overflow-y: visible;
+    padding-top: 0;
   }
   header label#formenubar {
     display: none;
@@ -2443,8 +2520,8 @@ NAVIGATION STYLES
     opacity: 0;
     -webkit-transition: .3s;
     transition: .3s;
-    -webkit-transform: translateY(-20px);
-            transform: translateY(-20px);
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
     margin: 0;
     top: 100%;
   }
@@ -2544,6 +2621,9 @@ FOOTER STYLES
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
+  }
+  .text-wrap article a h3 {
+    font-size: 20px;
   }
   .text-wrap article figure.eye-catch {
     margin: 20px;

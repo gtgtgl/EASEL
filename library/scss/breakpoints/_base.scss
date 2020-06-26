@@ -5,7 +5,6 @@ body {
 	color: $text-color;
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
-	overflow-x: hidden;
 }
 
 a {
@@ -72,13 +71,13 @@ h1.page-title {
 }
 
 h2, .h2 {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	line-height: 1.4em;
 	margin-bottom: 1em;
 }
 
 h3, .h3 {
-	font-size: 1.25em;
+	font-size: 1.2em;
 }
 
 h4, .h4 {
@@ -87,7 +86,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-	font-size: 0.846em;
+	font-size: 1.1em;
 	line-height: 2.09em;
 	text-transform: uppercase;
 	letter-spacing: 2px;
@@ -97,6 +96,13 @@ article {
 	h2 {
     padding: 9px 10px;
     border-bottom: 1px solid;
+	}
+
+	&.text {
+		.byline {
+    margin: 20px 0 0 auto;
+    text-align: right;
+}
 	}
 }
 
@@ -184,11 +190,11 @@ NAVIGATION STYLES
 		ul.sub-menu,
 		ul.children {
 			padding: 0;
+    margin: 0 0 0 20px;
 
 			li {
 
 				a {
-					padding-left: 30px;
 				}
 
 			}
@@ -212,22 +218,30 @@ body { position: relative; }
 header {
 	nav {
     visibility: hidden;
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     -webkit-transition: .5s;
     transition: .5s;
     opacity: 0;
-    width: 300px;
+    width: 0px;
     height: 100vh;
-    padding-top: 70px;
-    right: -310px;
+    right: 0;
+		transform: translateX(300px);
     background: #fff;
 		background: $white;
-		overflow-y: scroll;
-		scrollbar-width: none;
-		&::-webkit-scrollbar {
-        display:none;
-    }
+
+
+		ul.nav {
+			overflow-y: scroll;
+			scrollbar-width: none;
+	    height: 100%;
+	    padding-top: 70px;
+	    background: #ffffff;
+  	  box-shadow: 0 0 10px -5px;
+			&::-webkit-scrollbar {
+				display:none;
+			}
+		}
 	}
 
 	label#formenubar {
@@ -250,7 +264,12 @@ header {
 		&:checked + nav {
 			visibility: visible;
 			opacity: 1;
-	    right: 0;
+			width: 300px;
+			transform: translateX(0px);
+
+			label {
+				transform: scaleX(1);
+			}
 		}
 	}
 
@@ -262,6 +281,7 @@ header {
     position: absolute;
     top: 0;
     right: 0;
+		transform: scaleX(0);
 	}
 }
 
@@ -306,12 +326,14 @@ POSTS & CONTENT STYLES
 		/* post meta */
 		.byline {
 			color: $meta-gray;
+    	font-size: 13px;
 			margin: 0;
 		}
 
 		/* entry content */
 		.entry-content {
 			padding: 1.5em .5em 0;
+  	  width: 100%;
 
 			p {
 				margin: 0 0 1.5em;

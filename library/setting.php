@@ -1,3 +1,7 @@
+<?php
+if ( !defined( 'ABSPATH' ) ) exit;
+ ?>
+
 <h2>EASEL設定</h2>
 <p>WordPressテーマ「EASEL」で行える設定です。
   詳しくは<a href="https://easel.gt-gt.org/" target="_blank">EASEL設定マニュアル</a>をご確認ください。</p>
@@ -48,6 +52,8 @@
           ピンク＆ホワイト</label><br>
           <label><input type="radio" name="easel_base_color" value="orange_white" <?php checked(get_option('easel_base_color') , 'orange_white'); ?>>
           オレンジ＆ホワイト</label><br>
+          <label><input type="radio" name="easel_base_color" value="piano" <?php checked(get_option('easel_base_color') , 'piano'); ?>>
+          ピアノ</label><br>
         </td>
     </tr>
     <tr valign="top">

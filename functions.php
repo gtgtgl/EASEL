@@ -10,7 +10,7 @@ $update_checker = new ThemeUpdateChecker(
 );
 
 // ダッシュボードに案内ウィジェットを追加する
-function add_custom_widget() {
+function easel_add_custom_widget() {
 	echo '<h2>EASELをはじめる手順</h2>
         <p>WordPressのサイト設定が終わったら、ダッシュボード　サイドバーの設定＞EASEL設定を開いてください。<br>
         タイトル画像の設定や、「作品タイプ」の初期設定ができたら、EASELの準備は完了です。<br>
@@ -19,7 +19,7 @@ function add_custom_widget() {
           ';
 }
 function add_my_widget() {
-	wp_add_dashboard_widget( 'custom_widget', 'EASELへようこそ', 'add_custom_widget' );
+	wp_add_dashboard_widget( 'custom_widget', 'EASELへようこそ', 'easel_add_custom_widget' );
 }
 add_action( 'wp_dashboard_setup', 'add_my_widget' );
 
@@ -80,7 +80,7 @@ if ( $check_setup_easel_terms == 1 ) {
 }
 
 // カスタム投稿画面にターム別ソート機能を追加
-function add_post_taxonomy_restrict_filter() {
+function easel_add_worktype_filter() {
     global $post_type;
     if ( 'works' == $post_type ) {
       $args = array(
@@ -97,10 +97,25 @@ function add_post_taxonomy_restrict_filter() {
       	'value_field'	     => 'slug',
       );
 
+      $args2 = array(
+      	'show_option_all'    => 'すべての作品タグ',
+      	'orderby'            => 'ID',
+      	'order'              => 'ASC',
+      	'exclude'            => '',
+      	'echo'               => 1,
+      	'selected'           => 0,
+      	'hierarchical'       => 1,
+      	'name'               => 'custom_tag',
+      	'taxonomy'           => 'custom_tag',
+      	'hide_if_empty'      => false,
+      	'value_field'	     => 'slug',
+      );
+
       wp_dropdown_categories( $args );
+      wp_dropdown_categories( $args2 );
     }
 }
-add_action( 'restrict_manage_posts', 'add_post_taxonomy_restrict_filter' );
+add_action( 'restrict_manage_posts', 'easel_add_worktype_filter' );
 
 //画像アップロード用のタグを出力する
 function generate_upload_image_tag($name, $value){?>
@@ -183,11 +198,11 @@ function generate_upload_image_tag($name, $value){?>
   <?php
 }
 
-function my_admin_scripts() {
+function easel_admin_scripts() {
   //メディアアップローダの javascript API
   wp_enqueue_media();
 }
-add_action( 'admin_print_scripts', 'my_admin_scripts' );
+add_action( 'admin_print_scripts', 'easel_admin_scripts' );
 
 // 抜粋をリッチエディタに変更
 add_action( 'add_meta_boxes', array ( 'VisualEditorExcerptDemo', 'switch_boxes' ) );
@@ -245,7 +260,7 @@ class VisualEditorExcerptDemo{
 }
 
 // カスタムフィールドの追加
-function myplugin_add_meta_box() {
+function easel_custom_css() {
 	$screens = array( 'post', 'page' );
 	foreach ( $screens as $screen ) {
 		add_meta_box(
@@ -256,7 +271,7 @@ function myplugin_add_meta_box() {
 		);
 	}
 }
-add_action( 'add_meta_boxes', 'myplugin_add_meta_box' );
+add_action( 'add_meta_boxes', 'easel_custom_css' );
 
 // 記事・固定ページにカスタムCSSが使えるようにする
 function create_custom_css() {
@@ -296,9 +311,9 @@ function save_custom_field( $post_id ) {
 add_filter( 'img_caption_shortcode_width', function(){ return 0; } );
 
 // カレンダーをカッコよくする
-add_filter('get_calendar', 'my_calendar');
+add_filter('get_calendar', 'easel_calendar');
 
-function my_calendar($initial = true, $echo = true) {
+function easel_calendar($initial = true, $echo = true) {
 
     global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
@@ -626,13 +641,13 @@ add_action('wp_enqueue_scripts', 'bones_fonts');
 
 
 // パスワード付き記事のタイトル調整
-function edit_protected_word () {
+function easel_edit_protected_word () {
 return '%s <i class="fas fa-lock locked-icon"></i>';
 }
-add_filter('protected_title_format','edit_protected_word');
+add_filter('protected_title_format','easel_edit_protected_word');
 
 // パスワード付き記事の抜粋調整
-function protected_excerpt( $excerpt ) {
+function easel_protected_excerpt( $excerpt ) {
   if ( post_password_required() ) {
     if ( 'works' === get_post_type() ) {
       return 'この作品を見るにはパスワードの入力が必要です。';
@@ -642,10 +657,10 @@ function protected_excerpt( $excerpt ) {
   }
   return $excerpt;
 }
-add_filter('the_excerpt', 'protected_excerpt' );
+add_filter('the_excerpt', 'easel_protected_excerpt' );
 
 // パスワード付き記事の本文調整
-function my_password_form() {
+function easel_password_form() {
     $text = the_excerpt();
     $text = '<h5>パスワードを入力してください</h5>
     <form class="post_password" action="' . wp_login_url() . '?action=postpass" method="post">
@@ -654,7 +669,7 @@ function my_password_form() {
     </form>';
     return $text;
 }
-add_filter('the_password_form', 'my_password_form');
+add_filter('the_password_form', 'easel_password_form');
 
 get_template_part( 'library/shortcode' );
 get_template_part( 'library/widget' );

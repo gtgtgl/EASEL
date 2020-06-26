@@ -1,6 +1,6 @@
 
 h1, .h1 {
-	font-size: 2em;
+	font-size: 1.8em;
 }
 
 main#main {
@@ -149,12 +149,19 @@ header {
     position: relative;
     overflow-y: visible;
     right: auto;
+		transform: none;
     z-index: 100;
     opacity: 1;
     width: auto;
     height: auto;
     padding-top: 0;
     background: transparent;
+
+		ul.nav {
+			box-shadow: none;
+		  overflow-y: visible;
+			padding-top: 0;
+		}
 
 	}
 
@@ -193,7 +200,7 @@ li {
     z-index: 8999;
     opacity: 0;
     transition: .3s;
-    transform: translateY(-20px);
+    transform: translateY(-5px);
 		margin: 0;
     top: 100%;
 
@@ -328,6 +335,10 @@ a.illust {
 .text-wrap article {
     display: flex;
     flex-direction: row;
+
+		a h3 {
+			font-size: 20px;
+		}
 
     figure.eye-catch {
     margin: 20px;

@@ -172,6 +172,14 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
 }
 
 /* end .bones_page_navi */
+span.category a:hover {
+  color: #ffb54a;
+}
+
+span.tag a:hover {
+  color: #ffb54a;
+}
+
 button#searchsubmit:hover {
   color: #ffb54a;
 }
