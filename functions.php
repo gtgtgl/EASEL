@@ -36,7 +36,7 @@ function register_easel_menu_page() {
 add_action( 'admin_init', 'register_easel_settings' );
 
 function register_easel_settings() {
-  $my_options = ['title_image_url', 'set_terms', 'base_color', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
+  $my_options = ['title_image_url', 'set_terms', 'base_color', 'totop', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
   foreach($my_options as $my_option){
     register_setting( 'easel_settings', 'easel_'.$my_option );
   }

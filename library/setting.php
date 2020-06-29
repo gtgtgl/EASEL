@@ -52,8 +52,19 @@ if ( !defined( 'ABSPATH' ) ) exit;
           ピンク＆ホワイト</label><br>
           <label><input type="radio" name="easel_base_color" value="orange_white" <?php checked(get_option('easel_base_color') , 'orange_white'); ?>>
           オレンジ＆ホワイト</label><br>
-          <label><input type="radio" name="easel_base_color" value="piano" <?php checked(get_option('easel_base_color') , 'piano'); ?>>
-          ピアノ</label><br>
+          <!-- <label><input type="radio" name="easel_base_color" value="piano" <?php checked(get_option('easel_base_color') , 'piano'); ?>>
+          ピアノ</label><br> -->
+        </td>
+    </tr>
+    <tr valign="top">
+        <th scope="row"><label for="easel_totop">最上部へ戻るボタン</label>
+        </th>
+        <td>
+          <p>サイトの右下に、最上部へ戻るボタンを表示することができます。</p>
+          <label><input type="radio" name="easel_totop" value="visible" <?php checked(get_option('easel_totop') , 'visible'); ?>>
+          表示する</label><br>
+          <label><input type="radio" name="easel_totop" value="hidden" <?php checked(get_option('easel_totop') , 'hidden'); ?>>
+          表示しない</label>
         </td>
     </tr>
     <tr valign="top">

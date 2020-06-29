@@ -19,7 +19,7 @@ function make_list_excerpt() {
 }
 add_filter('the_excerpt','make_list_excerpt' );
 
-/* 最新記事リスト */
+/* 更新履歴リスト */
 function getNewItems($atts) {
     extract(shortcode_atts(array(
         "count" => '5', //最新記事リストの取得数
@@ -48,7 +48,7 @@ function getNewItems($atts) {
 }
 add_shortcode("new_list", "getNewItems");
 
-/* 最新イラストリスト */
+/* イラストリスト */
 // 参考　https://github.com/yhira/cocoon/blob/master/tmp/eye-catch.php
 function get_new_illusts_thum() {
   if ( has_post_thumbnail() ) {
@@ -106,7 +106,7 @@ function getNewItems2($atts) {
 }
 add_shortcode("new_illust", "getNewItems2");
 
-/* 最新小説リスト */
+/* 小説リスト */
 function getNewItems3($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
@@ -132,7 +132,7 @@ function getNewItems3($atts) {
       $showtagHtml = get_the_term_list( $post->ID , 'custom_tag', '<span class="tag">', ' ', '</span>' );
     }
     $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
-    $retHtml.='<div><p>'.make_list_excerpt().'</p>' . $showtypeHtml . ' ' . $showtagHtml . '</div></li>';
+    $retHtml.='<div><p class="excerpt">'.make_list_excerpt().'</p>' . $showtypeHtml . ' ' . $showtagHtml . '</div></li>';
   endforeach;
   $retHtml.='</ul>';
   $post = $oldpost;

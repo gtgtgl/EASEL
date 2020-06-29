@@ -1296,7 +1296,7 @@ a.illust article figure.eye-catch {
 }
 
 .shortcode-text h4 {
-  margin: 0 0 10px;
+  margin: 0;
 }
 
 .shortcode-text div {
@@ -1329,6 +1329,10 @@ a.illust article figure.eye-catch {
 
 .shortcode-text li:not(:last-of-type) {
   margin-bottom: 20px;
+}
+
+.shortcode-text.noexcerpt li .excerpt {
+  display: none;
 }
 
 .col2-wrap {
@@ -1536,6 +1540,38 @@ article.text .byline {
   text-align: right;
 }
 
+a#totop {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: #333333;
+  z-index: 999;
+}
+
+a#totop:before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: 22px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+a#totop:hover:before {
+  top: 18px;
+}
+
 /*********************
 HEADER STYLES
 *********************/
@@ -1641,6 +1677,7 @@ header nav {
   width: 0px;
   height: 100vh;
   right: 0;
+  top: 0;
   -webkit-transform: translateX(300px);
           transform: translateX(300px);
   background: #fff;
@@ -2280,6 +2317,16 @@ FOOTER STYLES
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
+  height: 50px;
+  flex-direction: row;
+}
+
+.footer #inner-footer nav {
+  width: 100%;
+}
+
+.footer #inner-footer .copyright {
+  width: 100%;
 }
 
 /*********************
@@ -2409,6 +2456,10 @@ you can add resource intensive styles.
   }
   .shortcode-text.line1 li h4 {
     word-break: keep-all;
+  }
+  .shortcode-text.noexcerpt li {
+    display: -webkit-box;
+    display: flex;
   }
   .wrap {
     width: 760px;
@@ -2590,6 +2641,12 @@ FOOTER STYLES
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
+  }
+  .footer #inner-footer nav {
+    width: auto;
+  }
+  .footer #inner-footer .copyright {
+    width: auto;
   }
   a.illust {
     -webkit-box-flex: 0;

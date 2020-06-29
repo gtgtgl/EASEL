@@ -31,6 +31,10 @@ EOS;
 	?>
 </head>
 
+<?php if(get_option('easel_totop') === 'visible') : ?>
+<a href="#" id="totop"></a>
+<?php endif; ?>
+
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
 
 	<div id="container">

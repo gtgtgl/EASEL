@@ -77,6 +77,11 @@ main#main {
       }
     }
   }
+	  &.noexcerpt {
+	    li {
+	      display: flex;
+	    }
+	  }
 }
 
 .wrap {
@@ -296,6 +301,12 @@ FOOTER STYLES
 		}
 	}
   #inner-footer {
+		nav {
+			width: auto;
+		}
+		.copyright {
+			width: auto;
+		}
     flex-direction: row;
   }
 }

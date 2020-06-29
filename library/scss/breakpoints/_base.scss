@@ -106,6 +106,34 @@ article {
 	}
 }
 
+a#totop {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background: #333333;
+	z-index: 999;
+	&:before {
+		content: '';
+		position: absolute;
+		width: 8px;
+		height: 8px;
+		border-top: 2px solid #ffffff;
+		border-left: 2px solid #ffffff;
+		right: 0;
+		left: 0;
+		margin: auto;
+		top: 22px;
+		transform: rotate(45deg);
+		transition: .3s;
+	}
+	&:hover:before {
+		top: 18px;
+	}
+}
+
 /*********************
 HEADER STYLES
 *********************/
@@ -226,6 +254,7 @@ header {
     width: 0px;
     height: 100vh;
     right: 0;
+    top: 0;
 		transform: translateX(300px);
     background: #fff;
 		background: $white;
@@ -955,5 +984,14 @@ FOOTER STYLES
 	#inner-footer {
 		color: $light-gray;
 		flex-direction: column;
+    height: 50px;
+    flex-direction: row;
+
+		nav {
+			width: 100%;
+		}
+		.copyright {
+			width: 100%;
+		}
 	}
 }
