@@ -13,6 +13,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
             <label><input type="radio" name="easel_list_type" value="illust_s" id="illust_s">イラスト（サムネイル小）</label><br>
             <label><input type="radio" name="easel_list_type" value="text_2l" id="text_2l">文章（２行）</label><br>
             <label><input type="radio" name="easel_list_type" value="text_1l" id="text_1l">文章（１行）</label><br>
+            <label><input type="radio" name="easel_list_type" value="text_noexcerpt" id="text_noexcerpt">文章（抜粋なし）</label><br>
             <label><input type="radio" name="easel_list_type" value="update" id="update">更新履歴</label>
           </td>
       </tr>
@@ -99,6 +100,9 @@ jQuery(function($) {
           break;
         case 'text_1l':
           text1 = 'new_text type=line1 ';
+          break;
+        case 'text_noexcerpt':
+          text1 = 'new_text type=noexcerpt ';
           break;
         case 'update':
           text1 = 'new_list ';

@@ -370,7 +370,7 @@ a.illust {
   padding: 0;
   list-style: none;
   h4 {
-    margin: 0 0 10px;
+    margin: 0;
   }
   div {
     padding-left: 20px;
@@ -397,6 +397,14 @@ a.illust {
   }
   li:not(:last-of-type) {
     margin-bottom: 20px;
+  }
+
+  &.noexcerpt {
+    li {
+      .excerpt {
+        display: none;
+      }
+    }
   }
 }
 
