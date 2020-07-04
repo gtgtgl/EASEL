@@ -159,28 +159,28 @@ add_action( 'admin_print_footer_scripts', 'add_quicktags_to_text_editor' );
 //テーマテンプレートのfunctions.phpに追記
 //ビジュアルテキストエディタにクイックタグを追加する
 
-function my_add_mce_button() {
+function easel_add_mce_button() {
 	// ユーザー権限を確認
 	if ( !current_user_can( 'edit_posts' ) && !current_user_can( 'edit_pages' ) ) {
 		return;
 	}
 	// リッチテキストエディタを使えるか
 	if ( 'true' == get_user_option( 'rich_editing' ) ) {
-		add_filter( 'mce_external_plugins', 'my_add_tinymce_plugin' );
-		add_filter( 'mce_buttons', 'my_register_mce_button' );
+		add_filter( 'mce_external_plugins', 'easel_add_shortcode_tinymce_button' );
+		add_filter( 'mce_buttons', 'easel_add_shortcode_mce_button' );
 	}
 }
-add_action('admin_head', 'my_add_mce_button');
+add_action('admin_head', 'easel_add_mce_button');
 
 // プラグインを追加
-function my_add_tinymce_plugin( $plugin_array ) {
-	$plugin_array['my_mce_button'] = get_template_directory_uri() .'/library/js/quicktag.js'; //子テーマの場合は get_stylesheet_directory_uri()を使う
+function easel_add_shortcode_tinymce_button( $plugin_array ) {
+	$plugin_array['easel_mce_button'] = get_template_directory_uri() .'/library/js/quicktag.js'; //子テーマの場合は get_stylesheet_directory_uri()を使う
 	return $plugin_array;
 }
 
 // リッチテキストエディタにボタンを追加する
-function my_register_mce_button( $buttons ) {
-	array_push( $buttons, 'my_mce_button' );
+function easel_add_shortcode_mce_button( $buttons ) {
+	array_push( $buttons, 'easel_mce_button' );
 	return $buttons;
 }
 
@@ -212,8 +212,31 @@ function media_easel_make_shortcode_window() {
 // https://wemo.tech/2163
 // https://qiita.com/harapeko_momiji/items/83cd0953d030c0d8a59f
 // https://gist.github.com/k-ishiwata/bc1698839c9755ad84eac5a13988f02f
+
+// register_block_type( 'capital-block/my-block', [
+//     'render_callback' => function( $attributes, $content = '' ) {
+//         // ここでブロックの中身を文字列として生成する。
+//         return $block_result;
+//     },
+// ] );
+
+// ブロックカテゴリーを追加する
+// function easel_block_categories( $categories, $post ) {
+//     return array_merge(
+//         $categories,
+//         array(
+//             array(
+//                 'slug' => 'easel-cat',   //ブロックカテゴリーのスラッグ
+//                 'title' => 'EASELブロック',  //ブロックカテゴリーの表示名
+//                 'icon'  => 'art',    //アイコンの指定（Dashicons名）
+//             ),
+//         )
+//     );
+// }
+// add_filter( 'block_categories', 'easel_block_categories', 10, 2 );
+//
 // function add_easel_shortcode_to_block_editor() {
-//     wp_enqueue_script( 'block-custom', get_template_directory_uri().'/library/js/block_editor.js',array(), "", true);
+//     wp_enqueue_script( 'block-custom', get_template_directory_uri().'/library/js/block_editor.jsx',array(), "", true);
 // }
 // add_action( 'enqueue_block_editor_assets', 'add_easel_shortcode_to_block_editor' );
  ?>
