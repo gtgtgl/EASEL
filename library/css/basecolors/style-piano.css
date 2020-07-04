@@ -1,13 +1,21 @@
+body, .header, header nav {
+  background-color: #fffefc;
+}
+
+#logo a {
+  color: #8d5837;
+}
+
 #logo a:hover {
-  color: #67c1ec;
+  color: #aba69a;
 }
 
 .header .nav li a:before {
-  background: #67c1ec;
+  background: #8d5837;
 }
 
 .header .nav li a:hover {
-  color: #67c1ec;
+  color: #aba69a;
 }
 
 .nav {
@@ -15,26 +23,34 @@
 }
 
 .nav li a {
-  color: #67c1ec;
+  color: #49462c;
+}
+
+.nav li a:hover {
+  color: #aba69a;
 }
 
 /* end .nav */
 .post-date {
-  color: #67c1ec;
+  color: #49462c;
 }
 
 .update .wrap .byline.vcard {
-  color: #67c1ec;
+  color: #49462c;
+}
+
+.news_list {
+  border-color: #ede3d3;
 }
 
 footer.footer {
   background-color: transparent;
-  border-top: 1px solid #ecf0f7;
+  border-top: 1px solid #ede3d3;
 }
 
 footer.footer #footer_widget {
   background-color: transparent;
-  border-bottom: 1px solid #ecf0f7;
+  border-bottom: 1px solid #ede3d3;
 }
 
 footer.footer #footer_widget ul {
@@ -42,31 +58,31 @@ footer.footer #footer_widget ul {
 }
 
 footer.footer #footer_widget ul li a:hover {
-  color: #67c1ec;
+  color: #49462c;
 }
 
 footer.footer #inner-footer {
-  color: #aaadaf;
+  color: #bab8b3;
 }
 
 footer.footer #inner-footer ul li a {
-  color: #aaadaf;
+  color: #bab8b3;
 }
 
 footer.footer #inner-footer ul li a:hover {
-  color: #67c1ec;
+  color: #8d5837;
 }
 
 footer.footer #inner-footer .copyright {
-  color: #aaadaf;
+  color: #bab8b3;
 }
 
 a, a:visited {
-  color: #67c1ec;
+  color: #8d5837;
 }
 
 a:hover, a:focus, a:visited:hover, a:visited:focus {
-  color: #3eb0e7;
+  color: #aba69a;
   text-decoration: none;
 }
 
@@ -79,7 +95,7 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  border: 1px solid #eaeaea;
+  border: 1px solid #ede3d3;
   -webkit-transition: all .3s;
   transition: all .3s;
 }
@@ -88,13 +104,13 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   line-height: 45px;
   font-size: 1em;
   padding: 0;
-  color: #67c1ec;
+  color: #8d5837;
 }
 
 .pagination a:hover, .pagination a:focus {
-  background-color: #67c1ec;
+  background-color: #8d5837;
   color: white;
-  border-color: #67c1ec;
+  border-color: #8d5837;
 }
 
 .pagination .current {
@@ -103,7 +119,7 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
   font-size: 1em;
   font-weight: normal;
   padding: 0;
-  color: #57595d;
+  color: #32302f;
   background: #eaeaea;
   display: block;
 }
@@ -173,13 +189,145 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
 
 /* end .bones_page_navi */
 span.category a:hover {
-  color: #67c1ec;
+  color: #8d5837;
 }
 
 span.tag a:hover {
-  color: #67c1ec;
+  color: #8d5837;
+}
+
+a#totop {
+  background: #8d5837;
 }
 
 button#searchsubmit:hover {
-  color: #67c1ec;
+  color: #49462c;
+}
+
+.byline {
+  color: #bab8b3;
+}
+
+table {
+  border: 1px solid #bab8b3;
+}
+
+table caption {
+  color: #bab8b3;
+}
+
+span.category {
+  color: #bab8b3;
+}
+
+span.category a {
+  color: #bab8b3;
+}
+
+span.category a:hover {
+  color: #8d5837;
+}
+
+span.tag {
+  color: #bab8b3;
+}
+
+span.tag a {
+  color: #bab8b3;
+}
+
+span.tag a:hover {
+  color: #8d5837;
+}
+
+footer.article-footer .day {
+  color: #bab8b3;
+}
+
+@media only screen and (min-width: 768px) {
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #fffefcf0;
+  }
+}
+
+article h2 {
+  border-bottom: none;
+  border-left: 5px solid;
+  padding: 5px 0 5px 20px;
+}
+
+header nav {
+  background: #32302f;
+}
+
+header nav ul.nav {
+  background: transparent;
+}
+
+.header .nav li a {
+  color: #fffefc;
+}
+
+.header .nav li a:before {
+  background: #fffefc;
+}
+
+header label#formenubar {
+  color: #49462c;
+}
+
+footer.footer {
+  background-color: #32302f;
+  border-top: none;
+  color: #fffefc;
+}
+
+footer.footer a {
+  color: #aba69a;
+}
+
+footer.footer a:hover {
+  color: #fffefc;
+}
+
+footer.footer #footer_widget {
+  border-bottom: none;
+}
+
+footer.footer #footer_widget ul li a {
+  color: #aba69a;
+}
+
+footer.footer #footer_widget ul li a:hover {
+  color: #fffefc;
+}
+
+a.more-link, a.read-more {
+  display: block;
+  background: #32302f;
+  color: #fffefc;
+}
+
+a.more-link:hover, a.read-more:hover {
+  background: #aba69a;
+  color: #fffefc;
+}
+
+@media only screen and (min-width: 768px) {
+  header nav {
+    background: transparent;
+  }
+  .header .nav li a {
+    color: inherit;
+  }
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #32302f;
+  }
+  ul.nav li ul.sub-menu li a, ul.nav li ul.children li a {
+    color: #fffefc;
+  }
+  ul.nav li ul.sub-menu li a:hover, ul.nav li ul.children li a:hover {
+    color: #fffefc;
+    opacity: 0.6;
+  }
 }

@@ -84,6 +84,13 @@ main#main {
 	  }
 }
 
+.news_list {
+  li a {
+    flex-direction: row;
+    font-size: 16px;
+  }
+}
+
 .wrap {
 	width: 760px;
 }
@@ -107,6 +114,7 @@ HEADER STYLES
   height: auto;
 
   .nav {
+		transition: none;
 
           li {
             a {
@@ -150,6 +158,7 @@ NAVIGATION STYLES
 
 header {
 	nav {
+		transition: none;
     visibility: visible;
     position: relative;
     overflow-y: visible;
@@ -166,8 +175,8 @@ header {
 			box-shadow: none;
 		  overflow-y: visible;
 			padding-top: 0;
+			background: transparent;
 		}
-
 	}
 
 	label#formenubar {
@@ -296,11 +305,13 @@ FOOTER STYLES
 
 .footer {
 	#footer_widget {
+		padding-top: 0;
 		.wrap {
 			flex-direction: row;
 		}
 	}
   #inner-footer {
+		height: 50px;
 		nav {
 			width: auto;
 		}

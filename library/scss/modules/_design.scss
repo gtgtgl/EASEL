@@ -130,6 +130,7 @@ header.article-header.entry-header {
   span.day {
     font-size: 40px;
     display: block;
+    line-height: 1;
   }
 }
 
@@ -265,7 +266,9 @@ a.illust {
 
   li a {
     display: flex;
+    flex-direction: column;
     margin-bottom: 5px;
+    font-size: 14px;
 
     span.news_date {
     margin-right: 10px;

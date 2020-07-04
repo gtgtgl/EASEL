@@ -1,214 +1,91 @@
-$style-color:       #3e3e3e;
-$border-color:      #ecf0f7;
-$footer-color:      #aaadaf;
-$text-color:        #57595d;
+$style-color:       #49462c;
+$border-color:      #ede3d3;
+$footer-color:      #bab8b3;
+$text-color:        #32302f;
+$bg-color:  				#fffefc;
+$gray:              #bab8b3;
+$meta-gray:         #bab8b3;
 
-$link-color:        $style-color;
-$link-hover:        darken($link-color, 9%);
+$link-color:        #8d5837;
+$link-hover:        #aba69a;
 
-// ヘッダー
-#logo {
-	a {
-		&:hover {
-			color: $link-color;
-		}
+@import "changebasecolor";
+
+article h2 {
+    border-bottom: none;
+    border-left: 5px solid;
+    padding: 5px 0 5px 20px;
+}
+
+// ナビ
+header nav {
+	background: $text-color;
+	ul.nav {
+		background: transparent;
 	}
 }
-.header {
-	.nav li {
-		a {
-			&:before {
-		    background: $link-color;
-			}
-			&:hover {
-				color: $link-color;
-			}
-		}
+.header .nav li a {
+	color: $bg-color;
+	&:before {
+		background: $bg-color;
 	}
 }
-
-.nav {
-	li {
-		a {
-			color: $style-color;
-		}
-	} /* end .menu li */
-} /* end .nav */
-
-.post-date {
-    color: $style-color;
+header label#formenubar {
+	color: $style-color;
 }
-
-// 更新情報の表示
-.update {
-  .wrap {
-    .byline.vcard {
-    color: $style-color;
-    }
-  }
-}
-
 // フッター
 footer.footer {
-	background-color: transparent;
-	border-top: 1px solid $border-color;
-
-  #footer_widget {
-		background-color: transparent;
-		border-bottom: 1px solid $border-color;
-
-    ul {
-      margin-right: 20px;
-      li a {
-        &:hover {
-          color: $style-color;
-        }
-      }
-    }
-  }
-
-	#inner-footer {
-		color: $footer-color;
-
-		ul li a {
-			color: $footer-color;
+    background-color: $text-color;
+    border-top: none;
+		color: $bg-color;
+		a {
+      color: $link-hover;
 			&:hover {
-				color: $link-color;
+        color: $bg-color;
 			}
 		}
 
-		.copyright {
-			color: $footer-color;
+		#footer_widget {
+			border-bottom: none;
+
+			ul li a {
+        color: $link-hover;
+				&:hover {
+          color: $bg-color;
+				}
+			}
 		}
-	}
 }
 
-a, a:visited {
-	color: $link-color;
-
-	&:hover, &:focus {
-		color: $link-hover;
-		text-decoration: none;
-	}
-}
-
-
-.pagination{
-
-  li {
-    padding: 0;
-    margin: 0 5px 0 0;
-    float: left;
-    display: inline;
-    overflow: hidden;
-    width: 45px;
-    height: 45px;
-		border-radius: 50%;
-    border: 1px solid #eaeaea;
-		transition: all .3s;
-  }
-
-  a {
-    line-height: 45px;
-    font-size: 1em;
-    padding: 0;
-    color: $link-color;
-
-    &:hover, &:focus {
-    	background-color: $link-color;
-    	color: white;
-			border-color: $link-color;
-    }
-  }
-
-  .current{
-  	cursor: default;
-    line-height: 45px;
-    font-size: 1em;
-    font-weight: normal;
-    padding: 0;
-  	color: $text-color;
-	  background: #eaeaea;
+// リンクボタン
+a.more-link, a.read-more {
     display: block;
-  }
-
-	&.single {
-		display: flex;
-		justify-content: space-between;
-
-		a[rel=prev], a[rel=next] {
-			position: relative;
-		  color: #aeb0b3;
-			border: 1px solid;
-
-			&:before {
-		    display: block;
-		    width: 5px;
-		    height: 5px;
-		    content: '';
-		    position: absolute;
-		    top: 0;
-		    bottom: 0;
-		    margin: auto 0;
-				transition: .3s;
-			}
-
-			&:hover, &:focus {
-				background: transparent;
-			}
+    background: $text-color;
+		color: $bg-color;
+		&:hover {
+			background: $link-hover;
+			color: $bg-color;
 		}
+}
+// 768px以上
+@media only screen and (min-width: 768px) {
 
-		a[rel=next] {
-			padding: 15px 15px 15px 30px;
-
-			&:before {
-		    border-left: 1px solid;
-		    border-bottom: 1px solid;
-		    transform: rotate(45deg);
-		    left: 1em;
-			}
-
-			&:hover:before {
-				left: 0.7em;
-			}
-		}
-		a[rel=prev] {
-			padding: 15px 30px 15px 15px;
-		  margin: 0 0 0 auto;
-
-			&:before {
-		    border-right: 1px solid;
-		    border-bottom: 1px solid;
-		    transform: rotate(-45deg);
-		    right: 1em;
-			}
-
-			&:hover:before {
-				right: 0.7em;
-			}
-		}
+	header nav {
+		background: transparent;
+	}
+	.header .nav li a {
+		color: inherit;
 	}
 
-} /* end .bones_page_navi */
-
-span.category {
-    a {
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: $text-color;
+		li a {
+			color: $bg-color;
 			&:hover {
-				color: $link-color;
+				color: $bg-color;
+				opacity: 0.6;
 			}
-    }
-}
+		}
+  }
 
-span.tag {
-    a {
-        &:hover {
-          color: $link-color;
-        }
-    }
-}
-
-button#searchsubmit {
-    &:hover {
-      color: $style-color;
-    }
 }

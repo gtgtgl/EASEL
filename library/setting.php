@@ -52,8 +52,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
           ピンク＆ホワイト</label><br>
           <label><input type="radio" name="easel_base_color" value="orange_white" <?php checked(get_option('easel_base_color') , 'orange_white'); ?>>
           オレンジ＆ホワイト</label><br>
-          <!-- <label><input type="radio" name="easel_base_color" value="piano" <?php checked(get_option('easel_base_color') , 'piano'); ?>>
-          ピアノ</label><br> -->
+          <label><input type="radio" name="easel_base_color" value="piano" <?php checked(get_option('easel_base_color') , 'piano'); ?>>
+          イボニー＆アイボリー</label><br>
         </td>
     </tr>
     <tr valign="top">

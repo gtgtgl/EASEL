@@ -147,9 +147,11 @@ HEADER STYLES
   z-index: 10000;
 
 	a.logo img {
+    display: block;
     max-width: 200px;
-    max-height: 70px;
+    max-height: 60px;
     object-fit: contain;
+    margin: 5px auto 5px 0;
 	}
 	.site-desc {
 	    margin: 10px auto 20px;
@@ -969,6 +971,7 @@ FOOTER STYLES
 	background-color: $black;
 
 	#footer_widget {
+    padding-top: 20px;
 		background: $gray;
 		.wrap {
 			flex-direction: column;
@@ -984,7 +987,6 @@ FOOTER STYLES
 	#inner-footer {
 		color: $light-gray;
 		flex-direction: column;
-    height: 50px;
     flex-direction: row;
 
 		nav {

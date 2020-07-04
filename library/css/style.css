@@ -1022,6 +1022,7 @@ header.article-header.entry-header h1 {
 .post-date span.day {
   font-size: 40px;
   display: block;
+  line-height: 1;
 }
 
 time {
@@ -1173,7 +1174,11 @@ a.illust article figure.eye-catch {
 .news_list li a {
   display: -webkit-box;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   margin-bottom: 5px;
+  font-size: 14px;
 }
 
 .news_list li a span.news_date {
@@ -1586,10 +1591,12 @@ HEADER STYLES
 }
 
 .header a.logo img {
+  display: block;
   max-width: 200px;
-  max-height: 70px;
+  max-height: 60px;
   -o-object-fit: contain;
      object-fit: contain;
+  margin: 5px auto 5px 0;
 }
 
 .header .site-desc {
@@ -2295,6 +2302,7 @@ FOOTER STYLES
 }
 
 .footer #footer_widget {
+  padding-top: 20px;
   background: #ecf0f7;
 }
 
@@ -2317,7 +2325,6 @@ FOOTER STYLES
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
-  height: 50px;
   flex-direction: row;
 }
 
@@ -2461,6 +2468,12 @@ you can add resource intensive styles.
     display: -webkit-box;
     display: flex;
   }
+  .news_list li a {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    font-size: 16px;
+  }
   .wrap {
     width: 760px;
   }
@@ -2482,6 +2495,10 @@ HEADER STYLES
     top: auto;
     text-align: center;
     height: auto;
+  }
+  .header .nav {
+    -webkit-transition: none;
+    transition: none;
   }
   .header .nav li a {
     margin-left: 0;
@@ -2514,6 +2531,8 @@ HEADER STYLES
 NAVIGATION STYLES
 *********************/
   header nav {
+    -webkit-transition: none;
+    transition: none;
     visibility: visible;
     position: relative;
     overflow-y: visible;
@@ -2531,6 +2550,7 @@ NAVIGATION STYLES
     box-shadow: none;
     overflow-y: visible;
     padding-top: 0;
+    background: transparent;
   }
   header label#formenubar {
     display: none;
@@ -2632,12 +2652,16 @@ SIDEBARS & ASIDES
   /*********************
 FOOTER STYLES
 *********************/
+  .footer #footer_widget {
+    padding-top: 0;
+  }
   .footer #footer_widget .wrap {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
   }
   .footer #inner-footer {
+    height: 50px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
