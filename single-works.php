@@ -1,3 +1,18 @@
+<?php
+$terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
+if (is_array($terms)) {
+	foreach ($terms as $term) {
+		// code...
+		$term_id = $term->term_id;
+		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
+		$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
+		$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
+		$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+		$slug = $parent_term->slug; // タームスラッグを取得
+	}
+}
+ ?>
+
 <?php get_header(); ?>
 
 			<div id="content">
@@ -13,18 +28,6 @@
 							<header class="article-header entry-header">
 
 								<?php
-								$terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
-								if (is_array($terms)) {
-									foreach ($terms as $term) {
-										// code...
-										$term_id = $term->term_id;
-										$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
-										$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
-										$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
-										$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
-										$slug = $parent_term->slug; // タームスラッグを取得
-									}
-								}
 								if ( has_term( 'update', 'custom_cat') || $slug == 'update' ) { ?>
 								<div class="post-date">
 									<span class="day"><?php the_date('d'); ?></span>

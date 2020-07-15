@@ -70,15 +70,23 @@ if ( !defined( 'ABSPATH' ) ) exit;
     <tr valign="top">
         <th scope="row"><label for="easel_footer_text">サイト最下部コピーライト</label>
         </th>
-        <td><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo get_option('easel_footer_text'); ?>" class="regular-text" placeholder="copyright (c) サイト名等"><br>
+        <td><label><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo get_option('easel_footer_text'); ?>" class="regular-text" placeholder="copyright (c) サイト名等"></label><br>
         サイト最下部に表示されるコピーライトテキストを変更できます。</td>
     </tr>
     <tr valign="top">
         <th scope="row"><label for="easel_pass_blur">パス付きイラストのサムネイルをぼかす</label>
         </th>
         <td>
-          <input name="easel_pass_blur" type="checkbox" id="easel_pass_blur" value="1" <?php checked( 1, get_option('easel_pass_blur')); ?> /> 行う</label><br>
+          <label><input name="easel_pass_blur" type="checkbox" id="easel_pass_blur" value="1" <?php checked( 1, get_option('easel_pass_blur')); ?> /> 行う</label><br>
           チェックを入れると、パスワード付きのイラスト作品のサムネイルを自動でぼかします。
+        </td>
+    </tr>
+    <tr valign="top">
+        <th scope="row"><label for="easel_make_indent">作品タイプ「文章」の全文で字下げを行う</label>
+        </th>
+        <td>
+          <label><input name="easel_make_indent" type="checkbox" id="easel_make_indent" value="1" <?php checked( 1, get_option('easel_make_indent')); ?> /> 行う</label><br>
+          チェックを入れると、作品タイプ「文章」およびその子タイプの作品の全文で字下げが自動で行われます。
         </td>
     </tr>
     <tr valign="top">

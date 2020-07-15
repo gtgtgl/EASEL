@@ -36,7 +36,7 @@ function register_easel_menu_page() {
 add_action( 'admin_init', 'register_easel_settings' );
 
 function register_easel_settings() {
-  $my_options = ['title_image_url', 'set_terms', 'base_color', 'totop', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
+  $my_options = ['title_image_url', 'set_terms', 'base_color', 'totop', 'make_indent', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
   foreach($my_options as $my_option){
     register_setting( 'easel_settings', 'easel_'.$my_option );
   }
@@ -686,5 +686,31 @@ function easel_change_color() {
   }
 }
 add_action( 'wp_enqueue_scripts', 'easel_change_color', 9 );
+
+// post_class関数のオーバーロード
+function easel_make_indent( $classes ) {
+	global $post;
+  $terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
+  if (is_array($terms)) {
+  	foreach ($terms as $term) {
+  		$term_id = $term->term_id;
+  		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
+  		$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
+  		$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
+  		$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+  		$slug = $parent_term->slug; // タームスラッグを取得
+  	}
+  }
+  global $my_options;
+  if ( get_option('easel_make_indent') === '1' ) {
+    if (has_term( 'text', 'custom_cat') || $slug == 'text') {
+      $classes[] = 'make_indent';
+    }
+    return $classes;
+  } else {
+    return $classes;
+  }
+}
+add_filter( 'post_class', 'easel_make_indent' );
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

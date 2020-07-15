@@ -72,3 +72,15 @@
     margin-bottom: 4px;
   }
 }
+
+.footer {
+  #inner-footer {
+    flex-direction: row;
+		nav {
+			width: auto;
+		}
+		.copyright {
+			width: auto;
+		}
+  }
+}

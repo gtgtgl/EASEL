@@ -1117,6 +1117,10 @@ a.illust article figure.eye-catch {
   margin: 20px auto;
 }
 
+.make_indent .entry-content p {
+  text-indent: 1em;
+}
+
 .update.hentry {
   margin: 0;
   padding: 0;
@@ -2322,10 +2326,9 @@ FOOTER STYLES
 
 .footer #inner-footer {
   color: #f8f9fa;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-          flex-direction: column;
-  flex-direction: row;
+          flex-direction: row;
 }
 
 .footer #inner-footer nav {
@@ -2649,9 +2652,6 @@ SIDEBARS & ASIDES
     margin-top: 0.75em;
     padding-left: 1em;
   }
-  /*********************
-FOOTER STYLES
-*********************/
   .footer #footer_widget {
     padding-top: 0;
   }
@@ -2662,15 +2662,9 @@ FOOTER STYLES
   }
   .footer #inner-footer {
     height: 50px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-            flex-direction: row;
-  }
-  .footer #inner-footer nav {
-    width: auto;
   }
   .footer #inner-footer .copyright {
-    width: auto;
+    text-align: center;
   }
   a.illust {
     -webkit-box-flex: 0;
@@ -2781,6 +2775,17 @@ you can add resource intensive styles.
   .shortcode-illust li {
     position: relative;
     margin-bottom: 4px;
+  }
+  .footer #inner-footer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+  }
+  .footer #inner-footer nav {
+    width: auto;
+  }
+  .footer #inner-footer .copyright {
+    width: auto;
   }
 }
 

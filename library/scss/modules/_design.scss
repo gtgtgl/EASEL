@@ -216,6 +216,10 @@ a.illust {
     }
 }
 
+.make_indent .entry-content p {
+    text-indent: 1em;
+}
+
 // 更新情報の表示
 .update {
   &.hentry {

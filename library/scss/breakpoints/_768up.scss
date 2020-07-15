@@ -298,10 +298,7 @@ SIDEBARS & ASIDES
 		}
 	}
 
-
-/*********************
-FOOTER STYLES
-*********************/
+// フッター
 
 .footer {
 	#footer_widget {
@@ -312,13 +309,9 @@ FOOTER STYLES
 	}
   #inner-footer {
 		height: 50px;
-		nav {
-			width: auto;
-		}
 		.copyright {
-			width: auto;
+			text-align: center;
 		}
-    flex-direction: row;
   }
 }
 

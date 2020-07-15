@@ -58,9 +58,9 @@
 									printf(__('<time class="updated" datetime="%1$s" itemprop="datePublished">%2$s</time>', 'bonestheme'), get_the_time('Y-m-j'), get_the_time(__('Y-m-d', 'bonestheme')));
 								?></p>
 
-								<div class="excerpt">
-								<?php the_excerpt(); ?>
-							</div>
+								<?php	if ( has_excerpt() ) :?>
+								<div class="excerpt"><?php the_excerpt(); ?></div>
+								<?php endif; ?>
 
 								</section>
 

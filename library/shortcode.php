@@ -199,9 +199,11 @@ function easel_upload_tabs( $tabs )
 	return $tabs;
 }
 add_action( 'media_upload_easel_type',  'easel_wp_iframe' );
+
 function easel_wp_iframe() {
 		wp_iframe( 'media_easel_make_shortcode_window' );
 }
+
 function media_easel_make_shortcode_window() {
 	add_filter( "media_upload_tabs", "easel_upload_tabs"  ,1000);
 	media_upload_header();
