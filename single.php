@@ -56,13 +56,7 @@
 		<?php
 			// the content (pretty self explanatory huh)
 			the_content('続きを読む');
-
-			wp_link_pages( array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'bonestheme' ) . '</span>',
-				'after'       => '</div>',
-				'link_before' => '<span>',
-				'link_after'  => '</span>',
-			) );
+			include( 'library/parts/pagination.php' );
 		?>
 	</section> <?php // end article section ?>
 

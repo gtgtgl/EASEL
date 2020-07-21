@@ -20,7 +20,7 @@ function make_list_excerpt() {
 add_filter('the_excerpt','make_list_excerpt' );
 
 /* 更新履歴リスト */
-function getNewItems($atts) {
+function easel_create_list($atts) {
     extract(shortcode_atts(array(
         "count" => '5', //最新記事リストの取得数
         "work_type" => 'update', //表示する記事のカテゴリー指定
@@ -46,7 +46,7 @@ function getNewItems($atts) {
     wp_reset_postdata();
     return $retHtml;
 }
-add_shortcode("new_list", "getNewItems");
+add_shortcode("new_list", "easel_create_list");
 
 /* イラストリスト */
 // 参考　https://github.com/yhira/cocoon/blob/master/tmp/eye-catch.php
@@ -71,7 +71,7 @@ function get_new_illusts_thum() {
     return get_the_image();
   }
 }
-function getNewItems2($atts) {
+function easel_create_list2($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
       "work_type" => 'illust', //表示する記事のカテゴリー指定
@@ -104,10 +104,10 @@ function getNewItems2($atts) {
   wp_reset_postdata();
   return $retHtml;
 }
-add_shortcode("new_illust", "getNewItems2");
+add_shortcode("new_illust", "easel_create_list2");
 
 /* 小説リスト */
-function getNewItems3($atts) {
+function easel_create_list3($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
       "work_type" => 'text', //表示する記事のカテゴリー指定
@@ -139,7 +139,7 @@ function getNewItems3($atts) {
   wp_reset_postdata();
   return $retHtml;
 }
-add_shortcode("new_text", "getNewItems3");
+add_shortcode("new_text", "easel_create_list3");
 
 //テキストエディタにクイックタグボタン追加
 if ( !function_exists( 'add_quicktags_to_text_editor' ) ):
@@ -147,6 +147,7 @@ function add_quicktags_to_text_editor() {
   //スクリプトキューにquicktagsが保存されているかチェック
   if (wp_script_is('quicktags')){?>
     <script>
+      QTags.addButton('pagenation','改ページ','<!--nextpage-->');
       QTags.addButton('new_list','更新履歴一覧','[new_list]');
       QTags.addButton('new_illust','イラスト一覧','[new_illust]');
     </script>
@@ -156,9 +157,22 @@ function add_quicktags_to_text_editor() {
 endif;
 add_action( 'admin_print_footer_scripts', 'add_quicktags_to_text_editor' );
 
-//テーマテンプレートのfunctions.phpに追記
-//ビジュアルテキストエディタにクイックタグを追加する
+//TinyMCEに次ページボタン追加
+add_filter( 'mce_buttons', 'easel_add_next_page_button', 1, 2 );
+if ( !function_exists( 'easel_add_next_page_button' ) ):
+function easel_add_next_page_button( $buttons, $id ){
+  //コンテントエディターのみに挿入
+  if ( 'content' != $id )
+      return $buttons;
 
+  //moreタグボタンの後に挿入
+  array_splice( $buttons, 13, 0, 'wp_page' );
+
+  return $buttons;
+}
+endif;
+
+//ビジュアルテキストエディタにクイックタグを追加する
 function easel_add_mce_button() {
 	// ユーザー権限を確認
 	if ( !current_user_can( 'edit_posts' ) && !current_user_can( 'edit_pages' ) ) {

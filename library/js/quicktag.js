@@ -2,8 +2,8 @@
 (function() {
 	// ビジュアルエディタにプルダウンメニューの追加
 	// 参考　https://demeniguis.com/2018/09/10/%E3%83%93%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%81%AB%E7%8B%AC%E8%87%AA%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%BF%E3%82%B0%E3%82%92%E8%BF%BD%E5%8A%A0/
-	tinymce.PluginManager.add('my_mce_button', function( editor, url ) {
-		editor.addButton( 'my_mce_button', {
+	tinymce.PluginManager.add('easel_mce_button', function( editor, url ) {
+		editor.addButton( 'easel_mce_button', {
 			text: 'EASELタグ',
 			icon: false,
 			type: 'menubutton',

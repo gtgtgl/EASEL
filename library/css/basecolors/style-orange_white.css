@@ -244,6 +244,11 @@ footer.article-footer .day {
   color: #cbcfd8;
 }
 
+.page-links .post-page-numbers:hover {
+  background: #ffb54a;
+  border-color: #ffb54a;
+}
+
 @media only screen and (min-width: 768px) {
   ul.nav li ul.sub-menu, ul.nav li ul.children {
     background: #fffffff0;

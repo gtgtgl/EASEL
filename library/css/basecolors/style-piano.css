@@ -244,6 +244,11 @@ footer.article-footer .day {
   color: #bab8b3;
 }
 
+.page-links .post-page-numbers:hover {
+  background: #8d5837;
+  border-color: #8d5837;
+}
+
 @media only screen and (min-width: 768px) {
   ul.nav li ul.sub-menu, ul.nav li ul.children {
     background: #fffefcf0;
@@ -311,6 +316,52 @@ a.more-link, a.read-more {
 a.more-link:hover, a.read-more:hover {
   background: #aba69a;
   color: #fffefc;
+}
+
+.shortcode-text div .tag a {
+  color: #bab8b3;
+  background: #f7f2ef;
+}
+
+span.category {
+  color: #bab8b3;
+}
+
+span.category a {
+  color: #bab8b3;
+}
+
+span.category a:hover {
+  color: #8d5837;
+}
+
+span.tag {
+  color: #bab8b3;
+}
+
+span.tag a {
+  color: #bab8b3;
+  background: #f7f2ef;
+}
+
+span.tag a:hover {
+  color: #8d5837;
+}
+
+.page-links-next .post-page-numbers {
+  color: #fffefc;
+  background: #49462c;
+  border-radius: 50%;
+}
+
+.page-links-next .post-page-numbers:hover {
+  color: #fffefc;
+  background: #bab8b3;
+}
+
+.page-links .post-page-numbers:hover {
+  background: #49462c;
+  border-color: #49462c;
 }
 
 @media only screen and (min-width: 768px) {

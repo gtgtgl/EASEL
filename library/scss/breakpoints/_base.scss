@@ -29,7 +29,7 @@ a, a:visited {
 	text-decoration: none;
 
 	/* on hover */
-	&:hover, &:focus {
+	&:hover {
 		color: $link-hover;
 		text-decoration: none;
 	}
@@ -539,7 +539,6 @@ PAGE NAVI STYLES
 
     ul {
       display: inline-block;
-      background-color: $white;
       white-space: nowrap;
       padding: 0;
       clear: both;
@@ -955,6 +954,7 @@ SIDEBARS & ASIDES
 	table#wp-calendar {
     margin: auto;
     text-align: center;
+		border: none;
 		th, td {
 	    padding: 2px 4px;
 	    font-size: 14px;
@@ -993,6 +993,58 @@ FOOTER STYLES
 		}
 		.copyright {
 			width: 100%;
+		}
+	}
+}
+
+.page-links {
+	display: flex;
+	justify-content: center;
+  margin: 20px auto 40px;
+	.post-page-numbers {
+		$size : 30px;
+		display: block;
+		width: $size;
+		height: $size;
+		line-height: $size;
+		text-align: center;
+		margin-right: 3px;
+		color: $black;
+		border: 1px solid;
+		&:hover {
+			background: $black;
+			color: white;
+			border-color: $black;
+		}
+		&.current {
+			color: $meta-gray;
+			&:hover {
+			border-color: inherit;
+			background: inherit;
+			}
+		}
+	}
+}
+
+.page-links-next {
+    display: flex;
+    justify-content: space-evenly;
+    width: 160px;
+    margin: 40px auto 20px;
+	.post-page-numbers {
+		display: block;
+		text-align: center;
+		$size : 50px;
+		width: $size;
+		height: $size;
+		line-height: $size;
+		font-size: 20px;
+		color: $black;
+		background: $gray;
+		border-radius: 50%;
+		&:hover {
+			color: $black;
+			background: $light-gray;
 		}
 	}
 }

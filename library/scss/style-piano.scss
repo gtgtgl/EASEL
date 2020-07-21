@@ -5,6 +5,7 @@ $text-color:        #32302f;
 $bg-color:  				#fffefc;
 $gray:              #bab8b3;
 $meta-gray:         #bab8b3;
+$light-gray:        #f7f2ef;
 
 $link-color:        #8d5837;
 $link-hover:        #aba69a;
@@ -67,6 +68,58 @@ a.more-link, a.read-more {
 			color: $bg-color;
 		}
 }
+
+.shortcode-text div {
+
+  .tag a {
+  color: $meta-gray;
+  background: $light-gray;
+  }
+}
+
+span.category {
+    color: $meta-gray;
+    a {
+    color: $meta-gray;
+
+    &:hover {
+      color: $link-color;
+    }
+    }
+}
+
+span.tag {
+    color: $meta-gray;
+    a {
+    color: $meta-gray;
+    background: $light-gray;
+        &:hover {
+          color: $link-color;
+        }
+    }
+}
+
+.page-links-next {
+	.post-page-numbers {
+		color: $bg-color;
+    background: $style-color;
+		border-radius: 50%;
+		&:hover {
+			color: $bg-color;
+      background: $meta-gray;
+		}
+	}
+}
+
+.page-links {
+	.post-page-numbers {
+		&:hover {
+      background: $style-color;
+      border-color: $style-color;
+		}
+	}
+}
+
 // 768px以上
 @media only screen and (min-width: 768px) {
 

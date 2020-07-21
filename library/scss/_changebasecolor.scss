@@ -264,6 +264,13 @@ footer.article-footer {
     }
 }
 
+.page-links {
+  .post-page-numbers:hover {
+    background: $link-color;
+    border-color: $link-color;
+  }
+}
+
 // 768px以上
 @media only screen and (min-width: 768px) {
   ul.nav li ul.sub-menu, ul.nav li ul.children {
