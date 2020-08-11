@@ -36,7 +36,21 @@ function register_easel_menu_page() {
 add_action( 'admin_init', 'register_easel_settings' );
 
 function register_easel_settings() {
-  $my_options = ['title_image_url', 'set_terms', 'base_color', 'totop', 'make_indent', 'footer_text', 'pass_blur', 'twitter', 'pixiv'];
+  $my_options = [
+    'title_image_url', // タイトル画像
+    'ogp_image', // OGP画像の初期設定
+    'ogp_description', // OGP概要の初期設定
+    'ogp_twitter_card', // twitterカードの設定
+    'set_terms', // 作品タイプの初期設定を行うか
+    'base_color', // ベースカラーを変更するか
+    'totop', // トップへ戻るボタンを設定するか
+    'make_indent', // 作品タイプ「文章」でインデントをつけるか
+    'rewrite_permalink', // 作品投稿のパーマリンクをリライトするか
+    'footer_text', // フッターテキストの文言変更
+    'pass_blur', // パス付きイラストのサムネイルをぼかすか
+    'twitter',  // Twitterアカウント名
+    'pixiv' // Pixivアカウント名
+  ];
   foreach($my_options as $my_option){
     register_setting( 'easel_settings', 'easel_'.$my_option );
   }
@@ -67,16 +81,86 @@ function setup_easel_terms() {
     }
 }
 
+// 設定ページでタブを使えるようにする
+function custom_theme_add_scripts($loader_src) {
+  if (is_admin()) {
+    wp_enqueue_script('jquery-ui-tabs', array('jquery-ui-core'));
+  }
+}
+add_action('wp_print_scripts', 'custom_theme_add_scripts');
+
 // EASEL設定ページの中身を読み込み
 function easel_settings_page() {
   include 'library/setting.php';
 }
+
+// EASEL設定ページ独自のCSSを読み込む
+function my_admin_style(){
+    wp_enqueue_style( 'my_admin_style', get_template_directory_uri().'/library/css/admin.css' );
+}
+add_action( 'admin_enqueue_scripts', 'my_admin_style' );
+
+// ページのタイトル表示
+add_theme_support( 'title-tag' );
 
 // 作品タイプの初期設定を行う
 $check_setup_easel_terms = get_option('easel_set_terms');
 if ( $check_setup_easel_terms == 1 ) {
   add_action('admin_init', 'setup_easel_terms');
   update_option('easel_set_terms', '0');
+}
+
+// パーマリンク設定で作品タイプのスラッグを使えるようにする
+// http://elsur.xyz/custompost-rewrite-permalink
+// https://blog.entersquare.jp/web-develop/712/
+// http://www.560designs.com/memo/861.html
+
+if( get_option('easel_rewrite_permalink') == 'changed' ) {
+  add_filter('post_type_link', 'easel_permalink_rewrite', 1, 2);
+
+  function easel_permalink_rewrite($link, $post){
+    if($post->post_type === 'works'){
+      $terms = get_the_terms($post->ID,'custom_cat');
+      if($terms === false) {
+        return  home_url('/works/' .$post->ID);
+      } else {
+        $ancestors = get_ancestors($terms[0]->term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
+        $ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
+        $ancestor_slugs = array();
+        foreach ($ancestors as $ancestor) {
+          $ancestor = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+          $ancestor_slug = $ancestor->slug; // タームスラッグを取得
+          array_push( $ancestor_slugs , $ancestor_slug );
+        }
+        $slug = $terms[0]->slug;
+        array_push( $ancestor_slugs , $slug );
+        $url = implode( '/' , $ancestor_slugs );
+        return home_url('/works/' . $url . '/' .$post->ID);
+        return home_url('/works/' . $terms[0]->slug . '/' .$post->ID);
+      }
+    } else {
+      return $link;
+    }
+  }
+
+  // リダイレクト
+  add_filter( 'rewrite_rules_array', 'easel_rewrite_rules_array' );
+  function easel_rewrite_rules_array( $rules ) {
+  	$new_rules = array(
+
+          //個別記事ページ送り
+          'works/(.+?)/([0-9]+)(?:/([0-9]+))?/?$' => 'index.php?post_type=works&p=$matches[2]&page=$matches[3]',
+
+          //アーカイブ
+          'works/([^/]+)(?:/([0-9]+))?/?$' => 'index.php?custom_cat=$matches[1]&paged=$matches[2]',
+
+          //アーカイブページ送り
+          'works/page/([0-9]{1,})/?$' => 'index.php?post_type=works&paged=$matches[1]',
+          // なせか効かないので要研究。
+
+  	);
+  	return $new_rules + $rules;
+  }
 }
 
 // カスタム投稿画面にターム別ソート機能を追加
@@ -203,6 +287,72 @@ function easel_admin_scripts() {
   wp_enqueue_media();
 }
 add_action( 'admin_print_scripts', 'easel_admin_scripts' );
+
+
+// OGP設定
+function easel_setting_ogp() {
+
+  if (is_front_page() || is_home() || is_singular()) {
+    $ogp_image = get_option('easel_ogp_image');
+    // Twitterカードの種類（summary_large_image または summary を指定）
+    $twitter_card = get_option('easel_ogp_twitter_card');
+    // Facebook APP ID
+    $facebook_app_id = '';
+
+    global $post;
+    $ogp_title = '';
+    $ogp_description = get_bloginfo('description');
+    $ogp_url = '';
+    $html = '';
+    if (is_singular()) {
+      // 記事＆固定ページ
+      setup_postdata($post);
+      $ogp_title = $post->post_title;
+      $ogp_description = mb_substr(get_the_excerpt(), 0, 100);
+      $ogp_url = get_permalink();
+      wp_reset_postdata();
+    } elseif (is_front_page() || is_home()) {
+      // トップページ
+      $ogp_title = get_bloginfo('name');
+      $ogp_url = home_url();
+      if (get_option('easel_ogp_description') != '') {
+        $ogp_description = get_option('easel_ogp_description');
+      }
+    }
+
+    // og:type
+    $ogp_type = (is_front_page() || is_home()) ? 'website' : 'article';
+
+    // og:image
+    if (is_singular() && has_post_thumbnail()) {
+      $ps_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+      $ogp_image = $ps_thumb[0];
+    }
+
+    // 出力するOGPタグをまとめる
+    $html = "\n";
+    $html .= '<meta property="og:title" content="' . esc_attr($ogp_title) . '">' . "\n";
+    $html .= '<meta property="og:description" content="' . esc_attr($ogp_description) . '">' . "\n";
+    $html .= '<meta property="og:type" content="' . $ogp_type . '">' . "\n";
+    $html .= '<meta property="og:url" content="' . esc_url($ogp_url) . '">' . "\n";
+    $html .= '<meta property="og:image" content="' . esc_url($ogp_image) . '">' . "\n";
+    $html .= '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+    $html .= '<meta name="twitter:card" content="' . $twitter_card . '">' . "\n";
+    $html .= '<meta property="twitter:title" content="' . esc_attr($ogp_title) . '">' . "\n";
+    $html .= '<meta property="twitter:url" content="' . esc_url($ogp_url) . '">' . "\n";
+    $html .= '<meta property="twitter:description" content="' . esc_attr($ogp_description) . '">' . "\n";
+    $html .= '<meta name="twitter:image" content="' . esc_url($ogp_image) . '">' . "\n";
+    $html .= '<meta property="og:locale" content="ja_JP">' . "\n";
+
+    if ($facebook_app_id != "") {
+      $html .= '<meta property="fb:app_id" content="' . $facebook_app_id . '">' . "\n";
+    }
+
+    echo $html;
+  }
+}
+// headタグ内にOGPを出力する
+add_action('wp_head', 'easel_setting_ogp');
 
 // 抜粋をリッチエディタに変更
 add_action( 'add_meta_boxes', array ( 'VisualEditorExcerptDemo', 'switch_boxes' ) );

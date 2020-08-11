@@ -64,7 +64,7 @@
 										printf( '<span class="tag"><i class="fas fa-tag"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_tag_list('', ',','') );
 									}
 									?>
-										
+
 								</footer>
 
 							</article>

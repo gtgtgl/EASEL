@@ -1955,6 +1955,7 @@ PAGE NAVI STYLES
 
 .pagination {
   text-align: center;
+  width: 100%;
 }
 
 .pagination ul {
