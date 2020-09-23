@@ -1,0 +1,279 @@
+// 全体
+body, .header, header nav {
+  background-color: $bg-color;
+}
+
+// ヘッダー
+#logo {
+	a {
+    color: $link-color;
+		&:hover {
+			color: $link-hover;
+		}
+	}
+}
+.header {
+	.nav li {
+		a {
+			&:before {
+		    background: $link-color;
+			}
+  		&:hover {
+  			color: $link-hover;
+  		}
+		}
+	}
+}
+
+.nav {
+	li {
+		a {
+			color: $style-color;
+  		&:hover {
+  			color: $link-hover;
+  		}
+		}
+	} /* end .menu li */
+} /* end .nav */
+
+.post-date {
+    color: $style-color;
+}
+
+// 更新情報の表示
+.update {
+  .wrap {
+    .byline.vcard {
+    color: $style-color;
+    }
+  }
+}
+.news_list {
+  border-color: $border-color;
+}
+// フッター
+footer.footer {
+	background-color: transparent;
+	border-top: 1px solid #{$border-color};
+
+  #footer_widget {
+		background-color: transparent;
+		border-bottom: 1px solid #{$border-color};
+
+    ul {
+      margin-right: 20px;
+      li a {
+        &:hover {
+          color: $style-color;
+        }
+      }
+    }
+  }
+
+	#inner-footer {
+		color: $footer-color;
+
+		ul li a {
+			color: $footer-color;
+			&:hover {
+				color: $link-color;
+			}
+		}
+
+		.copyright {
+			color: $footer-color;
+		}
+	}
+}
+
+a, a:visited {
+	color: $link-color;
+
+	&:hover, &:focus {
+		color: $link-hover;
+		text-decoration: none;
+	}
+}
+
+
+.pagination{
+
+  li {
+    padding: 0;
+    margin: 0 5px 0 0;
+    float: left;
+    display: inline;
+    overflow: hidden;
+    width: 45px;
+    height: 45px;
+		border-radius: 50%;
+    border: 1px solid #{$border-color};
+		transition: all .3s;
+  }
+
+  a {
+    line-height: 45px;
+    font-size: 1em;
+    padding: 0;
+    color: $link-color;
+
+    &:hover, &:focus {
+    	background-color: $link-color;
+    	color: white;
+			border-color: $link-color;
+    }
+  }
+
+  .current{
+  	cursor: default;
+    line-height: 45px;
+    font-size: 1em;
+    font-weight: normal;
+    padding: 0;
+  	color: $text-color;
+	  background: #eaeaea;
+    display: block;
+  }
+
+	&.single {
+		display: flex;
+		justify-content: space-between;
+
+		a[rel=prev], a[rel=next] {
+			position: relative;
+		  color: #aeb0b3;
+			border: 1px solid;
+
+			&:before {
+		    display: block;
+		    width: 5px;
+		    height: 5px;
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    margin: auto 0;
+				transition: .3s;
+			}
+
+			&:hover, &:focus {
+				background: transparent;
+			}
+		}
+
+		a[rel=next] {
+			padding: 15px 15px 15px 30px;
+
+			&:before {
+		    border-left: 1px solid;
+		    border-bottom: 1px solid;
+		    transform: rotate(45deg);
+		    left: 1em;
+			}
+
+			&:hover:before {
+				left: 0.7em;
+			}
+		}
+		a[rel=prev] {
+			padding: 15px 30px 15px 15px;
+		  margin: 0 0 0 auto;
+
+			&:before {
+		    border-right: 1px solid;
+		    border-bottom: 1px solid;
+		    transform: rotate(-45deg);
+		    right: 1em;
+			}
+
+			&:hover:before {
+				right: 0.7em;
+			}
+		}
+	}
+
+} /* end .bones_page_navi */
+
+span.category {
+    a {
+			&:hover {
+				color: $link-color;
+			}
+    }
+}
+
+span.tag {
+    a {
+        &:hover {
+          color: $link-color;
+        }
+    }
+}
+
+a#totop {
+    background: $link-color;
+}
+
+button#searchsubmit {
+    &:hover {
+      color: $style-color;
+    }
+}
+
+// メタカラー
+
+.byline {
+  color: $meta-gray;
+}
+
+
+table {
+	border: 1px solid $gray;
+
+	caption {
+		color: $meta-gray;
+	}
+}
+
+span.category {
+    color: $meta-gray;
+
+    a {
+    color: $meta-gray;
+
+    &:hover {
+      color: $link-color;
+      }
+    }
+}
+
+span.tag {
+    color: $meta-gray;
+
+    a {
+    color: $meta-gray;
+        &:hover {
+          color: $link-color;
+        }
+    }
+}
+
+footer.article-footer {
+    .day {
+      color: $meta-gray;
+    }
+}
+
+.page-links {
+  .post-page-numbers:hover {
+    background: $link-color;
+    border-color: $link-color;
+  }
+}
+
+// 768px以上
+@media only screen and (min-width: 768px) {
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #{$bg-color}f0;
+  }
+}

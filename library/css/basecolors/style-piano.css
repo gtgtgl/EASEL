@@ -1,0 +1,384 @@
+body, .header, header nav {
+  background-color: #fffefc;
+}
+
+#logo a {
+  color: #8d5837;
+}
+
+#logo a:hover {
+  color: #aba69a;
+}
+
+.header .nav li a:before {
+  background: #8d5837;
+}
+
+.header .nav li a:hover {
+  color: #aba69a;
+}
+
+.nav {
+  /* end .menu li */
+}
+
+.nav li a {
+  color: #49462c;
+}
+
+.nav li a:hover {
+  color: #aba69a;
+}
+
+/* end .nav */
+.post-date {
+  color: #49462c;
+}
+
+.update .wrap .byline.vcard {
+  color: #49462c;
+}
+
+.news_list {
+  border-color: #ede3d3;
+}
+
+footer.footer {
+  background-color: transparent;
+  border-top: 1px solid #ede3d3;
+}
+
+footer.footer #footer_widget {
+  background-color: transparent;
+  border-bottom: 1px solid #ede3d3;
+}
+
+footer.footer #footer_widget ul {
+  margin-right: 20px;
+}
+
+footer.footer #footer_widget ul li a:hover {
+  color: #49462c;
+}
+
+footer.footer #inner-footer {
+  color: #bab8b3;
+}
+
+footer.footer #inner-footer ul li a {
+  color: #bab8b3;
+}
+
+footer.footer #inner-footer ul li a:hover {
+  color: #8d5837;
+}
+
+footer.footer #inner-footer .copyright {
+  color: #bab8b3;
+}
+
+a, a:visited {
+  color: #8d5837;
+}
+
+a:hover, a:focus, a:visited:hover, a:visited:focus {
+  color: #aba69a;
+  text-decoration: none;
+}
+
+.pagination li {
+  padding: 0;
+  margin: 0 5px 0 0;
+  float: left;
+  display: inline;
+  overflow: hidden;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #ede3d3;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.pagination a {
+  line-height: 45px;
+  font-size: 1em;
+  padding: 0;
+  color: #8d5837;
+}
+
+.pagination a:hover, .pagination a:focus {
+  background-color: #8d5837;
+  color: white;
+  border-color: #8d5837;
+}
+
+.pagination .current {
+  cursor: default;
+  line-height: 45px;
+  font-size: 1em;
+  font-weight: normal;
+  padding: 0;
+  color: #32302f;
+  background: #eaeaea;
+  display: block;
+}
+
+.pagination.single {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.pagination.single a[rel=prev], .pagination.single a[rel=next] {
+  position: relative;
+  color: #aeb0b3;
+  border: 1px solid;
+}
+
+.pagination.single a[rel=prev]:before, .pagination.single a[rel=next]:before {
+  display: block;
+  width: 5px;
+  height: 5px;
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.pagination.single a[rel=prev]:hover, .pagination.single a[rel=prev]:focus, .pagination.single a[rel=next]:hover, .pagination.single a[rel=next]:focus {
+  background: transparent;
+}
+
+.pagination.single a[rel=next] {
+  padding: 15px 15px 15px 30px;
+}
+
+.pagination.single a[rel=next]:before {
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  left: 1em;
+}
+
+.pagination.single a[rel=next]:hover:before {
+  left: 0.7em;
+}
+
+.pagination.single a[rel=prev] {
+  padding: 15px 30px 15px 15px;
+  margin: 0 0 0 auto;
+}
+
+.pagination.single a[rel=prev]:before {
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  right: 1em;
+}
+
+.pagination.single a[rel=prev]:hover:before {
+  right: 0.7em;
+}
+
+/* end .bones_page_navi */
+span.category a:hover {
+  color: #8d5837;
+}
+
+span.tag a:hover {
+  color: #8d5837;
+}
+
+a#totop {
+  background: #8d5837;
+}
+
+button#searchsubmit:hover {
+  color: #49462c;
+}
+
+.byline {
+  color: #bab8b3;
+}
+
+table {
+  border: 1px solid #bab8b3;
+}
+
+table caption {
+  color: #bab8b3;
+}
+
+span.category {
+  color: #bab8b3;
+}
+
+span.category a {
+  color: #bab8b3;
+}
+
+span.category a:hover {
+  color: #8d5837;
+}
+
+span.tag {
+  color: #bab8b3;
+}
+
+span.tag a {
+  color: #bab8b3;
+}
+
+span.tag a:hover {
+  color: #8d5837;
+}
+
+footer.article-footer .day {
+  color: #bab8b3;
+}
+
+.page-links .post-page-numbers:hover {
+  background: #8d5837;
+  border-color: #8d5837;
+}
+
+@media only screen and (min-width: 768px) {
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #fffefcf0;
+  }
+}
+
+article h2 {
+  border-bottom: none;
+  border-left: 5px solid;
+  padding: 5px 0 5px 20px;
+}
+
+header nav {
+  background: #32302f;
+}
+
+header nav ul.nav {
+  background: transparent;
+}
+
+.header .nav li a {
+  color: #fffefc;
+}
+
+.header .nav li a:before {
+  background: #fffefc;
+}
+
+header label#formenubar {
+  color: #49462c;
+}
+
+footer.footer {
+  background-color: #32302f;
+  border-top: none;
+  color: #fffefc;
+}
+
+footer.footer a {
+  color: #aba69a;
+}
+
+footer.footer a:hover {
+  color: #fffefc;
+}
+
+footer.footer #footer_widget {
+  border-bottom: none;
+}
+
+footer.footer #footer_widget ul li a {
+  color: #aba69a;
+}
+
+footer.footer #footer_widget ul li a:hover {
+  color: #fffefc;
+}
+
+a.more-link, a.read-more {
+  display: block;
+  background: #32302f;
+  color: #fffefc;
+}
+
+a.more-link:hover, a.read-more:hover {
+  background: #aba69a;
+  color: #fffefc;
+}
+
+.shortcode-text div .tag a {
+  color: #bab8b3;
+  background: #f7f2ef;
+}
+
+span.category {
+  color: #bab8b3;
+}
+
+span.category a {
+  color: #bab8b3;
+}
+
+span.category a:hover {
+  color: #8d5837;
+}
+
+span.tag {
+  color: #bab8b3;
+}
+
+span.tag a {
+  color: #bab8b3;
+  background: #f7f2ef;
+}
+
+span.tag a:hover {
+  color: #8d5837;
+}
+
+.page-links-next .post-page-numbers {
+  color: #fffefc;
+  background: #49462c;
+  border-radius: 50%;
+}
+
+.page-links-next .post-page-numbers:hover {
+  color: #fffefc;
+  background: #bab8b3;
+}
+
+.page-links .post-page-numbers:hover {
+  background: #49462c;
+  border-color: #49462c;
+}
+
+@media only screen and (min-width: 768px) {
+  header nav {
+    background: transparent;
+  }
+  .header .nav li a {
+    color: inherit;
+  }
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #32302f;
+  }
+  ul.nav li ul.sub-menu li a, ul.nav li ul.children li a {
+    color: #fffefc;
+  }
+  ul.nav li ul.sub-menu li a:hover, ul.nav li ul.children li a:hover {
+    color: #fffefc;
+    opacity: 0.6;
+  }
+}

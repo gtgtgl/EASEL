@@ -1,0 +1,256 @@
+body, .header, header nav {
+  background-color: #ffffff;
+}
+
+#logo a {
+  color: #ffb54a;
+}
+
+#logo a:hover {
+  color: #ffa21c;
+}
+
+.header .nav li a:before {
+  background: #ffb54a;
+}
+
+.header .nav li a:hover {
+  color: #ffa21c;
+}
+
+.nav {
+  /* end .menu li */
+}
+
+.nav li a {
+  color: #ffb54a;
+}
+
+.nav li a:hover {
+  color: #ffa21c;
+}
+
+/* end .nav */
+.post-date {
+  color: #ffb54a;
+}
+
+.update .wrap .byline.vcard {
+  color: #ffb54a;
+}
+
+.news_list {
+  border-color: #ecf0f7;
+}
+
+footer.footer {
+  background-color: transparent;
+  border-top: 1px solid #ecf0f7;
+}
+
+footer.footer #footer_widget {
+  background-color: transparent;
+  border-bottom: 1px solid #ecf0f7;
+}
+
+footer.footer #footer_widget ul {
+  margin-right: 20px;
+}
+
+footer.footer #footer_widget ul li a:hover {
+  color: #ffb54a;
+}
+
+footer.footer #inner-footer {
+  color: #aaadaf;
+}
+
+footer.footer #inner-footer ul li a {
+  color: #aaadaf;
+}
+
+footer.footer #inner-footer ul li a:hover {
+  color: #ffb54a;
+}
+
+footer.footer #inner-footer .copyright {
+  color: #aaadaf;
+}
+
+a, a:visited {
+  color: #ffb54a;
+}
+
+a:hover, a:focus, a:visited:hover, a:visited:focus {
+  color: #ffa21c;
+  text-decoration: none;
+}
+
+.pagination li {
+  padding: 0;
+  margin: 0 5px 0 0;
+  float: left;
+  display: inline;
+  overflow: hidden;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #ecf0f7;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.pagination a {
+  line-height: 45px;
+  font-size: 1em;
+  padding: 0;
+  color: #ffb54a;
+}
+
+.pagination a:hover, .pagination a:focus {
+  background-color: #ffb54a;
+  color: white;
+  border-color: #ffb54a;
+}
+
+.pagination .current {
+  cursor: default;
+  line-height: 45px;
+  font-size: 1em;
+  font-weight: normal;
+  padding: 0;
+  color: #57595d;
+  background: #eaeaea;
+  display: block;
+}
+
+.pagination.single {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.pagination.single a[rel=prev], .pagination.single a[rel=next] {
+  position: relative;
+  color: #aeb0b3;
+  border: 1px solid;
+}
+
+.pagination.single a[rel=prev]:before, .pagination.single a[rel=next]:before {
+  display: block;
+  width: 5px;
+  height: 5px;
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.pagination.single a[rel=prev]:hover, .pagination.single a[rel=prev]:focus, .pagination.single a[rel=next]:hover, .pagination.single a[rel=next]:focus {
+  background: transparent;
+}
+
+.pagination.single a[rel=next] {
+  padding: 15px 15px 15px 30px;
+}
+
+.pagination.single a[rel=next]:before {
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  left: 1em;
+}
+
+.pagination.single a[rel=next]:hover:before {
+  left: 0.7em;
+}
+
+.pagination.single a[rel=prev] {
+  padding: 15px 30px 15px 15px;
+  margin: 0 0 0 auto;
+}
+
+.pagination.single a[rel=prev]:before {
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  right: 1em;
+}
+
+.pagination.single a[rel=prev]:hover:before {
+  right: 0.7em;
+}
+
+/* end .bones_page_navi */
+span.category a:hover {
+  color: #ffb54a;
+}
+
+span.tag a:hover {
+  color: #ffb54a;
+}
+
+a#totop {
+  background: #ffb54a;
+}
+
+button#searchsubmit:hover {
+  color: #ffb54a;
+}
+
+.byline {
+  color: #cbcfd8;
+}
+
+table {
+  border: 1px solid #ecf0f7;
+}
+
+table caption {
+  color: #cbcfd8;
+}
+
+span.category {
+  color: #cbcfd8;
+}
+
+span.category a {
+  color: #cbcfd8;
+}
+
+span.category a:hover {
+  color: #ffb54a;
+}
+
+span.tag {
+  color: #cbcfd8;
+}
+
+span.tag a {
+  color: #cbcfd8;
+}
+
+span.tag a:hover {
+  color: #ffb54a;
+}
+
+footer.article-footer .day {
+  color: #cbcfd8;
+}
+
+.page-links .post-page-numbers:hover {
+  background: #ffb54a;
+  border-color: #ffb54a;
+}
+
+@media only screen and (min-width: 768px) {
+  ul.nav li ul.sub-menu, ul.nav li ul.children {
+    background: #fffffff0;
+  }
+}

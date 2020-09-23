@@ -1,0 +1,12 @@
+$style-color:       #67c1ec;
+$border-color:      #ecf0f7;
+$footer-color:      #aaadaf;
+$text-color:        #57595d;
+$bg-color:  				#ffffff;
+$gray:              #ecf0f7;
+$meta-gray:         #cbcfd8;
+
+$link-color:        $style-color;
+$link-hover:        darken($link-color, 9%);
+
+@import "changebasecolor";

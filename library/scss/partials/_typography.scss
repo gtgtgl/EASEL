@@ -1,0 +1,33 @@
+
+  @font-face {
+      font-family: 'biko';
+      src: url('../fonts/Biko_Regular.otf') format('woff');
+      font-weight: normal;
+  }
+
+  @font-face {
+      font-family: 'biko-light';
+      src: url('../fonts/Biko_Light-Restricted.otf') format('woff');
+      font-weight: normal;
+  }
+
+$sans-serif:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif:             "Georgia", Cambria, Times New Roman, Times, serif;
+$number:  'biko', serif;
+$number-light:  'biko-light', serif;
+
+$fonts: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+
+p {
+  -ms-word-wrap: break-word;
+  word-break: break-word; //non-standart css for webkit
+  word-wrap: break-word;
+  // cleaning up the ragged lines and breaks
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+  // sets a minimum number of characters before and after the break
+  -webkit-hyphenate-before: 2;
+   -webkit-hyphenate-after: 3;
+           hyphenate-lines: 3;
+}

@@ -1,0 +1,35 @@
+ul.ui-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid #979797;
+    flex-wrap: wrap;
+}
+
+ul.ui-tabs-nav li {
+    margin: 0;
+    display: flex;
+}
+
+ul.ui-tabs-nav li a {
+    display: block;
+    border: 1px solid #979797;
+    font-size: 12px;
+    border-bottom: none;
+    padding: 8px 13px;
+    margin: 10px 5px -1px;
+    background: white;
+    border-radius: 3px 3px 0 0;
+    text-decoration: none;
+}
+
+table.form-table label {
+    line-height: 1.8;
+}
+
+.form-table td p {
+    font-size: 12px;
+    line-height: 1.6em;
+}
+
+span.red {
+  color: red;
+}
