@@ -1,18 +1,21 @@
-(function ($) {
-    'use strict';
+(function() {
+  tinymce.create( 'tinymce.plugins.example_shortcode_button', {
+    init: function( ed, url ) {
+      ed.addButton( 'easel_main_content', {
+        title: '本文範囲指定',
+        icon: 'code',
+        cmd: 'example_cmd'
+      });
 
-    tinymce.create('tinymce.plugins.easel_btn', {
-        init: function (ed) {
-            ed.addButton('easel_mce_button_2', {
-                title: 'My Plugin',
-                icon: 'dashicon dashicons-admin-links',
-                onclick: function () {
-                    var url = "media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550";
-                    tb_show("My Caption", url);
-                }
-            });
-        }
-    });
-
-    tinymce.PluginManager.add('easel_mce_button_2', tinymce.plugins.easel_btn);
-})(jQuery);
+      ed.addCommand( 'example_cmd', function() {
+        var selected_text = ed.selection.getContent(),
+            return_text = '[main_content]' + selected_text + '[/main_content]';
+        ed.execCommand( 'mceInsertContent', 0, return_text );
+      });
+    },
+    createControl : function( n, cm ) {
+      return null;
+    },
+  });
+  tinymce.PluginManager.add( 'easel_main_content', tinymce.plugins.example_shortcode_button );
+})();

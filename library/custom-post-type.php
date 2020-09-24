@@ -41,7 +41,7 @@ function custom_post_example() {
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			/* the next one is important, it tells what's enabled in the post editor */
-			'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'sticky')
+			'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'comments', 'sticky')
 		) /* end of options */
 	); /* end of register post type */
 }

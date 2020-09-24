@@ -467,7 +467,7 @@ We can break them up as much as we want or just keep them all in one.
 I mean, you can do whatever you want. The world is your oyster. Unless
 you hate oysters, then the world is your peanut butter & jelly sandwich.
 *********************/
-.blue-btn a, .comment-reply-link a, #submit a, .red-btn a, .yellow-btn a, .green-btn a, .navy-btn a, .gray-btn a {
+.blue-btn a, #submit a, .red-btn a, .yellow-btn a, .green-btn a, .navy-btn a, .gray-btn a {
   display: inline-block;
   position: relative;
   font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial", "Hiragino Sans", "ヒラギノ角ゴシック", YuGothic, "Yu Gothic", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
@@ -483,17 +483,17 @@ you hate oysters, then the world is your peanut butter & jelly sandwich.
   transition: all .3s;
 }
 
-.blue-btn a:hover, .comment-reply-link a:hover, #submit a:hover, .red-btn a:hover, .yellow-btn a:hover, .green-btn a:hover, .navy-btn a:hover, .gray-btn a:hover, .blue-btn a:focus, .comment-reply-link a:focus, #submit a:focus, .red-btn a:focus, .yellow-btn a:focus, .green-btn a:focus, .navy-btn a:focus, .gray-btn a:focus {
+.blue-btn a:hover, #submit a:hover, .red-btn a:hover, .yellow-btn a:hover, .green-btn a:hover, .navy-btn a:hover, .gray-btn a:hover, .blue-btn a:focus, #submit a:focus, .red-btn a:focus, .yellow-btn a:focus, .green-btn a:focus, .navy-btn a:focus, .gray-btn a:focus {
   color: #fff !important;
   text-decoration: none;
   outline: none;
 }
 
-.blue-btn a, .comment-reply-link a, #submit a {
+.blue-btn a, #submit a {
   color: #4d94ab !important;
 }
 
-.blue-btn a:hover, .comment-reply-link a:hover, #submit a:hover, .blue-btn a:focus, .comment-reply-link a:focus, #submit a:focus {
+.blue-btn a:hover, #submit a:hover, .blue-btn a:focus, #submit a:focus {
   background-color: #4d94ab;
   border: 1px solid #4d94ab;
   color: white !important;
@@ -1117,7 +1117,7 @@ a.illust article figure.eye-catch {
   margin: 20px auto;
 }
 
-.make_indent .entry-content p {
+.make_indent p {
   text-indent: 1em;
 }
 
@@ -1581,6 +1581,10 @@ a#totop:hover:before {
   top: 18px;
 }
 
+ul:not([class]) li, ol:not([class]) li {
+  margin-bottom: 10px;
+}
+
 /*********************
 HEADER STYLES
 *********************/
@@ -1700,6 +1704,7 @@ header nav ul.nav {
   scrollbar-width: none;
   height: 100%;
   padding-top: 70px;
+  padding-bottom: 80px;
   background: #ffffff;
   box-shadow: 0 0 10px -5px;
 }
@@ -1912,16 +1917,23 @@ POSTS & CONTENT STYLES
 
 /* end .entry-content */
 .wp-caption {
-  max-width: 100%;
+  width: 100%;
   padding: 5px;
   margin: 30px auto;
   /* images inside wp-caption */
 }
 
+.wp-caption.aligncenter {
+  text-align: center;
+}
+
+.wp-caption.alignright {
+  text-align: right;
+}
+
 .wp-caption img {
   max-width: 100%;
   margin-bottom: 0;
-  width: 100%;
 }
 
 .wp-caption p.wp-caption-text {
@@ -2099,7 +2111,7 @@ COMMENT STYLES
   position: relative;
   clear: both;
   overflow: hidden;
-  padding: 1.5em;
+  padding: 10px 15px;
   border-bottom: 1px solid #f8f9fa;
   /* vcard */
   /* end .commentlist .vcard */
@@ -2112,10 +2124,6 @@ COMMENT STYLES
   border: 0;
 }
 
-.comment .vcard {
-  margin-left: 50px;
-}
-
 .comment .vcard cite.fn {
   font-weight: 700;
   font-style: normal;
@@ -2123,8 +2131,7 @@ COMMENT STYLES
 
 .comment .vcard time {
   display: block;
-  font-size: 0.9em;
-  font-style: italic;
+  font-size: 12px;
 }
 
 .comment .vcard time a {
@@ -2158,11 +2165,9 @@ COMMENT STYLES
 
 .comment.depth-1 {
   margin-left: 0;
-  margin-top: 0;
 }
 
 .comment:not(.depth-1) {
-  margin-top: 0;
   margin-left: 7px;
   padding: 7px;
 }
@@ -2178,25 +2183,38 @@ COMMENT STYLES
 /* comment meta */
 /* comment content */
 .comment_content p {
-  margin: 0.7335em 0 1.5em;
-  font-size: 1em;
+  margin: 0 0 20px 0;
+  font-size: 15px;
   line-height: 1.5em;
 }
 
 /* end .commentlist .comment_content */
 /* comment reply link */
 .comment-reply-link {
-  font-size: 0.9em;
-  float: right;
+  display: block;
+  background: #333;
+  width: 50px;
+  padding: 3px;
+  text-align: center;
+  color: white;
+  margin: 0 0 0 auto;
 }
 
-/* end .commentlist .comment-reply-link */
+.comment-reply-link:hover {
+  opacity: .6;
+  color: white;
+}
+
 /* edit comment link */
 .comment-edit-link {
-  font-style: italic;
-  margin: 0 7px;
-  text-decoration: none;
-  font-size: 0.9em;
+  font-style: normal;
+  font-size: 12px;
+  border: 1px solid;
+  padding: 2px 5px;
+  border-radius: 20px;
+  color: #333333;
+  background: white;
+  margin-right: 10px;
 }
 
 /******************************************************************
@@ -2235,6 +2253,16 @@ COMMENT FORM STYLES
 #submit {
   float: right;
   font-size: 1em;
+  background: #333333;
+  border: none;
+  padding: 3px 15px;
+  color: white;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#submit:hover {
+  opacity: .6;
 }
 
 /* comment form title */
@@ -2252,6 +2280,13 @@ COMMENT FORM STYLES
 /* no comments */
 .nocomments {
   margin: 0 20px 1.1em;
+}
+
+.alert.alert-info {
+  color: #dd0000;
+  background: #ffe5e9;
+  padding: 3px 20px;
+  border-radius: 5px;
 }
 
 /*********************
@@ -2614,6 +2649,7 @@ NAVIGATION STYLES
     box-shadow: none;
     overflow-y: visible;
     padding-top: 0;
+    padding-bottom: 0;
     background: transparent;
   }
   header label#formenubar {

@@ -134,6 +134,12 @@ a#totop {
 	}
 }
 
+ul:not([class]), ol:not([class]) {
+	li {
+		margin-bottom: 10px;
+	}
+}
+
 /*********************
 HEADER STYLES
 *********************/
@@ -267,6 +273,7 @@ header {
 			scrollbar-width: none;
 	    height: 100%;
 	    padding-top: 70px;
+			padding-bottom: 80px;
 	    background: #ffffff;
   	  box-shadow: 0 0 10px -5px;
 			&::-webkit-scrollbar {
@@ -487,15 +494,22 @@ POSTS & CONTENT STYLES
 		} /* end .entry-content */
 
 		.wp-caption {
-	    max-width: 100%;
+			width: 100%;
 	    padding: 5px;
 	    margin: 30px auto;
+
+			&.aligncenter {
+				text-align: center;
+			}
+
+			&.alignright {
+				text-align: right;
+			}
 
 			/* images inside wp-caption */
 			img {
 				max-width: 100%;
 				margin-bottom: 0;
-				width: 100%;
 			}
 
 			p.wp-caption-text {
@@ -684,7 +698,7 @@ COMMENT STYLES
 	position: relative;
 	clear: both;
 	overflow: hidden;
-	padding: 1.5em;
+	padding: 10px 15px;
 	border-bottom: 1px solid $light-gray;
 
 	.comment-author {
@@ -694,7 +708,6 @@ COMMENT STYLES
 
 	/* vcard */
 	.vcard {
-		margin-left: 50px;
 
 		cite.fn {
 			font-weight: 700;
@@ -706,12 +719,12 @@ COMMENT STYLES
 
 		time {
 			display: block;
-			font-size: 0.9em;
-			font-style: italic;
+			font-size: 12px;
 
 			a {
 				color: $meta-gray;
 				text-decoration: none;
+
 
 				&:hover {
 					text-decoration: underline;
@@ -759,11 +772,9 @@ COMMENT STYLES
 
 	&.depth-1 {
 		margin-left: 0;
-		margin-top: 0;
 	}
 
 	&:not(.depth-1) {
-		margin-top: 0;
 		margin-left: 7px;
 		padding: 7px;
 	}
@@ -813,31 +824,39 @@ COMMENT STYLES
 	.comment_content {
 
 		p {
-			margin: 0.7335em 0 1.5em;
-			font-size: 1em;
-			line-height: 1.5em;
+	    margin: 0 0 20px 0;
+	    font-size: 15px;
+	    line-height: 1.5em;
 		}
 
 	} /* end .commentlist .comment_content */
 
 	/* comment reply link */
 	.comment-reply-link {
-		@extend .blue-btn;
-		font-size: 0.9em;
-		float: right;
+		display: block;
+		background: #333;
+		width: 50px;
+		padding: 3px;
+		text-align: center;
+		color: white;
+    margin: 0 0 0 auto;
 
-		&:hover,
-		&:focus {
+		&:hover {
+			opacity: .6;
+			color: white;
 		}
-
-	} /* end .commentlist .comment-reply-link */
+	}
 
 	/* edit comment link */
 	.comment-edit-link {
-		font-style: italic;
-		margin: 0 7px;
-		text-decoration: none;
-		font-size: 0.9em;
+		font-style: normal;
+		font-size: 12px;
+		border: 1px solid;
+		padding: 2px 5px;
+		border-radius: 20px;
+		color: #333333;
+		background: white;
+    margin-right: 10px;
 	}
 
 
@@ -878,8 +897,16 @@ COMMENT FORM STYLES
 	/* comment submit button */
 	#submit {
 		@extend .blue-btn;
-		float: right;
-		font-size: 1em;
+    float: right;
+    font-size: 1em;
+    background: #333333;
+    border: none;
+    padding: 3px 15px;
+    color: white;
+		transition: .3s;
+		&:hover {
+			opacity: .6;
+		}
 	}
 
 	/* comment form title */
@@ -905,6 +932,12 @@ COMMENT FORM STYLES
 		margin: 0 20px 1.1em;
 	}
 
+.alert.alert-info {
+    color: #dd0000;
+    background: #ffe5e9;
+    padding: 3px 20px;
+    border-radius: 5px;
+}
 /*********************
 SIDEBARS & ASIDES
 *********************/

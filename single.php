@@ -71,7 +71,12 @@
 
 	</footer>
 
-	<?php //comments_template(); ?>
+	<?php
+
+	if(get_option('easel_allow_comments_posts') === '1') {
+		comments_template();
+	}
+	 ?>
 
 </article> <?php // end article ?>
 

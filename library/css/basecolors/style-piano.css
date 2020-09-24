@@ -364,6 +364,18 @@ span.tag a:hover {
   border-color: #49462c;
 }
 
+.comment.odd {
+  background: #fffefc;
+}
+
+.comment.even {
+  background: #ede3d3;
+}
+
+.comment .vcard time a {
+  color: #bab8b3;
+}
+
 @media only screen and (min-width: 768px) {
   header nav {
     background: transparent;

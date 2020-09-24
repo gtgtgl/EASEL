@@ -14,12 +14,6 @@ function bones_head_cleanup() {
 	add_filter( 'script_loader_src', 'bones_remove_wp_ver_css_js', 9999 );
 }
 
-// コメント機能を使わないのでダッシュボードから消す
-add_action( 'admin_menu', 'easel_remove_comment' );
-function easel_remove_comment(){
-    remove_menu_page( 'edit-comments.php' ); //コメントメニュー
-}
-
 // A better title
 // http://www.deluxeblogtips.com/2012/03/better-title-meta-tag.html
 function rw_title( $title, $sep, $seplocation ) {
@@ -166,6 +160,34 @@ function bones_theme_support() {
 	) );
 
 } /* end bones theme support */
+
+// Comment Layout
+function bones_comments( $comment, $args, $depth ) {
+   $GLOBALS['comment'] = $comment; ?>
+  <div id="comment-<?php comment_ID(); ?>" <?php comment_class('cf'); ?>>
+    <article  class="cf">
+      <header class="comment-author vcard">
+        <?php
+          // create variable
+          $bgauthemail = get_comment_author_email();
+        ?>
+        <?php printf(__( '<cite class="fn">%1$s</cite> %2$s', 'bonestheme' ), get_comment_author_link(), edit_comment_link(__( '編集', 'bonestheme' ),'  ','') ) ?>
+        <time datetime="<?php echo comment_time('Y-m-j'); ?>"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>"><?php comment_time(__( 'Y/m/d G:i:s', 'bonestheme' )); ?> </a></time>
+
+      </header>
+      <?php if ($comment->comment_approved == '0') : ?>
+        <div class="alert alert-info">
+          <p><?php _e( 'あなたのコメントは承認待ちです。', 'bonestheme' ) ?></p>
+        </div>
+      <?php endif; ?>
+      <section class="comment_content cf">
+        <?php comment_text() ?>
+      </section>
+      <?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
+    </article>
+  <?php // </li> is added by WordPress automatically ?>
+<?php
+} // don't remove this bracket!
 
 /*********************
 PAGE NAVI

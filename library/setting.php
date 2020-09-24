@@ -76,6 +76,16 @@ if ( !defined( 'ABSPATH' ) ) exit;
                 表示しない</label>
               </td>
           </tr>
+          <tr valign="top">
+            <th scope="row">
+              コメント機能を使用する
+            </th>
+            <td>
+              <label><input name="easel_allow_comments_posts" type="checkbox" id="easel_allow_comments_posts" value="1" <?php checked( 1, get_option('easel_allow_comments_posts')); ?> /> 「投稿」でコメント機能を使用する</label><br>
+              <label><input name="easel_allow_comments_works" type="checkbox" id="easel_allow_comments_works" value="1" <?php checked( 1, get_option('easel_allow_comments_works')); ?> /> 「作品」でコメント機能を使用する</label><br>
+              <p>コメント機能の詳細は、<a href="options-discussion.php">設定＞ディスカッション設定</a>にて行ってください。</p>
+            </td>
+          </tr>
         </table>
         <p class="submit">
           <?php submit_button(); ?>
@@ -102,20 +112,29 @@ if ( !defined( 'ABSPATH' ) ) exit;
             </td>
         </tr>
         <tr valign="top">
-            <th scope="row"><label for="easel_pass_blur">パス付きイラストのサムネイルをぼかす</label>
-            </th>
-            <td>
-              <label><input name="easel_pass_blur" type="checkbox" id="easel_pass_blur" value="1" <?php checked( 1, get_option('easel_pass_blur')); ?> /> 行う</label><br>
-              <p>チェックを入れると、パスワード付きのイラスト作品のサムネイルを自動でぼかします。</p>
-            </td>
+          <th scope="row"><label for="easel_pass_blur">パス付きイラストのサムネイルをぼかす</label>
+          </th>
+          <td>
+            <label><input name="easel_pass_blur" type="checkbox" id="easel_pass_blur" value="1" <?php checked( 1, get_option('easel_pass_blur')); ?> /> 行う</label><br>
+            <p>チェックを入れると、パスワード付きのイラスト作品のサムネイルを自動でぼかします。</p>
+          </td>
         </tr>
         <tr valign="top">
-            <th scope="row"><label for="easel_make_indent">作品タイプ「文章」の全文で字下げを行う</label>
-            </th>
-            <td>
-              <label><input name="easel_make_indent" type="checkbox" id="easel_make_indent" value="1" <?php checked( 1, get_option('easel_make_indent')); ?> /> 行う</label><br>
-              <p>チェックを入れると、作品タイプ「文章」およびその子タイプの作品の全文で字下げが自動で行われます。</p>
-            </td>
+          <th scope="row"><label for="easel_make_indent">作品タイプ「文章」の全文で字下げを行う</label>
+          </th>
+          <td>
+            <label><input name="easel_make_indent" type="checkbox" id="easel_make_indent" value="1" <?php checked( 1, get_option('easel_make_indent')); ?> /> 行う</label><br>
+            <p>チェックを入れると、作品タイプ「文章」およびその子タイプの作品の全文で字下げが自動で行われます。</p>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row"><label for="easel_make_indent">ショートコードで指定した本文の範囲だけ字下げを行う</label>
+          </th>
+          <td>
+            <label><input name="easel_make_main_content_indent" type="checkbox" id="easel_make_main_content_indent" value="1" <?php checked( 1, get_option('easel_make_main_content_indent')); ?> /> 行う</label><br>
+            <p>チェックを入れると、[main_content]ショートコードで指定した本文部分のみが字下げされます。あとがきなどを書きたい方向け。</p>
+          </td>
+        </tr>
         <tr valign="top">
             <th scope="row"><label for="easel_rewrite_permalink">作品投稿のパーマリンク</label>
             </th>
@@ -165,7 +184,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
          <tr valign="top">
              <th scope="row"><label for="easel_ogp_description">サイトの説明</label></th>
              <td><input name="easel_ogp_description" id="easel_ogp_description" type="text" value="<?php echo get_option('easel_ogp_description'); ?>" class="regular-text" placeholder="サイトの説明"><br>
-             サイトの説明文。twitterカードや検索エンジンの概要文に使われます。60文字程度でご記入ください。</td>
+             サイトのトップページの説明文。twitterカードや検索エンジンの概要文に使われます。60文字程度でご記入ください。<br>※投稿、固定ページおよび作品ページにおいては、本文の一部か「抜粋」に入力した内容が使用されます。</td>
          </tr>
        </table>
        <p class="submit">

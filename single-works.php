@@ -60,6 +60,12 @@ if (is_array($terms)) {
 
 							</footer>
 
+							<?php
+							if(get_option('easel_allow_comments_works') === '1') {
+								comments_template();
+							}
+							?>
+
 							</article>
 
 							<?php endwhile; ?>

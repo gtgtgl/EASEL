@@ -45,9 +45,12 @@ function register_easel_settings() {
     'base_color', // ベースカラーを変更するか
     'totop', // トップへ戻るボタンを設定するか
     'make_indent', // 作品タイプ「文章」でインデントをつけるか
+    'make_main_content_indent', // 作品タイプ「文章」でインデントをつけるか
     'rewrite_permalink', // 作品投稿のパーマリンクをリライトするか
     'footer_text', // フッターテキストの文言変更
     'pass_blur', // パス付きイラストのサムネイルをぼかすか
+    'allow_comments_posts', // 「投稿」でコメント機能を許可するかどうか
+    'allow_comments_works', // 「作品」でコメント機能を許可するかどうか
     'twitter',  // Twitterアカウント名
     'pixiv' // Pixivアカウント名
   ];
@@ -161,6 +164,14 @@ if( get_option('easel_rewrite_permalink') == 'changed' ) {
   	);
   	return $new_rules + $rules;
   }
+}
+
+// コメント機能を使わない場合はダッシュボードから消す
+if(get_option('easel_allow_comments_posts') !== '1' && get_option('easel_allow_comments_works') !== '1' ) {
+  function easel_remove_comment(){
+    remove_menu_page( 'edit-comments.php' ); //コメントメニュー
+  }
+  add_action( 'admin_menu', 'easel_remove_comment' );
 }
 
 // カスタム投稿画面にターム別ソート機能を追加
@@ -288,6 +299,17 @@ function easel_admin_scripts() {
 }
 add_action( 'admin_print_scripts', 'easel_admin_scripts' );
 
+//本文抜粋を取得する関数
+//使用方法：http://nelog.jp/get_the_custom_excerpt
+function easel_get_the_custom_excerpt($content, $length) {
+  $length = ($length ? $length : 70);//デフォルトの長さを指定する
+  $content =  preg_replace('/<!--more-->.+/is',"",$content); //moreタグ以降削除
+	$content = preg_replace('#\[[^\]]+\]#', '',$content);
+  $content =  strip_tags($content);//タグの除去
+  $content =  str_replace(array("\r\n","\n","\r"),"",$content);//特殊文字の削除（今回はスペースのみ）
+  $content =  mb_substr($content,0,$length);//文字列を指定した長さで切り取る
+  return $content;
+}
 
 // OGP設定
 function easel_setting_ogp() {
@@ -308,7 +330,11 @@ function easel_setting_ogp() {
       // 記事＆固定ページ
       setup_postdata($post);
       $ogp_title = $post->post_title;
-      $ogp_description = mb_substr(get_the_excerpt(), 0, 100);
+      if(has_excerpt()) {
+        $ogp_description = easel_get_the_custom_excerpt( get_the_excerpt(), 120 );
+      } else {
+        $ogp_description = easel_get_the_custom_excerpt( $post->post_content, 120 );
+      }
       $ogp_url = get_permalink();
       wp_reset_postdata();
     } elseif (is_front_page() || is_home()) {
@@ -354,6 +380,9 @@ function easel_setting_ogp() {
 // headタグ内にOGPを出力する
 add_action('wp_head', 'easel_setting_ogp');
 
+// 固定ページでも「抜粋」を使えるように
+add_post_type_support( 'page', 'excerpt' );
+
 // 抜粋をリッチエディタに変更
 add_action( 'add_meta_boxes', array ( 'VisualEditorExcerptDemo', 'switch_boxes' ) );
 class VisualEditorExcerptDemo{
@@ -385,6 +414,7 @@ class VisualEditorExcerptDemo{
     <label class="screen-reader-text" for="excerpt"><?php
     _e( 'Excerpt' )
     ?></label>
+    <p style="font-size:12px;">ここに入力した文章は、OGPの概要文として設定されます。<br>作品投稿の場合は、作品の抜粋として作品一覧に表示されます。</p>
     <?php
     //デフォルト名の'excerpt'を使用
     wp_editor(

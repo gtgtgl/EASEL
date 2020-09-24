@@ -6,7 +6,15 @@ function make_list_excerpt() {
   global $post;
   //エスケープ解除
   if( !post_password_required() ) {
-    $excerption = get_the_excerpt();
+    if( !has_excerpt() ) {
+      $excerption =  easel_get_the_custom_excerpt( $post->post_content, 120 );
+      if (mb_strlen($excerption) >= 120) {
+        $excerption .= '…';
+      }
+      // $excerption = get_the_excerpt();
+    } else {
+      $excerption = get_the_excerpt();
+    }
   } else {
     if( !has_excerpt() ) {
       $excerption = 'この作品を見るにはパスワードの入力が必要です。';
@@ -141,6 +149,19 @@ function easel_create_list3($atts) {
 }
 add_shortcode("new_text", "easel_create_list3");
 
+/* 本文の範囲を指定する */
+if ( get_option('easel_make_main_content_indent') === '1' ) {
+  function easel_maincontent_area_indent($atts, $content = null ) {
+    return '<section class="main_content_area make_indent">' . $content . '</section>';
+  }
+  add_shortcode("main_content", "easel_maincontent_area_indent");
+} else {
+  function easel_maincontent_area($atts, $content = null ) {
+    return '<section class="main_content_area">' . $content . '</section>';
+  }
+  add_shortcode("main_content", "easel_maincontent_area");
+}
+
 //テキストエディタにクイックタグボタン追加
 if ( !function_exists( 'add_quicktags_to_text_editor' ) ):
 function add_quicktags_to_text_editor() {
@@ -188,13 +209,15 @@ add_action('admin_head', 'easel_add_mce_button');
 
 // プラグインを追加
 function easel_add_shortcode_tinymce_button( $plugin_array ) {
+  $plugin_array['easel_main_content'] = get_template_directory_uri() .'/library/js/quicktag2.js'; //子テーマの場合は get_stylesheet_directory_uri()を使う
 	$plugin_array['easel_mce_button'] = get_template_directory_uri() .'/library/js/quicktag.js'; //子テーマの場合は get_stylesheet_directory_uri()を使う
 	return $plugin_array;
 }
 
 // リッチテキストエディタにボタンを追加する
 function easel_add_shortcode_mce_button( $buttons ) {
-	array_push( $buttons, 'easel_mce_button' );
+	// array_push( $buttons, 'easel_main_content' );
+	array_push( $buttons, 'easel_main_content', 'easel_mce_button' );
 	return $buttons;
 }
 
