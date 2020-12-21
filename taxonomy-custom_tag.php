@@ -53,7 +53,7 @@
 
 						<p class="byline vcard">
 							<?php
-							the_date('', '<span class="day">', '</span>' );
+							printf(__('<time class="updated" datetime="%1$s" itemprop="datePublished">%2$s</time>', 'bonestheme'), get_the_time('Y-m-j'), get_the_time(__('Y-m-d', 'bonestheme')));
 							printf('<span class="category"><i class="fas fa-folder"></i>' . __('', 'bonestheme' ) . '%1$s</span>', get_the_term_list( $post->ID,'custom_cat', '', ' ', '' ));
 							if ( has_term( '', 'custom_tag', $post->ID ))	{
 								printf( '<span class="tag"><i class="fas fa-tag"></i>' . __('', 'bonestheme' ) . '%1$s</span>' , get_the_term_list( $post->ID,'custom_tag', '', ',', '' ) );

@@ -11,6 +11,21 @@ if ( !defined( 'ABSPATH' ) ) exit;
  <p>WordPressテーマ「EASEL」で行える設定です。
   詳しくは<a href="https://easel.gt-gt.org/" target="_blank">EASEL設定マニュアル</a>をご確認ください。</p>
 
+ <?php
+ global $wp_rewrite;
+ if ( $wp_rewrite->permalink_structure === '' && get_option('easel_rewrite_permalink') === 'changed' ) :
+ ?>
+ <div class="error" style="background: #ffebef;">
+   <p>
+     パーマリンク設定が「基本」のままになっています。<br>
+     このままだと作品URLが404エラーになってしまうので、
+     「作品タイプ階層準拠」設定を利用する場合は、設定＞パーマリンク設定を「基本」<strong>以外</strong>に変更してください。
+   </p>
+ </div>
+ <?php
+endif;
+ ?>
+
 <form method="post" action="options.php">
   <?php settings_fields( 'easel_settings' ); ?>
   <?php do_settings_sections( 'easel_settings' ); ?>
@@ -145,7 +160,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
               <strong>作品タイプ階層準拠：</strong><?php echo home_url(); ?>/works/作品タイプスラッグ/作品ID（投稿個別で固定の数字）</label><br>
               <p>「作品タイプ階層準拠」設定にすると、作品URLの末尾部分は変更できなくなりますが、<br>
               アドレスが作品タイプ階層になるため分かりやすく、パーマリンクが被らないように配慮する必要がなくなるため、オススメです。<br>
-              <span class="red">※サイト運営途中で設定を変更する場合は、リンク切れにご注意ください。<br>
+              サイト運営途中で設定を変更する場合は、リンク切れにご注意ください。<br>
+              <span class="red">※「作品タイプ階層準拠」に設定する場合は、パーマリンク設定を「基本」<strong>以外</strong>に設定してください。<br>
               ※この設定を変更した後は、必ず「設定＞パーマリンク設定」から「変更を保存」をクリックし、パーマリンクを設定しなおしてください。</span></p>
             </td>
         </tr>
@@ -183,8 +199,11 @@ if ( !defined( 'ABSPATH' ) ) exit;
          </tr>
          <tr valign="top">
              <th scope="row"><label for="easel_ogp_description">サイトの説明</label></th>
-             <td><input name="easel_ogp_description" id="easel_ogp_description" type="text" value="<?php echo get_option('easel_ogp_description'); ?>" class="regular-text" placeholder="サイトの説明"><br>
-             サイトのトップページの説明文。twitterカードや検索エンジンの概要文に使われます。60文字程度でご記入ください。<br>※投稿、固定ページおよび作品ページにおいては、本文の一部か「抜粋」に入力した内容が使用されます。</td>
+             <td>
+               <textarea name="easel_ogp_description" id="easel_ogp_description" placeholder="サイトの説明" rows="3" cols="60"><?php echo get_option('easel_ogp_description'); ?></textarea>
+               <p>サイトのトップページの説明文。twitterカードや検索エンジンの概要文に使われます。60文字程度でご記入ください。<br>
+                 ※投稿、固定ページおよび作品ページにおいて、「抜粋」が入力されている場合は抜粋が使用されます。</p>
+             </td>
          </tr>
        </table>
        <p class="submit">

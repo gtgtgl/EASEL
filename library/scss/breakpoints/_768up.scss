@@ -131,8 +131,8 @@ HEADER STYLES
     margin: 40px auto 0;
 
 		img {
-			max-width: 500px;
-			max-height: 200px;
+			max-width: initial;
+			max-height: initial;
 			object-fit: contain;
 		}
 	}

@@ -169,4 +169,14 @@ function set_post_types_admin_order( $wp_query ) {
 }
 add_filter('pre_get_posts', 'set_post_types_admin_order');
 
+// サブメニューに作品タイプを追加する
+// https://qiita.com/konweb/items/330f735a899e448ef876
+function add_sub_menu() {
+$terms = get_terms('custom_cat', ['parent' => 0]);
+foreach( $terms as $term ) {
+    add_submenu_page('edit.php?post_type=works', '　作品 - '.$term->name, '　作品 - '.$term->name, 'manage_options', 'edit.php?s&custom_cat='.$term->slug.'&post_status=all&post_type=works&action=-1&m=0&custom_tag=0&filter_action=絞り込み&paged=1&action2=-1' );
+	}
+}
+add_action( 'admin_menu', 'add_sub_menu' );
+
 ?>

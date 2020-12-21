@@ -323,7 +323,7 @@ function easel_setting_ogp() {
 
     global $post;
     $ogp_title = '';
-    $ogp_description = get_bloginfo('description');
+    $ogp_description = get_option('easel_ogp_description');
     $ogp_url = '';
     $html = '';
     if (is_singular()) {
@@ -332,16 +332,14 @@ function easel_setting_ogp() {
       $ogp_title = $post->post_title;
       if(has_excerpt()) {
         $ogp_description = easel_get_the_custom_excerpt( get_the_excerpt(), 120 );
-      } else {
-        $ogp_description = easel_get_the_custom_excerpt( $post->post_content, 120 );
-      }
+      } 
       $ogp_url = get_permalink();
       wp_reset_postdata();
     } elseif (is_front_page() || is_home()) {
       // トップページ
       $ogp_title = get_bloginfo('name');
       $ogp_url = home_url();
-      if (get_option('easel_ogp_description') != '') {
+      if (get_option('easel_ogp_description') !== '') {
         $ogp_description = get_option('easel_ogp_description');
       }
     }
