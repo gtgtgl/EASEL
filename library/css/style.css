@@ -1010,6 +1010,12 @@ header.article-header.entry-header h1 {
   display: flex;
 }
 
+header.article-header.entry-header h1 span.page-num {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
 .post-date {
   text-align: center;
   display: block;

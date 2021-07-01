@@ -332,7 +332,7 @@ function easel_setting_ogp() {
       $ogp_title = $post->post_title;
       if(has_excerpt()) {
         $ogp_description = easel_get_the_custom_excerpt( get_the_excerpt(), 120 );
-      } 
+      }
       $ogp_url = get_permalink();
       wp_reset_postdata();
     } elseif (is_front_page() || is_home()) {
@@ -856,10 +856,10 @@ get_template_part( 'library/widget' );
 function easel_change_color() {
   $changebasecolor = get_option('easel_base_color');
 
-  if($changebasecolor === 'basic_color') {
+  if($changebasecolor === 'basic_color' || empty($changebasecolor)) {
     return;
   } else {
-    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. $changebasecolor .'.css', array(), '', 'all' );
+    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. $changebasecolor .'.css', array(), $theme->Version, 'all' );
     wp_enqueue_style( 'change_base_color' );
   }
 }
@@ -869,16 +869,19 @@ add_action( 'wp_enqueue_scripts', 'easel_change_color', 9 );
 function easel_make_indent( $classes ) {
 	global $post;
   $terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
-  if (is_array($terms)) {
-  	foreach ($terms as $term) {
-  		$term_id = $term->term_id;
-  		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
-  		$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
-  		$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
-  		$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
-  		$slug = $parent_term->slug; // タームスラッグを取得
-  	}
-  }
+if (is_array($terms)) {
+	foreach ($terms as $term) {
+		// code...
+		$term_id = $term->term_id;
+		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
+		if(!empty($ancestors)) {
+			$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
+			$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
+			$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+			$slug = $parent_term->slug; // タームスラッグを取得
+		}
+	}
+}
   global $my_options;
   if ( get_option('easel_make_indent') === '1' ) {
     if (has_term( 'text', 'custom_cat') || $slug == 'text') {
@@ -890,5 +893,124 @@ function easel_make_indent( $classes ) {
   }
 }
 add_filter( 'post_class', 'easel_make_indent' );
+
+// 改ページのページ送りを改修
+// https://try-m.co.jp/blog/cms/883/
+function custom_wp_link_pages($args = '')
+{
+  $defaults = array(
+    'before'      => '<div class="page-links">',
+    'after'       => '</div>',
+    'next_or_number'       => 'number',
+    'nextpagelink'     => __( '<i class="fas fa-angle-right"></i>' ),
+    'previouspagelink' => __( '<i class="fas fa-angle-left"></i>' ),
+    'separator'        => '',
+    'pagelink'         => '%',
+    'echo'             => 1,
+    'text_before'      => '',
+    'text_after'      => '',
+  );
+
+  $r = wp_parse_args( $args, $defaults );
+  $r = apply_filters( 'wp_link_pages_args', $r );
+  extract( $r, EXTR_SKIP );
+
+  global $page, $numpages, $multipage, $more, $pagenow;
+
+  $output = '';
+  if ( $multipage ) {
+    if ( 'number' == $next_or_number ) {
+      $output .= $before;
+
+      // 前に戻るリンク
+      if($page > 1){
+        $output .= _wp_link_page($page-1) . $defaults['previouspagelink'] . '</a>';
+      }
+
+      // 1ページ目から現在ページまでのリンク
+      if($page > 5) {
+        $output .= '' . _wp_link_page( 1 ) . '1</a><span style="font-size:80%;">　…　</span>';
+        for ( $i = 2; $i >= 0; $i-- ) {
+          $t = $page-$i;
+          $j = str_replace( '%', $t, $pagelink );
+          $output .= ' ';
+          if ( $t != $page || ( ( ! $more ) && ( $page == 1 ) ) )
+          $output .= '' . _wp_link_page( $t );
+          else
+          $output .= '<span class="post-page-numbers current">';
+
+          $output .= $text_before . $j . $text_after;
+          if ( $t != $page || ( ( ! $more ) && ( $page == 1 ) ) )
+          $output .= '</a>';
+          else
+          $output .= '</span>';
+        }
+      } else {
+        for ( $i = 1; $i <= $page; $i = $i + 1 ) {
+          $j = str_replace( '%', $i, $pagelink );
+          $output .= ' ';
+          if ( $i != $page || ( ( ! $more ) && ( $page == 1 ) ) )
+          $output .= '' . _wp_link_page( $i );
+          else
+          $output .= '<span class="post-page-numbers current">';
+
+          $output .= $text_before . $j . $text_after;
+          if ( $i != $page || ( ( ! $more ) && ( $page == 1 ) ) )
+          $output .= '</a>';
+          else
+          $output .= '</span>';
+        }
+      }
+
+      // 次のページから最後ページまでのリンク
+      if(($numpages - $page) > 4) {
+        for ( $i = 1; $i < 3; $i++ ) {
+          $t = $page + $i;
+          $j = str_replace( '%', $t, $pagelink );
+          $output .= ' ';
+          $output .= '' . _wp_link_page( $t );
+          $output .= $text_before . $j . $text_after;
+          $output .= '</a>';
+        }
+        $output .= '<span style="font-size:80%;">　…　</span>' . _wp_link_page($numpages) . $numpages .'</a>';
+      } else {
+        for ( $i = $page+1; $i <= $numpages; $i = $i + 1 ) {
+          $j = str_replace( '%', $i, $pagelink );
+          $output .= ' ';
+          $output .= '' . _wp_link_page( $i );
+
+          $output .= $text_before . $j . $text_after;
+          $output .= '</a>';
+        }
+      }
+
+      // 次へすすむリンク
+      if($page != $numpages) {
+          $output .= _wp_link_page($page+1) . $defaults['nextpagelink'] . '</a>';
+      }
+      $output .= $after;
+    } else {
+      if ( $more ) {
+        $output .= $before;
+        $i = $page - 1;
+        if ( $i && $more ) {
+          $output .= _wp_link_page( $i );
+          $output .= $text_before . $previouspagelink . $text_after . '</a>';
+        }
+        $i = $page + 1;
+        if ( $i <= $numpages && $more ) {
+          $output .= _wp_link_page( $i );
+          $output .=  $text_before . $nextpagelink . $text_after . '</a>';
+        }
+        $output .= $after;
+      }
+    }
+  }
+
+  if ( $echo )
+    echo $output;
+
+  return $output;
+}
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

@@ -5,10 +5,14 @@ if (is_array($terms)) {
 		// code...
 		$term_id = $term->term_id;
 		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
-		$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
-		$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
-		$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
-		$slug = $parent_term->slug; // タームスラッグを取得
+		if(!empty($ancestors)) {
+			$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
+			$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
+			$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+			$slug = $parent_term->slug; // タームスラッグを取得
+		} else {
+			$slug = $term->slug;
+		}
 	}
 }
  ?>
@@ -35,7 +39,16 @@ if (is_array($terms)) {
 								</div>
 								<?php }; ?>
 
-								<h1 class="entry-title single-title" itemprop="headline" rel="bookmark"><?php the_title(); ?></h1>
+								<h1 class="entry-title single-title" itemprop="headline" rel="bookmark">
+									<?php the_title(); ?>
+
+										<?php
+										global $page, $numpages, $multipage, $more, $pagenow;
+										if($multipage){
+											echo '<span class="page-num"> - '.$page.'/'.$numpages.'</span>';
+										}
+										?>
+									</h1>
 								<?php ; ?>
 
 							</header> <?php // end article header ?>
@@ -89,8 +102,8 @@ if (is_array($terms)) {
 							?>
 
 							<div class="pagination single">
-								<?php next_post_link("%link", "%title", TRUE, "$array[slug]", "custom_cat"); ?>
-								<?php previous_post_link("%link", "%title", TRUE, "$array[slug]", "custom_cat"); ?>
+								<?php next_post_link("%link", "%title", TRUE, '', "custom_cat"); ?>
+								<?php previous_post_link("%link", "%title", TRUE, '', "custom_cat"); ?>
 							</div>
 
 						</main>
