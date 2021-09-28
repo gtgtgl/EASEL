@@ -1127,6 +1127,11 @@ a.illust article figure.eye-catch {
   text-indent: 1em;
 }
 
+.make_narrow {
+  max-width: 800px;
+  margin: auto;
+}
+
 .update.hentry {
   margin: 0;
   padding: 0;

@@ -225,6 +225,11 @@ a.illust {
     text-indent: 1em;
 }
 
+.make_narrow {
+    max-width: 800px;
+    margin: auto;
+}
+
 // 更新情報の表示
 .update {
   &.hentry {

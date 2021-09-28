@@ -14,10 +14,20 @@ if ( !defined( 'ABSPATH' ) ) exit;
             <label><input type="radio" name="easel_list_type" value="text_2l" id="text_2l">文章（２行）</label><br>
             <label><input type="radio" name="easel_list_type" value="text_1l" id="text_1l">文章（１行）</label><br>
             <label><input type="radio" name="easel_list_type" value="text_noexcerpt" id="text_noexcerpt">文章（抜粋なし）</label><br>
-            <label><input type="radio" name="easel_list_type" value="update" id="update">更新履歴</label>
+            <label><input type="radio" name="easel_list_type" value="text_update" id="text_update">更新履歴</label>
           </td>
       </tr>
+
       <tr valign="top">
+          <th scope="row"><label>表示する投稿タイプ</label>
+          </th>
+          <td>
+          <label><input type="radio" name="easel_post_type" value="work" id="posttype_work" onclick="switchPostType()" checked>作品</label><br>
+          <label><input type="radio" name="easel_post_type" value="post" id="posttype_post" onclick="switchPostType()">投稿</label><br>
+          </td>
+      </tr>
+
+      <tr valign="top" id="easel_list_worktype">
           <th scope="row"><label for="easel_list_worktype">表示する作品タイプ</label>
           </th>
           <td>
@@ -30,7 +40,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
                 $terms = get_terms('custom_cat', $args);
                 foreach ( $terms as $term ) {
                     echo '<label for="' . $term->slug . '"><input name="easel_list_worktype" type="checkbox" id="' . $term->slug . '" value="' . $term->slug . '"> ' . $term->name . '</label><br>';
-                } ?>
+                }
+                 ?>
           </td>
       </tr>
       <tr valign="top">
@@ -52,8 +63,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
             <label><input type="radio" name="easel_list_order" value="rand">ランダム表示</label>
           </td>
       </tr>
-      <tr valign="top">
-          <th scope="row"><label for="easel_list_worktype">バッジ表示</label>
+      <tr valign="top" id="easel_budge">
+          <th scope="row"><label>バッジ表示</label>
           </th>
           <td>
             <p>リストに作品タイプ・作品タグを表示することができます。<br>
@@ -73,14 +84,43 @@ if ( !defined( 'ABSPATH' ) ) exit;
       </tr>
       </table>
 
-  <input type="button" value="挿入" id="easel_insert_button" class="button button-primary" />
+  <input type="button" value="挿入" id="easel_insert_button" class="button button-primary" style="margin-bottom: 20px;" />
   <input type="button" value="キャンセル" id="easel_cancel_button"  class="button" />
 </form>
 
 <script type="text/javascript">
+
+var postType = document.getElementsByName('easel_post_type');
+var listWorkType = document.getElementById('easel_list_worktype');
+var budge = document.getElementById('easel_budge');
+// 投稿タイプ選択
+function switchPostType() {
+
+  if (postType[0].checked) {
+    // 作品タイプを選択した場合
+    listWorkType.style.display = "";
+    budge.style.display = "";
+
+  } else if (postType[1].checked) {
+    // 投稿を選択した場合
+    var inputItem = document.getElementById("easel_list_worktype").getElementsByTagName("input");
+    for(var i=0; i<inputItem.length; i++){
+      inputItem[i].checked = "";
+    }
+    var inputItem2 = document.getElementById("easel_budge").getElementsByTagName("input");
+    for(var i=0; i<inputItem2.length; i++){
+      inputItem2[i].checked = "";
+    }
+    listWorkType.style.display = "none";
+    budge.style.display = "none";
+  } else {
+    return;
+  }
+}
 jQuery(function($) {
 
-	$(document).ready(function() {
+  $(document).ready(function() {
+
 		$('#easel_insert_button').on('click', function() {
       var makelist = document.getElementById( "makelist" ) ;
 
@@ -104,8 +144,20 @@ jQuery(function($) {
         case 'text_noexcerpt':
           text1 = 'new_text type=noexcerpt ';
           break;
-        case 'update':
+        case 'text_update':
           text1 = 'new_list ';
+          break;
+      }
+
+      // 出力する投稿タイプを取得
+      var easelListPostType = makelist.easel_post_type.value ;
+      var postTypeValue;
+      switch ( easelListPostType ){
+        case 'post':
+          postTypeValue = 'post_type=post ';
+          break;
+        case 'work':
+          postTypeValue = 'post_type=works ';
           break;
       }
 
@@ -177,7 +229,7 @@ jQuery(function($) {
       }
 
 			//inlineのときはwindow
-			top.send_to_editor( '[' + text1 + text2 + text3 + 'count=' + counts + text4 + text5 + text6 + ']' );
+			top.send_to_editor( '[' + text1 + postTypeValue + text2 + text3 + 'count=' + counts + text4 + text5 + text6 + ']' );
 			top.tb_remove();
 		});
 		$('#easel_cancel_button').on('click', function() {

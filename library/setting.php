@@ -54,7 +54,10 @@ endif;
                 <?php
                   generate_upload_image_tag('easel_title_image_url', get_option('easel_title_image_url'));
                 ?>
-                  <p>画像を登録しない場合、サイト名のテキストが表示されます。</p>
+                  <p>
+                    サイトの最上部に表示する画像を設定します。<br>
+                    画像を登録しない場合、サイト名のテキストが表示されます。
+                  </p>
               </td>
           </tr>
           <tr valign="top">
@@ -148,6 +151,17 @@ endif;
           <td>
             <label><input name="easel_make_main_content_indent" type="checkbox" id="easel_make_main_content_indent" value="1" <?php checked( 1, get_option('easel_make_main_content_indent')); ?> /> 行う</label><br>
             <p>チェックを入れると、[main_content]ショートコードで指定した本文部分のみが字下げされます。あとがきなどを書きたい方向け。</p>
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row"><label for="easel_make_indent">作品タイプ「文章」の本文表示エリアの横幅を狭める</label>
+          </th>
+          <td>
+            <label><input name="easel_text_work_max_width_narrow" type="checkbox" id="easel_text_work_max_width_narrow" value="1" <?php checked( 1, get_option('easel_text_work_max_width_narrow')); ?> /> 行う</label><br>
+            <p>
+              チェックを入れると、作品タイプ「文章」を設定した「作品」の本文表示エリアの横幅が少し狭くなります。<br>
+              1行の長さを抑えることで、読みやすさの向上につながります。
+            </p>
           </td>
         </tr>
         <tr valign="top">

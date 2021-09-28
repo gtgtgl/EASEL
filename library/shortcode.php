@@ -31,7 +31,7 @@ add_filter('the_excerpt','make_list_excerpt' );
 function easel_create_list($atts) {
     extract(shortcode_atts(array(
         "count" => '5', //最新記事リストの取得数
-        "work_type" => 'update', //表示する記事のカテゴリー指定
+        "work_type" => null, //表示する記事のカテゴリー指定
         "type" => 'default', //表示タイプ
         "post_type" => 'works', //投稿タイプ
         "orderby" => 'post_date', //表示の順番は何によるか
@@ -82,7 +82,7 @@ function get_new_illusts_thum() {
 function easel_create_list2($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
-      "work_type" => 'illust', //表示する記事のカテゴリー指定
+      "work_type" => null, //表示する記事のカテゴリー指定
       "type" => 'default', //表示タイプ
       "post_type" => 'works', //投稿タイプ
       "orderby" => 'post_date', //表示の順番は何によるか
@@ -118,7 +118,7 @@ add_shortcode("new_illust", "easel_create_list2");
 function easel_create_list3($atts) {
   extract(shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
-      "work_type" => 'text', //表示する記事のカテゴリー指定
+      "work_type" => null, //表示する記事のカテゴリー指定
       "type" => 'default', //表示タイプ
       "post_type" => 'works', //投稿タイプ
       "orderby" => 'post_date', //表示の順番は何によるか
@@ -129,6 +129,8 @@ function easel_create_list3($atts) {
   ), $atts));
   global $post;
   $oldpost = $post;
+  $showtypeHtml = '';
+  $showtagHtml = '';
   $myposts = get_posts('numberposts='.$count.'&post_type='.$post_type.'&order='.$order.'&orderby='.$orderby.'&custom_cat='.$work_type);
   $retHtml='<ul class="shortcode-text '.$type.' '.$class.'">';
   foreach($myposts as $post) :

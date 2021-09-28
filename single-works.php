@@ -1,5 +1,6 @@
 <?php
 $terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
+$slug = '';
 if (is_array($terms)) {
 	foreach ($terms as $term) {
 		// code...

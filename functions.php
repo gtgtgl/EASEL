@@ -46,6 +46,7 @@ function register_easel_settings() {
     'totop', // トップへ戻るボタンを設定するか
     'make_indent', // 作品タイプ「文章」でインデントをつけるか
     'make_main_content_indent', // 作品タイプ「文章」でインデントをつけるか
+    'text_work_max_width_narrow', // 作品タイプ「文章」のコンテンツ横幅を狭めるか
     'rewrite_permalink', // 作品投稿のパーマリンクをリライトするか
     'footer_text', // フッターテキストの文言変更
     'pass_blur', // パス付きイラストのサムネイルをぼかすか
@@ -439,7 +440,7 @@ class VisualEditorExcerptDemo{
 
 // カスタムフィールドの追加
 function easel_custom_css() {
-	$screens = array( 'post', 'page' );
+	$screens = array( 'post', 'page', 'works' );
 	foreach ( $screens as $screen ) {
 		add_meta_box(
       'custom_css',
@@ -887,10 +888,13 @@ if (is_array($terms)) {
     if (has_term( 'text', 'custom_cat') || $slug == 'text') {
       $classes[] = 'make_indent';
     }
-    return $classes;
-  } else {
-    return $classes;
   }
+  if ( get_option('easel_text_work_max_width_narrow') === '1' ) {
+    if (has_term( 'text', 'custom_cat') || $slug == 'text') {
+      $classes[] = 'make_narrow';
+    }
+  }
+  return $classes;
 }
 add_filter( 'post_class', 'easel_make_indent' );
 
