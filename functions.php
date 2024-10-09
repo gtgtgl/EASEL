@@ -2,6 +2,8 @@
 
 require_once( 'library/bones.php' );
 
+$theme = wp_get_theme(get_template());
+
 // テーマ更新の確認
 require_once( 'theme-update-checker.php' );
 $update_checker = new ThemeUpdateChecker(
@@ -741,7 +743,9 @@ function get_the_image() {
     // リンク先画像がない場合は最初の画像を取得
         preg_match_all($pattern2, $post->post_content, $matches);
     }
-     $get_img = $matches[1][$number - 1];
+    if (key_exists(0,$matches[1])) {
+      $get_img = $matches[1][$number - 1];
+    }
 
     if(empty($get_img)){
         // 記事内に画像がない場合のデフォルト画像を設定
@@ -870,6 +874,7 @@ add_action( 'wp_enqueue_scripts', 'easel_change_color', 9 );
 function easel_make_indent( $classes ) {
 	global $post;
   $terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
+  $slug = '';
 if (is_array($terms)) {
 	foreach ($terms as $term) {
 		// code...
@@ -883,7 +888,6 @@ if (is_array($terms)) {
 		}
 	}
 }
-  global $my_options;
   if ( get_option('easel_make_indent') === '1' ) {
     if (has_term( 'text', 'custom_cat') || $slug == 'text') {
       $classes[] = 'make_indent';
@@ -1016,5 +1020,8 @@ function custom_wp_link_pages($args = '')
 
   return $output;
 }
+
+// ブロックエディターへの対応
+require_once( 'library/gutenberg.php' );
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

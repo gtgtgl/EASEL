@@ -64,6 +64,7 @@ function custom_post_example() {
 			'show_admin_column' => true,
 			'show_ui' => true,
 			'query_var' => true,
+			'show_in_rest' => true,
 			'rewrite' => array( 'slug' => 'work_type' ),
       'has_archive' => true,  //trueにすると投稿した記事の一覧ページを作成することができる
 		)

@@ -249,35 +249,4 @@ function media_easel_make_shortcode_window() {
 	include 'add_shortcode.php';
 }
 
-// ブロックエディタでもショートコードを簡単に挿入する
-// https://wemo.tech/2163
-// https://qiita.com/harapeko_momiji/items/83cd0953d030c0d8a59f
-// https://gist.github.com/k-ishiwata/bc1698839c9755ad84eac5a13988f02f
-
-// register_block_type( 'capital-block/my-block', [
-//     'render_callback' => function( $attributes, $content = '' ) {
-//         // ここでブロックの中身を文字列として生成する。
-//         return $block_result;
-//     },
-// ] );
-
-// ブロックカテゴリーを追加する
-// function easel_block_categories( $categories, $post ) {
-//     return array_merge(
-//         $categories,
-//         array(
-//             array(
-//                 'slug' => 'easel-cat',   //ブロックカテゴリーのスラッグ
-//                 'title' => 'EASELブロック',  //ブロックカテゴリーの表示名
-//                 'icon'  => 'art',    //アイコンの指定（Dashicons名）
-//             ),
-//         )
-//     );
-// }
-// add_filter( 'block_categories', 'easel_block_categories', 10, 2 );
-//
-// function add_easel_shortcode_to_block_editor() {
-//     wp_enqueue_script( 'block-custom', get_template_directory_uri().'/library/js/block_editor.jsx',array(), "", true);
-// }
-// add_action( 'enqueue_block_editor_assets', 'add_easel_shortcode_to_block_editor' );
  ?>
