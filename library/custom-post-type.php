@@ -11,7 +11,7 @@ function bones_flush_rewrite_rules() {
 }
 
 // let's create the function for the custom type
-function custom_post_example() {
+function create_post_type_works() {
 	// creating (registering) the custom type
 	register_post_type( 'works', /* (http://codex.wordpress.org/Function_Reference/register_post_type) */
 		// let's now add all the options for this post type
@@ -33,6 +33,7 @@ function custom_post_example() {
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
+			'show_in_rest' => true,
 			'query_var' => true,
 			'menu_position' => 8, /* this is what order you want it to appear in on the left hand side menu */
 			'menu_icon' => 'dashicons-art', /* the icon for the custom post type menu */
@@ -45,7 +46,7 @@ function custom_post_example() {
 		) /* end of options */
 	); /* end of register post type */
 }
-	add_action( 'init', 'custom_post_example');
+	add_action( 'init', 'create_post_type_works');
 
 	register_taxonomy( 'custom_cat',
 		array('works'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
