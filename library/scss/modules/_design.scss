@@ -2,22 +2,23 @@ img {
   max-width: 100%;
 }
 
-a.more-link, a.read-more {
-    display: block;
-    background: white;
-    padding: 10px 20px;
-    margin: 40px auto 20px;
-    border: 1px solid;
-    border-radius: 3px;
-    text-align: center;
-    max-width: 400px;
-    position: relative;
+a.more-link,
+a.read-more {
+  display: block;
+  background: white;
+  padding: 10px 20px;
+  margin: 40px auto 20px;
+  border: 1px solid;
+  border-radius: 3px;
+  text-align: center;
+  max-width: 400px;
+  position: relative;
 
-    &:after {
+  &:after {
     display: block;
     width: 5px;
     height: 5px;
-    content: '';
+    content: "";
     border-right: 1px solid;
     border-bottom: 1px solid;
     transform: rotate(-45deg);
@@ -26,66 +27,65 @@ a.more-link, a.read-more {
     bottom: 0;
     margin: auto;
     right: 30px;
-    }
+  }
 }
 
 main#main {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 span.category {
-    display: inline-block;
-    font-size: 12px;
-    color: $meta-gray;
-    margin: 0 0 0 15px;
+  display: inline-block;
+  font-size: 12px;
+  color: $meta-gray;
+  margin: 0 0 0 15px;
 
-    a {
+  a {
     color: $meta-gray;
     margin: 0 0 0 5px;
 
     &:hover {
       color: $link-color;
     }
-    }
+  }
 }
 
 span.tag {
-    display: inline-block;
-    font-size: 12px;
-    margin: 0 0 0 15px;
-    color: $meta-gray;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 0 0 15px;
+  color: $meta-gray;
 
-    a {
+  a {
     color: $meta-gray;
-        &:hover {
-          color: $link-color;
-        }
+    &:hover {
+      color: $link-color;
     }
+  }
 
-    i {
-
+  i {
     margin: 0 5px;
-    }
+  }
 }
 
 footer.article-footer {
-    text-align: right;
+  text-align: right;
 
-    .day {
-      color: $meta-gray;
-      font-size: 12px;
-    }
+  .day {
+    color: $meta-gray;
+    font-size: 12px;
+  }
 }
 // アイキャッチの表示
 
 figure.eye-catch {
-    width: 100%;
-    height: 200px;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  width: 100%;
+  height: 200px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 
-    img {
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -97,21 +97,21 @@ article figure.eye-catch {
 }
 
 body.blog article figure.eye-catch {
-    height: auto;
-    max-height: 400px;
-    overflow: hidden;
-    object-position: center;
-    img {
-      height: 100%;
-      max-height: 300px;
-    }
+  height: auto;
+  max-height: 400px;
+  overflow: hidden;
+  object-position: center;
+  img {
+    height: 100%;
+    max-height: 300px;
+  }
 }
 
 // 投稿
 header.article-header.entry-header {
-    display: flex;
-    border-bottom: 1px solid #ddd;
-    h1 {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  h1 {
     font-size: 1.5em;
     line-height: 1.6;
     align-items: center;
@@ -125,12 +125,12 @@ header.article-header.entry-header {
   }
 }
 .post-date {
-    text-align: center;
-    display: block;
-    margin: 0 20px 0 0;
-    font-family: $number;
-    font-weight: normal;
-    color: $bones-pink;
+  text-align: center;
+  display: block;
+  margin: 0 20px 0 0;
+  font-family: $number;
+  font-weight: normal;
+  color: $bones-pink;
 
   span.day {
     font-size: 40px;
@@ -140,34 +140,34 @@ header.article-header.entry-header {
 }
 
 time {
-font-family: $number;
+  font-family: $number;
 }
 
 span.category a {
-    display: inline-block;
-    font-size: 12px;
-    margin: 0 10px;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 10px;
 }
 // イラスト一覧の表示
 
 h1.archive-title.h2 {
-    width: 100%;
-    text-align: center;
-    margin: 40px auto 0;
+  width: 100%;
+  text-align: center;
+  margin: 40px auto 0;
 }
 
 .easel_term_disc {
-    width: 100%;
-    margin: 0 0 60px;
-	.easel_term_disc_inner {
-		max-width: 600px;
-		margin: 0 auto;
-	}
+  width: 100%;
+  margin: 0 0 60px;
+  .easel_term_disc_inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
 
 main.illust-wrap {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 a.illust {
@@ -180,19 +180,19 @@ a.illust {
     background: #f6f7f7;
   }
   .entry-content {
-    padding: .5em .5em 0;
+    padding: 0.5em 0.5em 0;
   }
   article {
     padding: 0;
     height: 100%;
     h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 16px;
-    color: $text-color;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      color: $text-color;
     }
     .byline {
-    font-size: 13px;
+      font-size: 13px;
     }
     .excerpt {
       color: $text-color;
@@ -207,27 +207,27 @@ a.illust {
 // 小説一覧
 
 .text-wrap article {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    a h3 {
+  a h3 {
     margin-top: 0;
     font-size: 18px;
-    }
+  }
 
-    figure.eye-catch {
+  figure.eye-catch {
     width: 200px;
     margin: 20px auto;
-    }
+  }
 }
 
 .make_indent p {
-    text-indent: 1em;
+  text-indent: 1em;
 }
 
 .make_narrow {
-    max-width: 800px;
-    margin: auto;
+  max-width: 800px;
+  margin: auto;
 }
 
 // 更新情報の表示
@@ -255,12 +255,12 @@ a.illust {
     line-height: 1.6;
     margin: 10px 0px;
     .byline.vcard {
-    margin: 0 10px 0 0;
-    color: $bones-pink;
+      margin: 0 10px 0 0;
+      color: $bones-pink;
     }
     h3.h2 {
-    margin: 0;
-    font-size: 18px;
+      margin: 0;
+      font-size: 18px;
     }
   }
 
@@ -273,10 +273,10 @@ a.illust {
 }
 
 .news_list {
-    padding: 20px;
-    border: 1px solid #ddd;
-    margin: 40px auto;
-    list-style: none;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 40px auto;
+  list-style: none;
 
   li a {
     display: flex;
@@ -285,18 +285,18 @@ a.illust {
     font-size: 14px;
 
     span.news_date {
-    margin-right: 10px;
-    display: block;
-    max-width: 140px;
-    min-width: 90px;
-    word-break: keep-all;
-    font-family: $number;
+      margin-right: 10px;
+      display: block;
+      max-width: 140px;
+      min-width: 90px;
+      word-break: keep-all;
+      font-family: $number;
     }
 
     span.news_title {
-    display: block;
-    flex: 1;
-    color: $text-color;
+      display: block;
+      flex: 1;
+      color: $text-color;
     }
   }
 }
@@ -342,39 +342,39 @@ a.illust {
   li {
     position: relative;
     figure {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    img {
-      height: 100%;
       width: 100%;
-      object-fit: cover;
+      height: 100%;
+      position: absolute;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
       }
     }
     section {
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    position: absolute;
-    background: #3c373778;
-    text-align: center;
-    padding: 0;
-    opacity: 0;
-    transition: .5s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    h3 {
-      font-size: 20px;
-      font-weight: 400;
-      color: white;
-      margin: 0 auto 5px;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      position: absolute;
+      background: #3c373778;
+      text-align: center;
+      padding: 0;
+      opacity: 0;
+      transition: 0.5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h3 {
+        font-size: 20px;
+        font-weight: 400;
+        color: white;
+        margin: 0 auto 5px;
       }
-     p {
-    font-style: initial;
-    font-size: 14px;
-    opacity: .8;
-    color: #ededed;
+      p {
+        font-style: initial;
+        font-size: 14px;
+        opacity: 0.8;
+        color: #ededed;
       }
     }
     a:hover section {
@@ -393,7 +393,7 @@ a.illust {
     padding-left: 20px;
     p {
       margin-bottom: 0 !important;
-        width: 100%;
+      width: 100%;
     }
     .category {
       margin: 0;
@@ -410,7 +410,6 @@ a.illust {
         border-radius: 2px;
       }
     }
-
   }
   li:not(:last-of-type) {
     margin-bottom: 20px;
@@ -432,7 +431,8 @@ a.illust {
   width: 100%;
   margin: 40px auto;
 
-  .col-left, .col-right {
+  .col-left,
+  .col-right {
     padding: 10px;
     flex: 1;
   }
@@ -444,7 +444,9 @@ a.illust {
   margin: 40px auto;
   width: 100%;
 
-  .col-left, .col-right, .col-center {
+  .col-left,
+  .col-right,
+  .col-center {
     padding: 10px;
     flex: 1;
   }
@@ -455,7 +457,6 @@ a.illust {
 footer.footer {
   font-size: 14px;
   #footer_widget {
-
     ul {
       margin-right: 20px;
       li a {
@@ -467,13 +468,15 @@ footer.footer {
       }
     }
 
-    .footer_left, .footer_center, .footer_right {
+    .footer_left,
+    .footer_center,
+    .footer_right {
       flex: 1;
     }
 
     .widget_my_profile {
-    max-width: 300px;
-    margin: 20px auto;
+      max-width: 300px;
+      margin: 20px auto;
     }
   }
 

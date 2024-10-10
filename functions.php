@@ -754,7 +754,7 @@ function get_the_image() {
         // $get_img  = false;
     }
     if($get_img === false){
-        return false;
+      $get_img  = get_template_directory_uri()."/img/default.jpg";
     } else{
         // 画像表示設定
         $alt = $post->post_title;

@@ -1,130 +1,130 @@
-$style-color:       #49462c;
-$border-color:      #ede3d3;
-$footer-color:      #bab8b3;
-$text-color:        #32302f;
-$bg-color:  				#fffefc;
-$gray:              #bab8b3;
-$meta-gray:         #bab8b3;
-$light-gray:        #f7f2ef;
+$style-color: #49462c;
+$border-color: #ede3d3;
+$footer-color: #bab8b3;
+$text-color: #32302f;
+$bg-color: #fffefc;
+$gray: #bab8b3;
+$meta-gray: #bab8b3;
+$light-gray: #f7f2ef;
 
-$link-color:        #8d5837;
-$link-hover:        #aba69a;
+$link-color: #8d5837;
+$link-hover: #aba69a;
 
 @import "changebasecolor";
 
 article h2 {
-    border-bottom: none;
-    border-left: 5px solid;
-    padding: 5px 0 5px 20px;
+  border-bottom: none;
+  border-left: 5px solid;
+  padding: 5px 0 5px 20px;
 }
 
 // ナビ
 header nav {
-	background: $text-color;
-	ul.nav {
-		background: transparent;
-	}
+  background: $text-color;
+  ul.nav {
+    background: transparent;
+  }
 }
 .header .nav li a {
-	color: $bg-color;
-	&:before {
-		background: $bg-color;
-	}
+  color: $bg-color;
+  &:before {
+    background: $bg-color;
+  }
 }
 header label#formenubar {
-	color: $style-color;
+  color: $style-color;
 }
 // フッター
 footer.footer {
-    background-color: $text-color;
-    border-top: none;
-		color: $bg-color;
-		a {
+  background-color: $text-color;
+  border-top: none;
+  color: $bg-color;
+  a {
+    color: $link-hover;
+    &:hover {
+      color: $bg-color;
+    }
+  }
+
+  #footer_widget {
+    border-bottom: none;
+
+    ul li a {
       color: $link-hover;
-			&:hover {
+      &:hover {
         color: $bg-color;
-			}
-		}
-
-		#footer_widget {
-			border-bottom: none;
-
-			ul li a {
-        color: $link-hover;
-				&:hover {
-          color: $bg-color;
-				}
-			}
-		}
+      }
+    }
+  }
 }
 
 // リンクボタン
-a.more-link, a.read-more {
-    display: block;
-    background: $text-color;
-		color: $bg-color;
-		&:hover {
-			background: $link-hover;
-			color: $bg-color;
-		}
+a.more-link,
+a.read-more {
+  display: block;
+  background: $text-color;
+  color: $bg-color;
+  &:hover {
+    background: $link-hover;
+    color: $bg-color;
+  }
 }
 
 .shortcode-text div {
-
   .tag a {
-  color: $meta-gray;
-  background: $light-gray;
+    color: $meta-gray;
+    background: $light-gray;
   }
 }
 
 span.category {
-    color: $meta-gray;
-    a {
+  color: $meta-gray;
+  a {
     color: $meta-gray;
 
     &:hover {
       color: $link-color;
     }
-    }
+  }
 }
 
 span.tag {
-    color: $meta-gray;
-    a {
+  color: $meta-gray;
+  a {
     color: $meta-gray;
     background: $light-gray;
-        &:hover {
-          color: $link-color;
-        }
+    &:hover {
+      color: $link-color;
     }
+  }
 }
 
 .page-links-next {
-	.post-page-numbers {
-		color: $bg-color;
+  .post-page-numbers {
+    color: $bg-color;
     background: $style-color;
-		border-radius: 50%;
-		&:hover {
-			color: $bg-color;
+    border-radius: 50%;
+    &:hover {
+      color: $bg-color;
       background: $meta-gray;
-		}
-	}
+    }
+  }
 }
 
 .page-links {
-	.post-page-numbers {
-		&:hover {
+  .post-page-numbers {
+    &:hover {
       background: $style-color;
       border-color: $style-color;
-		}
-	}
+    }
+  }
 }
 .comment.odd {
   background: $bg-color;
 }
 
 .comment.even {
-    background: $border-color;
+  background: $border-color;
 }
 
 .comment .vcard time a {
@@ -132,23 +132,22 @@ span.tag {
 }
 // 768px以上
 @media only screen and (min-width: 768px) {
-
-	header nav {
-		background: transparent;
-	}
-	.header .nav li a {
-		color: inherit;
-	}
-
-  ul.nav li ul.sub-menu, ul.nav li ul.children {
-    background: $text-color;
-		li a {
-			color: $bg-color;
-			&:hover {
-				color: $bg-color;
-				opacity: 0.6;
-			}
-		}
+  header nav {
+    background: transparent;
+  }
+  .header .nav li a {
+    color: inherit;
   }
 
+  ul.nav li ul.sub-menu,
+  ul.nav li ul.children {
+    background: $text-color;
+    li a {
+      color: $bg-color;
+      &:hover {
+        color: $bg-color;
+        opacity: 0.6;
+      }
+    }
+  }
 }
