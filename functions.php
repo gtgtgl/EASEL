@@ -864,7 +864,7 @@ function easel_change_color() {
   if($changebasecolor === 'basic_color' || empty($changebasecolor)) {
     return;
   } else {
-    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. $changebasecolor .'.css', array(), $theme->Version, 'all' );
+    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. $changebasecolor .'.css', array(), isset($theme->Version), 'all' );
     wp_enqueue_style( 'change_base_color' );
   }
 }
