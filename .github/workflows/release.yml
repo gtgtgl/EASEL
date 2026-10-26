@@ -53,10 +53,11 @@ jobs:
           path: dist/
       - name: Publish ZIP, then update metadata
         env:
-          SAKURA_SSH_HOST: ${{ secrets.SAKURA_SSH_HOST }}
-          SAKURA_SSH_USER: ${{ secrets.SAKURA_SSH_USER }}
-          SAKURA_SSH_PORT: ${{ secrets.SAKURA_SSH_PORT }}
-          SAKURA_SSH_PRIVATE_KEY: ${{ secrets.SAKURA_SSH_PRIVATE_KEY }}
-          SAKURA_SSH_KNOWN_HOSTS: ${{ secrets.SAKURA_SSH_KNOWN_HOSTS }}
+          SAKURA_SSH_HOST: ${{ secrets.SAKURA_HOST }}
+          SAKURA_SSH_USER: ${{ secrets.SAKURA_USER }}
+          SAKURA_SSH_PORT: '22'
+          SAKURA_SSH_PRIVATE_KEY: ${{ secrets.SAKURA_SSH_KEY }}
+          SAKURA_SSH_KNOWN_HOSTS: ${{ secrets.SAKURA_KNOWN_HOSTS }}
           SAKURA_DEPLOY_PATH: ${{ secrets.SAKURA_DEPLOY_PATH }}
         run: bash .github/scripts/deploy-release.sh dist
+
