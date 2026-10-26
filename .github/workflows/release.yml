@@ -1,0 +1,62 @@
+name: Release EASEL
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+# Keep publication of the fixed ZIP/JSON filenames from overlapping.
+concurrency:
+  group: easel-production-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event.release.prerelease == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Validate versions and build the distribution
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          DEPLOY_ENABLED: ${{ vars.SAKURA_DEPLOY_ENABLED }}
+        run: node .github/scripts/build-release.mjs --tag "$RELEASE_TAG"
+      - name: Keep files for review before deployment
+        uses: actions/upload-artifact@v7
+        with:
+          name: easel-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+
+  deploy:
+    needs: build
+    if: vars.SAKURA_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # Configure Required reviewers in this Environment before enabling deployment.
+    environment: sakura-production
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v8
+        with:
+          name: easel-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/
+      - name: Publish ZIP, then update metadata
+        env:
+          SAKURA_SSH_HOST: ${{ secrets.SAKURA_SSH_HOST }}
+          SAKURA_SSH_USER: ${{ secrets.SAKURA_SSH_USER }}
+          SAKURA_SSH_PORT: ${{ secrets.SAKURA_SSH_PORT }}
+          SAKURA_SSH_PRIVATE_KEY: ${{ secrets.SAKURA_SSH_PRIVATE_KEY }}
+          SAKURA_SSH_KNOWN_HOSTS: ${{ secrets.SAKURA_SSH_KNOWN_HOSTS }}
+          SAKURA_DEPLOY_PATH: ${{ secrets.SAKURA_DEPLOY_PATH }}
+        run: bash .github/scripts/deploy-release.sh dist
