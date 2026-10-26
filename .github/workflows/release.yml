@@ -3,6 +3,12 @@ name: Release EASEL
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '配布対象の公開済みReleaseタグ（例: v1.7）'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -14,24 +20,55 @@ concurrency:
 
 jobs:
   build:
-    if: github.event.release.prerelease == false
+    if: github.event_name == 'workflow_dispatch' || github.event.release.prerelease == false
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      - name: Resolve and validate the published Release tag
+        id: target
+        env:
+          INPUT_TAG: ${{ inputs.release_tag }}
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${INPUT_TAG:-$EVENT_TAG}"
+          if [[ ! "$tag" =~ ^v?[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo 'Specify a stable Release tag such as v1.7 or v1.7.0.' >&2
+            exit 1
+          fi
+          published_tag=$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" \
+            --json tagName,isDraft,isPrerelease \
+            --jq 'select(.isDraft == false and .isPrerelease == false) | .tagName')
+          if [[ "$published_tag" != "$tag" ]]; then
+            echo 'The tag must belong to an existing published, non-prerelease Release.' >&2
+            exit 1
+          fi
+          printf 'tag=%s\n' "$tag" >> "$GITHUB_OUTPUT"
+      # Keep automation from the workflow's commit, including for older Releases
+      # that do not yet contain these build/deploy scripts.
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.sha }}
+          path: automation
+          persist-credentials: false
+      - name: Check out the distribution source from the Release tag
+        uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ steps.target.outputs.tag }}
+          path: release-source
           persist-credentials: false
       - name: Validate versions and build the distribution
+        working-directory: release-source
         env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_TAG: ${{ steps.target.outputs.tag }}
           DEPLOY_ENABLED: ${{ vars.SAKURA_DEPLOY_ENABLED }}
-        run: node .github/scripts/build-release.mjs --tag "$RELEASE_TAG"
+        run: node ../automation/.github/scripts/build-release.mjs --tag "$RELEASE_TAG"
       - name: Keep files for review before deployment
         uses: actions/upload-artifact@v7
         with:
           name: easel-release-${{ github.run_id }}-${{ github.run_attempt }}
-          path: dist/
+          path: release-source/dist/
           if-no-files-found: error
           retention-days: 30
 
@@ -45,7 +82,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.sha }}
           persist-credentials: false
       - uses: actions/download-artifact@v8
         with:

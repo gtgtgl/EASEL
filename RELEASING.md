@@ -2,7 +2,7 @@
 
 ## 仕組み
 
-GitHubで正式Releaseを公開すると、`.github/workflows/release.yml`が動きます。
+GitHubで正式Releaseを公開すると、`.github/workflows/release.yml`が動きます。Actions画面から既存Releaseを指定して手動実行することもできます。
 push・タグ作成だけ・下書き保存・Releaseの編集では動きません。Pre-releaseは配布対象外です。
 
 1. Releaseのコミットを取得し、`style.css`、`theme-update.json`、Releaseタグのバージョンを確認します。
@@ -98,7 +98,7 @@ GitHubの **Settings → Secrets and variables → Actions → Variables** にRe
 この変数はEnvironmentではなく、**Repository variable**として登録してください。
 
 後日、コードとバージョン番号を確認してcommit・pushした後、そのコミットに新しいタグを付けてReleaseを公開します。
-ワークフローとスクリプトもそのタグのコミットに含まれている必要があります。古いコミットのReleaseでは今回の仕組みは動きません。
+Release公開による自動実行には、そのタグのコミットにワークフローが含まれている必要があります。含まれていない既存Releaseは、後述の手動実行で指定できます。
 
 **Actions → Release EASEL** の実行結果を開き、SummaryとArtifactを確認してください。
 Artifactの中には以下が入ります。これは確認用の外側のアーカイブなので、WordPressへは中の`easel.zip`を使います。
@@ -121,6 +121,21 @@ Actionsの **Review deployments** から成果物・バージョン・設定済�
 スキップ済みの転送ジョブだけでなく、全ジョブを再実行してください。再実行時もEnvironmentの保護ルールが適用されます。
 古い版の実行を再実行するとその版で上書きされるため、対象のタグを必ず確認してください。
 
+## Actions画面から既存Releaseを手動実行する
+
+このワークフローをデフォルトブランチへ反映すると、**Actions → Release EASEL → Run workflow**から実行できます。
+`Use workflow from`では自動化スクリプトを含むブランチ（通常はデフォルトブランチ）を選び、`release_tag`に配布したい既存Releaseのタグ（例: `v1.7`）を入力してください。
+
+配布するソースは選んだブランチの先端ではなく、入力したタグのコミットです。
+ビルド・デプロイ用スクリプトはワークフローを実行したコミットから取得するため、古いReleaseに自動化スクリプトがなくても利用できます。
+タグだけが存在してReleaseがない場合、下書き、Pre-releaseはエラーになります。
+タグの版に必要な実行用ファイルがない場合や、3つのバージョンが一致しない場合も停止します。
+
+手動実行でもArtifactの作成、`SAKURA_DEPLOY_ENABLED`による転送制御、Environmentの承認、Secrets、ZIP→JSONの公開順序は同じです。
+転送有効の状態で古いReleaseを指定すると、その版で本番配布ファイルを上書きするため、入力するタグを確認してください。
+
+参考: [GitHub Actionsの手動実行](https://docs.github.com/actions/managing-workflow-runs/manually-running-a-workflow)。
+
 ## ZIPへ含めるもの・含めないもの
 
 ZIPには、GitにコミットされたルートのPHP、`style.css`、`screenshot.jpg`、`theme-update.json`、画像、`library/`内の実行用PHP/JS/CSS・フォント・`.mo`翻訳を含めます。
@@ -136,6 +151,7 @@ Node.jsとGitが必要です。転送テストにはBashを使います。Window
 
 ```sh
 node tests/release-build.mjs
+node tests/release-workflow.mjs
 bash -n .github/scripts/deploy-release.sh
 bash tests/release-deploy.sh
 ```
