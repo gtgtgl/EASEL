@@ -90,6 +90,7 @@ $_POST = array('_wpnonce' => wp_create_nonce('update-tag_' . $child['term_id']),
 save_terms((int) $child['term_id']);
 $check(get_term_meta((int) $child['term_id'], 'easel_term_disc', true) === '<strong>Term text</strong>', 'Term description save failed.');
 $_POST = array();
+require __DIR__ . '/settings-security.php';
 $query = new WP_Query(array('post_type' => 'works'));
 $check($query->have_posts(), 'Works query failed.');
 $GLOBALS['current_screen'] = null;

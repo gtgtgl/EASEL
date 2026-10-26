@@ -44,7 +44,7 @@ EOS;
 
 				<?php else : ?>
 
-					<a href="<?php echo home_url(); ?>" class="logo" rel="nofollow" itemprop="name about"><img src="<?php echo get_option('easel_title_image_url'); ?>" alt="<?php bloginfo('name'); ?>"></a>
+					<a href="<?php echo esc_url(home_url()); ?>" class="logo" rel="nofollow" itemprop="name about"><img src="<?php echo esc_url(get_option('easel_title_image_url')); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"></a>
 
 				<?php endif; ?>
 

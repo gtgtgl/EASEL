@@ -63,7 +63,7 @@ endif;
           <tr valign="top">
               <th scope="row"><label for="easel_footer_text">サイト最下部コピーライト</label>
               </th>
-              <td><label><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo get_option('easel_footer_text'); ?>" class="regular-text" placeholder="copyright (c) サイト名等"></label><br>
+              <td><label><input name="easel_footer_text" id="easel_footer_text" type="text" value="<?php echo esc_attr(get_option('easel_footer_text')); ?>" class="regular-text" placeholder="copyright (c) サイト名等"></label><br>
               サイト最下部に表示されるコピーライトテキストを変更できます。</td>
           </tr>
           <tr valign="top">
@@ -214,7 +214,7 @@ endif;
          <tr valign="top">
              <th scope="row"><label for="easel_ogp_description">サイトの説明</label></th>
              <td>
-               <textarea name="easel_ogp_description" id="easel_ogp_description" placeholder="サイトの説明" rows="3" cols="60"><?php echo get_option('easel_ogp_description'); ?></textarea>
+               <textarea name="easel_ogp_description" id="easel_ogp_description" placeholder="サイトの説明" rows="3" cols="60"><?php echo esc_textarea(get_option('easel_ogp_description')); ?></textarea>
                <p>サイトのトップページの説明文。twitterカードや検索エンジンの概要文に使われます。60文字程度でご記入ください。<br>
                  ※投稿、固定ページおよび作品ページにおいて、「抜粋」が入力されている場合は抜粋が使用されます。</p>
              </td>
@@ -231,12 +231,12 @@ endif;
         <table class="form-table">
         <tr valign="top">
             <th scope="row"><label for="easel_twitter">TwitterURL</label></th>
-            <td><input name="easel_twitter" id="easel_twitter" type="text" value="<?php echo get_option('easel_twitter'); ?>" class="regular-text" placeholder="https://twitter.com/userID"><br>
+            <td><input name="easel_twitter" id="easel_twitter" type="text" value="<?php echo esc_attr(get_option('easel_twitter')); ?>" class="regular-text" placeholder="https://twitter.com/userID"><br>
             ※現在のバージョンでは使用しませんが、後々のアップデートで使用するかもです</td>
         </tr>
         <tr valign="top">
             <th scope="row"><label for="easel_pixiv">PixivURL</label></label></th>
-            <td><input name="easel_pixiv" id="easel_pixiv" type="text" value="<?php echo get_option('easel_pixiv'); ?>" class="regular-text" placeholder="https://www.pixiv.net/users/userID"><br>
+            <td><input name="easel_pixiv" id="easel_pixiv" type="text" value="<?php echo esc_attr(get_option('easel_pixiv')); ?>" class="regular-text" placeholder="https://www.pixiv.net/users/userID"><br>
             ※現在のバージョンでは使用しませんが、後々のアップデートで使用するかもです</td>
         </tr>
         </table>

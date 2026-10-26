@@ -6,10 +6,6 @@ $theme = wp_get_theme(get_template());
 
 // テーマ更新の確認
 require_once __DIR__ . '/theme-update-checker.php';
-$update_checker = new ThemeUpdateChecker(
-    'easel',
-    'https://easel.gt-gt.org/downloads/theme-update.json'
-);
 
 // ダッシュボードに案内ウィジェットを追加する
 function easel_add_custom_widget() {
@@ -58,7 +54,37 @@ function register_easel_settings() {
     'pixiv' // Pixivアカウント名
   ];
   foreach($my_options as $my_option){
-    register_setting( 'easel_settings', 'easel_'.$my_option );
+    register_setting( 'easel_settings', 'easel_'.$my_option, array(
+      'sanitize_callback' => function ($value) use ($my_option) {
+        return easel_sanitize_setting($value, $my_option);
+      },
+    ) );
+  }
+}
+
+// Settings API passes unslashed values. Validate each setting by its input type.
+function easel_sanitize_setting($value, $option) {
+  $value = is_scalar($value) ? (string) $value : '';
+  switch ($option) {
+    case 'title_image_url':
+    case 'ogp_image':
+    case 'twitter':
+    case 'pixiv':
+      return esc_url_raw($value, array('http', 'https'));
+    case 'ogp_description':
+      return sanitize_textarea_field($value);
+    case 'footer_text':
+      return sanitize_text_field($value);
+    case 'base_color':
+      return in_array($value, array('basic_color', 'blue_white', 'pink_white', 'orange_white', 'piano'), true) ? $value : 'basic_color';
+    case 'totop':
+      return in_array($value, array('visible', 'hidden'), true) ? $value : 'hidden';
+    case 'rewrite_permalink':
+      return in_array($value, array('default', 'changed'), true) ? $value : 'default';
+    case 'ogp_twitter_card':
+      return in_array($value, array('summary', 'summary_large_image'), true) ? $value : 'summary';
+    default:
+      return $value === '1' ? '1' : '0';
   }
 }
 
@@ -219,12 +245,12 @@ add_action( 'restrict_manage_posts', 'easel_add_worktype_filter' );
 
 //画像アップロード用のタグを出力する
 function generate_upload_image_tag($name, $value){?>
-  <input name="<?php echo $name; ?>" type="text" value="<?php echo $value; ?>" />
-  <input type="button" name="<?php echo $name; ?>_select" value="選択" />
-  <input type="button" name="<?php echo $name; ?>_clear" value="クリア" />
-  <div id="<?php echo $name; ?>_thumbnail" class="uploded-thumbnail">
+  <input name="<?php echo esc_attr($name); ?>" type="text" value="<?php echo esc_attr($value); ?>" />
+  <input type="button" name="<?php echo esc_attr($name . '_select'); ?>" value="選択" />
+  <input type="button" name="<?php echo esc_attr($name . '_clear'); ?>" value="クリア" />
+  <div id="<?php echo esc_attr($name . '_thumbnail'); ?>" class="uploded-thumbnail">
     <?php if ($value): ?>
-      <img src="<?php echo $value; ?>" alt="選択中の画像">
+      <img src="<?php echo esc_url($value); ?>" alt="選択中の画像">
     <?php endif ?>
   </div>
 
@@ -278,7 +304,7 @@ function generate_upload_image_tag($name, $value){?>
                   $("input:text[name=<?php echo $name; ?>]").val(file.attributes.sizes.full.url);
 
                   /* プレビュー用に選択されたサムネイル画像を表示 */
-                  $("#<?php echo $name; ?>_thumbnail").append('<img src="'+file.attributes.sizes.full.url+'" />');
+                  $("#<?php echo $name; ?>_thumbnail").append($('<img>', { src: file.attributes.sizes.full.url, alt: '選択中の画像' }));
 
               });
           });

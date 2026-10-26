@@ -11,7 +11,7 @@
 									<?php
 									$term_id = get_queried_object_id(); // タームのIDを取得
 									$easel_term_disc = get_term_meta($term_id, 'easel_term_disc', 1); // タームの説明を取得
-									echo nl2br($easel_term_disc);
+									echo nl2br(wp_kses_post($easel_term_disc));
 									?>
 								</div>
 							</div>

@@ -34,7 +34,7 @@
 						if ($footer_text == false) { ?>
 							<p class="source-org copyright">Copyright (c) <?php get_the_time('Y'); ?> <?php bloginfo( 'name' ) ?>, with WP theme <a href="https://easel.gt-gt.org/">EASEL</a></p>
 						  <?php } else { ?>
-						  <p class="source-org copyright"><?php echo $footer_text; ?>, with WP theme <a href="https://easel.gt-gt.org/">EASEL</a></p>
+						  <p class="source-org copyright"><?php echo esc_html($footer_text); ?>, with WP theme <a href="https://easel.gt-gt.org/">EASEL</a></p>
 					<?php } ?>
 
 				</div>

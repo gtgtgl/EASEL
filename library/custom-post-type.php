@@ -129,7 +129,7 @@ add_action( 'pre_get_posts', 'easel_change_posts_per_page' );
 // ターム一覧ページの編集画面に要素を追加する関数
 function edit_term_fields( $tag ) {
     //まずは、すでに設定されている情報を取得
-    $value = get_term_meta($tag->term_id, 'easel_term_disc', 1);
+    $value = wp_kses_post(get_term_meta($tag->term_id, 'easel_term_disc', 1));
     echo '<tr class="form-field">
              <th><label for="easel_term_disc">一覧ページに表示するテキスト</label></th>
              <td>';
@@ -154,7 +154,8 @@ function save_terms( $term_id ) {
   if (current_user_can('edit_term', $term_id) && isset($_POST['_wpnonce'], $_POST['easel_term_disc'])
       && is_string($_POST['_wpnonce']) && is_string($_POST['easel_term_disc'])
       && wp_verify_nonce(wp_unslash($_POST['_wpnonce']), 'update-tag_' . $term_id)) {
-    update_term_meta( $term_id, 'easel_term_disc', wp_kses_post(wp_unslash($_POST['easel_term_disc'])));
+    $description = wp_kses_post(wp_unslash($_POST['easel_term_disc']));
+    update_term_meta( $term_id, 'easel_term_disc', wp_slash($description));
   }
 }
 //新規追加用フック
