@@ -1,21 +1,5 @@
 <?php
-$terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
-$slug = '';
-if (is_array($terms)) {
-	foreach ($terms as $term) {
-		// code...
-		$term_id = $term->term_id;
-		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
-		if(!empty($ancestors)) {
-			$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
-			$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
-			$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
-			$slug = $parent_term->slug; // タームスラッグを取得
-		} else {
-			$slug = $term->slug;
-		}
-	}
-}
+$slug = easel_get_work_type_slug(get_the_ID());
  ?>
 
 <?php get_header(); ?>

@@ -37,7 +37,9 @@ if ( !defined( 'ABSPATH' ) ) exit;
                 'order'         => 'ASC',
                 'hierarchical'  => true,
               );
-                $terms = get_terms('custom_cat', $args);
+                $args['taxonomy'] = 'custom_cat';
+                $terms = get_terms($args);
+                $terms = is_wp_error($terms) ? array() : $terms;
                 foreach ( $terms as $term ) {
                     echo '<label for="' . $term->slug . '"><input name="easel_list_worktype" type="checkbox" id="' . $term->slug . '" value="' . $term->slug . '"> ' . $term->name . '</label><br>';
                 }
@@ -221,11 +223,12 @@ jQuery(function($) {
       }
 
       // クラスの取得
+      var text4;
       var orgClass = $('#easel_original_class').val() ;
       if (orgClass == '') {
         text4 = '';
       } else {
-        text4 = ' class=' + orgClass;
+        text4 = ' class="' + orgClass.replace(/"/g, '') + '"';
       }
 
 			//inlineのときはwindow
@@ -237,7 +240,7 @@ jQuery(function($) {
 		});
 
 		//Enterキーが入力されたとき
-		$('#paka3_editer_insert_content').on('keypress',function () {
+		$('#paka3_editer_insert_content').on('keypress',function (event) {
 			if(event.which == 13) {
 				$('#easel_insert_button').trigger("click");
 			}

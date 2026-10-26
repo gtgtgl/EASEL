@@ -4,6 +4,9 @@ if ( !defined( 'ABSPATH' ) ) exit;
 // ショートコードの実装
 function make_list_excerpt() {
   global $post;
+  if (!$post instanceof WP_Post) {
+    return '';
+  }
   //エスケープ解除
   if( !post_password_required() ) {
     if( !has_excerpt() ) {
@@ -29,7 +32,7 @@ add_filter('the_excerpt','make_list_excerpt' );
 
 /* 更新履歴リスト */
 function easel_create_list($atts) {
-    extract(shortcode_atts(array(
+    $attributes = shortcode_atts(array(
         "count" => '5', //最新記事リストの取得数
         "work_type" => null, //表示する記事のカテゴリー指定
         "type" => 'default', //表示タイプ
@@ -37,14 +40,27 @@ function easel_create_list($atts) {
         "orderby" => 'post_date', //表示の順番は何によるか
         "order" => 'DESC', //表示順は順か逆か
         "class" => null, //クラス
-    ), $atts));
+    ), $atts);
+  $count = $attributes['count'];
+  $work_type = $attributes['work_type'];
+  $type = $attributes['type'];
+  $post_type = $attributes['post_type'];
+  $orderby = $attributes['orderby'];
+  $order = $attributes['order'];
+  $class = $attributes['class'];
     global $post;
     $oldpost = $post;
-    $myposts = get_posts('numberposts='.$count.'&post_type='.$post_type.'&order='.$order.'&orderby='.$orderby.'&custom_cat='.$work_type);
-    $retHtml='<ul class="news_list '.$type.' '.$class.'">';
+    $myposts = get_posts(array(
+    'numberposts' => (int) $count ?: 5,
+    'post_type' => sanitize_key($post_type),
+    'order' => strtoupper($order) === 'ASC' ? 'ASC' : 'DESC',
+    'orderby' => $orderby,
+    'custom_cat' => (string) $work_type,
+  ));
+    $retHtml='<ul class="news_list '.esc_attr($type.' '.$class).'">';
     foreach($myposts as $post) :
       setup_postdata($post);
-      $retHtml.='<li><a href="'.get_permalink().'">';
+      $retHtml.='<li><a href="'.esc_url(get_permalink()).'">';
       $retHtml.='<span class="news_date">'.get_post_time( 'Y-m-d' ).'</span>';
       $retHtml.='<span class="news_title">'.the_title("","",false).'</span>';
       $retHtml.='</a></li>';
@@ -62,7 +78,10 @@ function get_new_illusts_thum() {
   if ( has_post_thumbnail() ) {
     $thumbnail_id = get_post_thumbnail_id();
     $eye_img = wp_get_attachment_image_src( $thumbnail_id , 'full' );
-    $url = $eye_img[0];
+    // Image lookup can fail even when a thumbnail ID is set.
+    if (!is_array($eye_img) || !isset($eye_img[0], $eye_img[1], $eye_img[2])) {
+      return get_the_image();
+    }
     $width = $eye_img[1];
     $height = $eye_img[2];
     $size = $width.'x'.$height.' size-'.$width.'x'.$height;
@@ -80,7 +99,7 @@ function get_new_illusts_thum() {
   }
 }
 function easel_create_list2($atts) {
-  extract(shortcode_atts(array(
+  $attributes = shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
       "work_type" => null, //表示する記事のカテゴリー指定
       "type" => 'default', //表示タイプ
@@ -88,11 +107,24 @@ function easel_create_list2($atts) {
       "orderby" => 'post_date', //表示の順番は何によるか
       "order" => 'DESC', //表示順は順か逆か
       "class" => null, //クラス
-  ), $atts));
+  ), $atts);
+  $count = $attributes['count'];
+  $work_type = $attributes['work_type'];
+  $type = $attributes['type'];
+  $post_type = $attributes['post_type'];
+  $orderby = $attributes['orderby'];
+  $order = $attributes['order'];
+  $class = $attributes['class'];
   global $post;
   $oldpost = $post;
-  $myposts = get_posts('numberposts='.$count.'&post_type='.$post_type.'&order='.$order.'&orderby='.$orderby.'&custom_cat='.$work_type);
-  $retHtml='<ul class="shortcode-illust '.$type.' '.$class.'">';
+  $myposts = get_posts(array(
+    'numberposts' => (int) $count ?: 5,
+    'post_type' => sanitize_key($post_type),
+    'order' => strtoupper($order) === 'ASC' ? 'ASC' : 'DESC',
+    'orderby' => $orderby,
+    'custom_cat' => (string) $work_type,
+  ));
+  $retHtml='<ul class="shortcode-illust '.esc_attr($type.' '.$class).'">';
   foreach($myposts as $post) :
     setup_postdata($post);
     $new_illusts_thum = get_new_illusts_thum();
@@ -101,7 +133,7 @@ function easel_create_list2($atts) {
     } else {
       $pass = null;
     }
-    $retHtml.='<li><a href="'.get_permalink().'">';
+    $retHtml.='<li><a href="'.esc_url(get_permalink()).'">';
     $retHtml.='<figure' .$pass. '>'.$new_illusts_thum.'</figure>';
     $retHtml.= '<section><div><h3 class="h2">'.the_title("","",false).'</h3>';
     $retHtml.= '<p class="byline vcard"><time class="updated" itemprop="datePublished">'.get_the_time('Y-m-j').'</time></p>';
@@ -116,7 +148,7 @@ add_shortcode("new_illust", "easel_create_list2");
 
 /* 小説リスト */
 function easel_create_list3($atts) {
-  extract(shortcode_atts(array(
+  $attributes = shortcode_atts(array(
       "count" => '-1', //最新記事リストの取得数
       "work_type" => null, //表示する記事のカテゴリー指定
       "type" => 'default', //表示タイプ
@@ -126,22 +158,39 @@ function easel_create_list3($atts) {
       "class" => null, //クラス
       "showtype" => false, //作品タイプを表示するかどうか
       "showtag" => false, //作品タグを表示するかどうか
-  ), $atts));
+  ), $atts);
+  $count = $attributes['count'];
+  $work_type = $attributes['work_type'];
+  $type = $attributes['type'];
+  $post_type = $attributes['post_type'];
+  $orderby = $attributes['orderby'];
+  $order = $attributes['order'];
+  $class = $attributes['class'];
+  $showtype = $attributes['showtype'];
+  $showtag = $attributes['showtag'];
   global $post;
   $oldpost = $post;
   $showtypeHtml = '';
   $showtagHtml = '';
-  $myposts = get_posts('numberposts='.$count.'&post_type='.$post_type.'&order='.$order.'&orderby='.$orderby.'&custom_cat='.$work_type);
-  $retHtml='<ul class="shortcode-text '.$type.' '.$class.'">';
+  $myposts = get_posts(array(
+    'numberposts' => (int) $count ?: 5,
+    'post_type' => sanitize_key($post_type),
+    'order' => strtoupper($order) === 'ASC' ? 'ASC' : 'DESC',
+    'orderby' => $orderby,
+    'custom_cat' => (string) $work_type,
+  ));
+  $retHtml='<ul class="shortcode-text '.esc_attr($type.' '.$class).'">';
   foreach($myposts as $post) :
     setup_postdata($post);
-    if ($showtype == true) {
+    if (filter_var($showtype, FILTER_VALIDATE_BOOLEAN)) {
       $showtypeHtml = get_the_term_list( $post->ID , 'custom_cat', '<span class="category">', ' ', '</span>' );
     }
-    if ($showtag == true) {
+    if (filter_var($showtag, FILTER_VALIDATE_BOOLEAN)) {
       $showtagHtml = get_the_term_list( $post->ID , 'custom_tag', '<span class="tag">', ' ', '</span>' );
     }
-    $retHtml.='<li><a href="'.get_permalink().'"><h4>'.the_title("","",false).'</h4></a>';
+    $showtypeHtml = is_wp_error($showtypeHtml) ? '' : $showtypeHtml;
+    $showtagHtml = is_wp_error($showtagHtml) ? '' : $showtagHtml;
+    $retHtml.='<li><a href="'.esc_url(get_permalink()).'"><h4>'.get_the_title().'</h4></a>';
     $retHtml.='<div><p class="excerpt">'.make_list_excerpt().'</p>' . $showtypeHtml . ' ' . $showtagHtml . '</div></li>';
   endforeach;
   $retHtml.='</ul>';
@@ -225,10 +274,13 @@ function easel_add_shortcode_mce_button( $buttons ) {
 
 // ショートコード挿入をもっと便利にする
 // http://www.paka3.net/wpplugin92/
-add_filter( "media_buttons_context", "add_easel_shortcode_button");
-function add_easel_shortcode_button ( $context ) {
-  $context .= '<a href="media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550" class="thickbox button" title="作品リスト挿入(β)"><span class="dashicons dashicons-art" style="vertical-align: text-top;margin: 0 5px 0 0;"></span>作品リスト挿入(β)</a>';
-  return $context;
+add_action( 'media_buttons', 'add_easel_shortcode_button');
+function add_easel_shortcode_button ( $editor_id ) {
+  if ('content' !== $editor_id) {
+    return;
+  }
+  add_thickbox();
+  echo '<a href="' . esc_url(admin_url('media-upload.php?tab=easel_tab&type=easel_type&TB_iframe=true&width=600&height=550')) . '" class="thickbox button" title="作品リスト挿入"><span class="dashicons dashicons-art" aria-hidden="true"></span> 作品リスト挿入</a>';
 }
 
 function easel_upload_tabs( $tabs )
@@ -246,7 +298,7 @@ function easel_wp_iframe() {
 function media_easel_make_shortcode_window() {
 	add_filter( "media_upload_tabs", "easel_upload_tabs"  ,1000);
 	media_upload_header();
-	include 'add_shortcode.php';
+	include __DIR__ . '/add_shortcode.php';
 }
 
  ?>

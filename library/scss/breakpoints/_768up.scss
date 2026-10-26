@@ -42,7 +42,6 @@ main#main {
   flex-wrap: wrap;
   &.default li {
     width: calc(33% - 3px);
-    height: 220px;
     &:not(:nth-of-type(2n)) {
       margin-right: 0;
     }
@@ -52,7 +51,6 @@ main#main {
   }
   &.small li {
     width: calc(20% - 4px);
-    height: 150px;
     margin-bottom: 5px;
     &:not(:nth-of-type(4n)) {
       margin-right: 0;

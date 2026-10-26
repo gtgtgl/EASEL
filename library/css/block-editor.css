@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* WordPress scopes these rules to the block editor's content canvas. */
+@font-face {
+  font-family: "biko";
+  src: url("../fonts/Biko_Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "biko-light";
+  src: url("../fonts/Biko_Light-Restricted.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.editor-styles-wrapper {
+  font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial", "Hiragino Sans", "ヒラギノ角ゴシック", YuGothic, "Yu Gothic", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #57595d;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.editor-styles-wrapper a {
+  color: #f01d4f;
+  text-decoration: none;
+}
+
+.editor-styles-wrapper a:hover,
+.editor-styles-wrapper a:focus {
+  color: #d10e3c;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5 {
+  font-family: inherit;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-top: 2em;
+}
+
+.editor-styles-wrapper h1 {
+  font-size: 1.5em;
+  line-height: 1.5;
+}
+
+.editor-styles-wrapper h2 {
+  font-size: 1.3em;
+  line-height: 1.4;
+  padding: 9px 10px;
+  border-bottom: 1px solid;
+  margin-bottom: 1em;
+}
+
+.editor-styles-wrapper h3 { font-size: 1.2em; }
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5 { font-size: 1.1em; }
+
+.editor-styles-wrapper p { margin-bottom: 1.5em; }
+
+.editor-styles-wrapper blockquote {
+  margin: 0 0 1.5em;
+  padding: 2.5em .5em 1em 1em;
+  font-style: italic;
+  color: #707175;
+  background: #f5f5f5;
+}
+
+.editor-styles-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  margin-bottom: 1.5em;
+}
+
+.editor-styles-wrapper td,
+.editor-styles-wrapper th {
+  padding: 7px;
+  border: 1px solid #ccc;
+}
+
+.editor-styles-wrapper th,
+.editor-styles-wrapper tr:nth-child(even) { background: #f5f5f5; }
+
+.editor-styles-wrapper pre {
+  background: #000;
+  color: #f5f5f5;
+  font-size: .9em;
+  padding: 1.5em;
+  border-radius: 3px;
+}
+
+.editor-styles-wrapper img { max-width: 100%; }

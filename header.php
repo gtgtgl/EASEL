@@ -1,12 +1,9 @@
 <!doctype html>
+<html <?php language_attributes(); ?>>
 
 <head>
-	<meta charset="utf-8">
+	<meta charset="<?php bloginfo('charset'); ?>">
 
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-	<meta name="HandheldFriendly" content="True">
-	<meta name="MobileOptimized" content="320">
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
@@ -18,7 +15,8 @@
 	$article_css = get_post_meta($post->ID,'custom_css',true);
 	    if($article_css)
 	    {
-	    echo <<<EOS
+    $article_css = wp_strip_all_tags($article_css);
+    echo <<<EOS
 <style>
 $article_css
 </style>
@@ -28,11 +26,11 @@ EOS;
 	?>
 </head>
 
-<?php if(get_option('easel_totop') === 'visible') : ?>
-<a href="#" id="totop"></a>
-<?php endif; ?>
-
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
+<?php wp_body_open(); ?>
+<?php if(get_option('easel_totop') === 'visible') : ?>
+<a href="#" id="totop" aria-label="ページの先頭へ"></a>
+<?php endif; ?>
 
 	<div id="container">
 

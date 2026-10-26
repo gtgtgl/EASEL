@@ -46,7 +46,6 @@ a.illust {
 .shortcode-illust {
   &.small li {
     width: calc(25% - 3px);
-    height: 140px;
     margin-bottom: 4px;
     &:not(:nth-of-type(3n)) {
       margin-right: 0;

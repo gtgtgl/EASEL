@@ -1,0 +1,53 @@
+/* Shared by the public page and the block editor canvas. */
+.easel-link-button .blue-btn { --easel-button-color: #4d94ab; }
+.easel-link-button .red-btn { --easel-button-color: #cc445d; }
+.easel-link-button .yellow-btn { --easel-button-color: #ecc844; }
+.easel-link-button .green-btn { --easel-button-color: #6ecc75; }
+.easel-link-button .navy-btn { --easel-button-color: #1c438a; }
+.easel-link-button .gray-btn { --easel-button-color: #a5a5a5; }
+
+.easel-link-button .easel-link-button__link {
+    display: inline-block;
+    position: relative;
+    font-family: inherit;
+    font-weight: normal;
+    line-height: 1.8;
+    color: var(--easel-button-color) !important;
+    background: transparent;
+    text-decoration: none;
+    padding: 10px 40px;
+    border: 1px solid var(--easel-button-color);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color .3s, color .3s;
+}
+
+.easel-link-button .easel-link-button__link:hover,
+.easel-link-button .easel-link-button__link:focus {
+    color: #fff !important;
+    background-color: var(--easel-button-color);
+    border-color: var(--easel-button-color);
+    text-decoration: none;
+}
+
+.easel-link-button .easel-link-button__link:focus-visible {
+    outline: 2px solid var(--easel-button-color);
+    outline-offset: 3px;
+}
+
+/* Align the button inside a full-width row instead of floating the block. */
+.easel-link-button.alignleft,
+.easel-link-button.aligncenter,
+.easel-link-button.alignright {
+    float: none;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+}
+
+.easel-link-button.alignleft { text-align: left; }
+.easel-link-button.aligncenter { text-align: center; }
+.easel-link-button.alignright { text-align: right; }

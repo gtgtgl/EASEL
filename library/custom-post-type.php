@@ -48,6 +48,7 @@ function create_post_type_works() {
 }
 	add_action( 'init', 'create_post_type_works');
 
+function easel_register_taxonomies() {
 	register_taxonomy( 'custom_cat',
 		array('works'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
 		array('hierarchical' => true,     /* if this is true, it acts like categories */
@@ -88,15 +89,18 @@ function create_post_type_works() {
 			'show_ui' => true,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => 'work_tag' ),
+			'show_in_rest' => true,
       'has_archive' => true,  //trueにすると投稿した記事の一覧ページを作成することができる
 		)
 	);
+}
+add_action('init', 'easel_register_taxonomies');
 
 // カスタム投稿タイプの表示件数を指定
 function easel_change_posts_per_page($query) {
   if ( is_admin() || ! $query->is_main_query() )
       return;
-  if ( $query->is_archive('works') ) { //カスタム投稿タイプを指定
+  if ( $query->is_post_type_archive('works') || $query->is_tax(array('custom_cat', 'custom_tag')) ) {
       $query->set( 'posts_per_page', '12' ); //表示件数を指定
   }
 }
@@ -147,22 +151,21 @@ function edit_term_fields( $tag ) {
 add_action('custom_cat_edit_form_fields', 'edit_term_fields');
 
 function save_terms( $term_id ) {
-  if (array_key_exists('easel_term_disc', $_POST)) {
-    update_term_meta( $term_id, 'easel_term_disc', $_POST['easel_term_disc']);
+  if (current_user_can('edit_term', $term_id) && isset($_POST['_wpnonce'], $_POST['easel_term_disc'])
+      && is_string($_POST['_wpnonce']) && is_string($_POST['easel_term_disc'])
+      && wp_verify_nonce(wp_unslash($_POST['_wpnonce']), 'update-tag_' . $term_id)) {
+    update_term_meta( $term_id, 'easel_term_disc', wp_kses_post(wp_unslash($_POST['easel_term_disc'])));
   }
 }
 //新規追加用フック
-add_action( 'create_term', 'save_terms' );   // => 他が保存される前
-add_action( 'created_term', 'save_terms' );  // => 他が保存された後
 
 //編集画面用フック
-add_action( 'edit_terms', 'save_terms' );    // => 他が保存される前
-add_action( 'edited_terms', 'save_terms' );  // => 他が保存された後
+add_action( 'edited_custom_cat', 'save_terms' );
 
 // 作品管理画面で作品を日付順に並べる
 function set_post_types_admin_order( $wp_query ) {
-  if (is_admin()) {
-    $post_type = $wp_query->query['post_type'];
+  if (is_admin() && $wp_query->is_main_query() && !$wp_query->get('orderby')) {
+    $post_type = $wp_query->get('post_type');
     if ( $post_type == 'works' ) {
       $wp_query->set('orderby', 'date');
       $wp_query->set('order', 'DESC');
@@ -174,7 +177,10 @@ add_filter('pre_get_posts', 'set_post_types_admin_order');
 // サブメニューに作品タイプを追加する
 // https://qiita.com/konweb/items/330f735a899e448ef876
 function add_sub_menu() {
-$terms = get_terms('custom_cat', ['parent' => 0]);
+$terms = get_terms(array('taxonomy' => 'custom_cat', 'parent' => 0));
+if (is_wp_error($terms)) {
+    return;
+}
 foreach( $terms as $term ) {
     add_submenu_page('edit.php?post_type=works', '　作品 - '.$term->name, '　作品 - '.$term->name, 'manage_options', 'edit.php?s&custom_cat='.$term->slug.'&post_status=all&post_type=works&action=-1&m=0&custom_tag=0&filter_action=絞り込み&paged=1&action2=-1' );
 	}

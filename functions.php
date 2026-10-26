@@ -1,11 +1,11 @@
 <?php
 
-require_once( 'library/bones.php' );
+require_once __DIR__ . '/library/bones.php';
 
 $theme = wp_get_theme(get_template());
 
 // テーマ更新の確認
-require_once( 'theme-update-checker.php' );
+require_once __DIR__ . '/theme-update-checker.php';
 $update_checker = new ThemeUpdateChecker(
     'easel',
     'https://easel.gt-gt.org/downloads/theme-update.json'
@@ -26,7 +26,7 @@ function add_my_widget() {
 add_action( 'wp_dashboard_setup', 'add_my_widget' );
 
 // カスタム投稿タイプの設定
-require_once( 'library/custom-post-type.php' );
+require_once __DIR__ . '/library/custom-post-type.php';
 
 // EASEL用のメニューを追加する
 add_action('admin_menu', 'register_easel_menu_page');
@@ -88,16 +88,16 @@ function setup_easel_terms() {
 }
 
 // 設定ページでタブを使えるようにする
-function custom_theme_add_scripts($loader_src) {
-  if (is_admin()) {
-    wp_enqueue_script('jquery-ui-tabs', array('jquery-ui-core'));
+function custom_theme_add_scripts($hook_suffix) {
+  if ('settings_page_easel_settings' === $hook_suffix) {
+    wp_enqueue_script('jquery-ui-tabs');
   }
 }
-add_action('wp_print_scripts', 'custom_theme_add_scripts');
+add_action('admin_enqueue_scripts', 'custom_theme_add_scripts');
 
 // EASEL設定ページの中身を読み込み
 function easel_settings_page() {
-  include 'library/setting.php';
+  include __DIR__ . '/library/setting.php';
 }
 
 // EASEL設定ページ独自のCSSを読み込む
@@ -127,7 +127,7 @@ if( get_option('easel_rewrite_permalink') == 'changed' ) {
   function easel_permalink_rewrite($link, $post){
     if($post->post_type === 'works'){
       $terms = get_the_terms($post->ID,'custom_cat');
-      if($terms === false) {
+      if(empty($terms) || is_wp_error($terms)) {
         return  home_url('/works/' .$post->ID);
       } else {
         $ancestors = get_ancestors($terms[0]->term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
@@ -135,6 +135,9 @@ if( get_option('easel_rewrite_permalink') == 'changed' ) {
         $ancestor_slugs = array();
         foreach ($ancestors as $ancestor) {
           $ancestor = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
+          if (!$ancestor || is_wp_error($ancestor)) {
+            continue;
+          }
           $ancestor_slug = $ancestor->slug; // タームスラッグを取得
           array_push( $ancestor_slugs , $ancestor_slug );
         }
@@ -142,7 +145,6 @@ if( get_option('easel_rewrite_permalink') == 'changed' ) {
         array_push( $ancestor_slugs , $slug );
         $url = implode( '/' , $ancestor_slugs );
         return home_url('/works/' . $url . '/' .$post->ID);
-        return home_url('/works/' . $terms[0]->slug . '/' .$post->ID);
       }
     } else {
       return $link;
@@ -331,13 +333,15 @@ function easel_setting_ogp() {
     $html = '';
     if (is_singular()) {
       // 記事＆固定ページ
-      setup_postdata($post);
-      $ogp_title = $post->post_title;
-      if(has_excerpt()) {
-        $ogp_description = easel_get_the_custom_excerpt( get_the_excerpt(), 120 );
+      $ogp_post = get_queried_object();
+      if (!$ogp_post instanceof WP_Post) {
+        return;
       }
-      $ogp_url = get_permalink();
-      wp_reset_postdata();
+      $ogp_title = $ogp_post->post_title;
+      if(has_excerpt($ogp_post)) {
+        $ogp_description = easel_get_the_custom_excerpt( get_the_excerpt($ogp_post), 120 );
+      }
+      $ogp_url = get_permalink($ogp_post);
     } elseif (is_front_page() || is_home()) {
       // トップページ
       $ogp_title = get_bloginfo('name');
@@ -353,7 +357,7 @@ function easel_setting_ogp() {
     // og:image
     if (is_singular() && has_post_thumbnail()) {
       $ps_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
-      $ogp_image = $ps_thumb[0];
+      $ogp_image = $ps_thumb ? $ps_thumb[0] : $ogp_image;
     }
 
     // 出力するOGPタグをまとめる
@@ -364,7 +368,7 @@ function easel_setting_ogp() {
     $html .= '<meta property="og:url" content="' . esc_url($ogp_url) . '">' . "\n";
     $html .= '<meta property="og:image" content="' . esc_url($ogp_image) . '">' . "\n";
     $html .= '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
-    $html .= '<meta name="twitter:card" content="' . $twitter_card . '">' . "\n";
+    $html .= '<meta name="twitter:card" content="' . esc_attr($twitter_card) . '">' . "\n";
     $html .= '<meta property="twitter:title" content="' . esc_attr($ogp_title) . '">' . "\n";
     $html .= '<meta property="twitter:url" content="' . esc_url($ogp_url) . '">' . "\n";
     $html .= '<meta property="twitter:description" content="' . esc_attr($ogp_description) . '">' . "\n";
@@ -389,7 +393,8 @@ add_action( 'add_meta_boxes', array ( 'VisualEditorExcerptDemo', 'switch_boxes' 
 class VisualEditorExcerptDemo{
   public static function switch_boxes()
   {
-    if ( ! post_type_supports( $GLOBALS['post']->post_type, 'excerpt' ) )    {
+    $post = get_post();
+    if ( ! $post || ! post_type_supports( $post->post_type, 'excerpt' ) || use_block_editor_for_post( $post ) ) {
       return;
     }
 
@@ -465,38 +470,40 @@ function create_custom_css() {
     wp_nonce_field( 'action-' . $keyname, 'nonce-' . $keyname );
 
     // HTMLの出力
-    echo '<textarea style="margin-top: 0px;margin-bottom: 0px;height: 82px;width: 100%;height: 150px;" placeholder="ここにCSSを書くと個別ページに反映されます。styleタグは不要です。" name="' . $keyname . '">' . $get_value . '</textarea>';
+    echo '<textarea style="margin-top: 0px;margin-bottom: 0px;height: 82px;width: 100%;height: 150px;" placeholder="ここにCSSを書くと個別ページに反映されます。styleタグは不要です。" name="' . esc_attr($keyname) . '">' . esc_textarea($get_value) . '</textarea>';
 }
 
 // カスタムフィールドの保存
 add_action( 'save_post', 'save_custom_field' );
 function save_custom_field( $post_id ) {
-    $custom_fields = ['custom_css'];
-
-    foreach( $custom_fields as $d ) {
-        if ( isset( $_POST['nonce-' . $d] ) && $_POST['nonce-' . $d] ) {
-            if( check_admin_referer( 'action-' . $d, 'nonce-' . $d ) ) {
-
-                if( isset( $_POST[$d] ) && $_POST[$d] ) {
-                    update_post_meta( $post_id, $d, $_POST[$d] );
-                } else {
-                    delete_post_meta( $post_id, $d, get_post_meta( $post_id, $d, true ) );
-                }
-            }
-        }
-
+    if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id) || !current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    if (!isset($_POST['nonce-custom_css']) || !is_string($_POST['nonce-custom_css'])
+        || !wp_verify_nonce(wp_unslash($_POST['nonce-custom_css']), 'action-custom_css')
+        || !isset($_POST['custom_css']) || !is_string($_POST['custom_css'])) {
+        return;
+    }
+    $css = wp_strip_all_tags(wp_unslash($_POST['custom_css']));
+    if ($css === '') {
+        delete_post_meta($post_id, 'custom_css');
+    } else {
+        update_post_meta($post_id, 'custom_css', wp_slash($css));
     }
 }
 
-// キャプション付き画像が記事外にはみ出るのを修正する
+
 add_filter( 'img_caption_shortcode_width', function(){ return 0; } );
 
 // カレンダーをカッコよくする
 add_filter('get_calendar', 'easel_calendar');
 
-function easel_calendar($initial = true, $echo = true) {
+function easel_calendar($calendar_html) {
+    $initial = true;
+    $calendar_output2 = '';
+    $daywithpost = array();
 
-    global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
+    global $wpdb, $m, $monthnum, $year, $wp_locale, $posts, $w;
 
     // week_begins = 0 stands for Sunday
     $week_begins = intval(get_option('start_of_week'));
@@ -569,7 +576,7 @@ function easel_calendar($initial = true, $echo = true) {
     </tr>
     </thead>
 
-    <tfoot>
+    <tbody>
     <tr>';
     //////////////////ここから変更した
     if( $previous || $next)$calendar_output2 = "\n\t".'<div id="wp-calendar-pn">';
@@ -596,7 +603,8 @@ function easel_calendar($initial = true, $echo = true) {
         $daywithpost = array();
     }
 
-    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false || stripos($_SERVER['HTTP_USER_AGENT'], 'camino') !== false || stripos($_SERVER['HTTP_USER_AGENT'], 'safari') !== false)
+    $user_agent = (string) ($_SERVER['HTTP_USER_AGENT'] ?? '');
+    if (strpos($user_agent, 'MSIE') !== false || stripos($user_agent, 'camino') !== false || stripos($user_agent, 'safari') !== false)
         $ak_title_separator = "\n";
     else
         $ak_title_separator = ', ';
@@ -657,7 +665,7 @@ function easel_calendar($initial = true, $echo = true) {
     //ここで足す
     $calendar_output .= $calendar_output2;
 
-    echo $calendar_output;
+    return $calendar_output;
 }
 
 /*********************
@@ -668,15 +676,19 @@ Let's get everything up and running.
 function bones_ahoy() {
 
   //Allow editor style.
-  add_editor_style( get_template_directory_uri() . '/library/css/editor-style.css' );
+  add_theme_support( 'editor-styles' );
+  add_editor_style( array(
+    'library/css/editor-style.css',
+    'library/css/block-editor.css',
+  ) );
 
   // let's get language support going, if you need it
-  load_theme_textdomain( 'bonestheme', get_template_directory_uri() . '/library/translation' );
+  load_theme_textdomain( 'bonestheme', get_template_directory() . '/library/translation' );
 
   // launching operation cleanup
   add_action( 'init', 'bones_head_cleanup' );
   // A better title
-  add_filter( 'wp_title', 'rw_title', 10, 3 );
+
   // remove WP version from RSS
   add_filter( 'the_generator', 'bones_rss_version' );
   // remove pesky injected css for recent comments widget
@@ -731,7 +743,8 @@ function bones_custom_image_sizes( $sizes ) {
 // アイキャッチのない場合に記事内の最初の画像を拾ってくる
 
 function get_the_image() {
-    global $post;
+    $post = get_post();
+    if (!$post) { return ''; }
     $get_img = '';
     // 取得したい画像の位置
     $number = 1;
@@ -743,7 +756,7 @@ function get_the_image() {
     // リンク先画像がない場合は最初の画像を取得
         preg_match_all($pattern2, $post->post_content, $matches);
     }
-    if (key_exists(0,$matches[1])) {
+    if (isset($matches[1][0])) {
       $get_img = $matches[1][$number - 1];
     }
 
@@ -758,7 +771,7 @@ function get_the_image() {
     } else{
         // 画像表示設定
         $alt = $post->post_title;
-        $img = '<img src="'.$get_img.'" alt="'.$alt.'" class="attachment-post-thumbnail size-post-thumbnail wp-post-image">';
+        $img = '<img src="'.esc_url($get_img).'" alt="'.esc_attr($alt).'" class="attachment-post-thumbnail size-post-thumbnail wp-post-image">';
         return $img;
     }
 }
@@ -864,43 +877,42 @@ function easel_change_color() {
   if($changebasecolor === 'basic_color' || empty($changebasecolor)) {
     return;
   } else {
-    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. $changebasecolor .'.css', array(), isset($theme->Version), 'all' );
+    wp_register_style( 'change_base_color', get_template_directory_uri() . '/library/css/basecolors/style-'. sanitize_key($changebasecolor) .'.css', array(), wp_get_theme(get_template())->get('Version'), 'all' );
     wp_enqueue_style( 'change_base_color' );
   }
 }
 add_action( 'wp_enqueue_scripts', 'easel_change_color', 9 );
 
 // post_class関数のオーバーロード
-function easel_make_indent( $classes ) {
-	global $post;
-  $terms = get_the_terms($post->ID,'custom_cat'); // タームのIDを取得
+function easel_get_work_type_slug($post_id) {
+  $terms = get_the_terms($post_id, 'custom_cat');
   $slug = '';
-if (is_array($terms)) {
-	foreach ($terms as $term) {
-		// code...
-		$term_id = $term->term_id;
-		$ancestors = get_ancestors($term_id, 'custom_cat'); // タクソノミースラッグを指定してタームの配列を取得
-		if(!empty($ancestors)) {
-			$ancestors = array_reverse($ancestors); // 子親の順番で表示されるので、親子の順番に変更
-			$ancestor = $ancestors[0]; // 階層が最も上の祖先タームIDを取り出す
-			$parent_term = get_term($ancestor, 'custom_cat'); // タームIDとタクソノミースラッグを指定してターム情報を取得
-			$slug = $parent_term->slug; // タームスラッグを取得
-		}
-	}
+  if (!is_array($terms)) { return $slug; }
+  foreach ($terms as $term) {
+    $ancestors = array_reverse(get_ancestors($term->term_id, 'custom_cat'));
+    $root = $ancestors ? get_term($ancestors[0], 'custom_cat') : $term;
+    if ($root instanceof WP_Term) { $slug = $root->slug; }
+  }
+  return $slug;
 }
+
+function easel_make_indent( $classes, $css_class, $post_id ) {
+  $post = get_post($post_id);
+  if (!$post) { return $classes; }
+  $slug = easel_get_work_type_slug($post_id);
   if ( get_option('easel_make_indent') === '1' ) {
-    if (has_term( 'text', 'custom_cat') || $slug == 'text') {
+    if (has_term( 'text', 'custom_cat', $post_id) || $slug == 'text') {
       $classes[] = 'make_indent';
     }
   }
   if ( get_option('easel_text_work_max_width_narrow') === '1' ) {
-    if (has_term( 'text', 'custom_cat') || $slug == 'text') {
+    if (has_term( 'text', 'custom_cat', $post_id) || $slug == 'text') {
       $classes[] = 'make_narrow';
     }
   }
   return $classes;
 }
-add_filter( 'post_class', 'easel_make_indent' );
+add_filter( 'post_class', 'easel_make_indent', 10, 3 );
 
 // 改ページのページ送りを改修
 // https://try-m.co.jp/blog/cms/883/
@@ -1022,6 +1034,6 @@ function custom_wp_link_pages($args = '')
 }
 
 // ブロックエディターへの対応
-require_once( 'library/gutenberg.php' );
+require_once __DIR__ . '/library/gutenberg.php';
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

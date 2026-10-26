@@ -116,18 +116,7 @@ class ThemeUpdateChecker {
 	 * @return string Version number.
 	 */
 	public function getInstalledVersion(){
-		if ( function_exists('wp_get_theme') ) {
-			$theme = wp_get_theme($this->theme);
-			return $theme->get('Version');
-		}
-
-		/** @noinspection PhpDeprecationInspection get_themes() used for compatibility with WP 3.3 and below. */
-		foreach(get_themes() as $theme){
-			if ( $theme['Stylesheet'] === $this->theme ){
-				return $theme['Version'];
-			}
-		}
-		return '';
+		return wp_get_theme($this->theme)->get('Version');
 	}
 	
 	/**
@@ -137,7 +126,7 @@ class ThemeUpdateChecker {
 	 */
 	public function checkForUpdates(){
 		$state = get_option($this->optionName);
-		if ( empty($state) ){
+		if ( !is_object($state) ){
 			$state = new StdClass;
 			$state->lastCheck = 0;
 			$state->checkedVersion = '';
@@ -174,10 +163,14 @@ class ThemeUpdateChecker {
 	 * @return array Modified update list.
 	 */
 	public function injectUpdate($updates){
+		if (!is_object($updates)) {
+			return $updates;
+		}
 		$state = get_option($this->optionName);
 		
 		//Is there an update to insert?
-		if ( !empty($state) && isset($state->update) && !empty($state->update) ){
+		if ( is_object($state) && isset($state->update) && $state->update instanceof ThemeUpdate
+			&& version_compare($state->update->version, $this->getInstalledVersion(), '>') ){
 			$updates->response[$this->theme] = $state->update->toWpFormat();
 		}
 		
@@ -268,14 +261,18 @@ class ThemeUpdate {
 		}
 		
 		//Very, very basic validation.
-		$valid = isset($apiResponse->version) && !empty($apiResponse->version) && isset($apiResponse->details_url) && !empty($apiResponse->details_url);
+		$valid = isset($apiResponse->version, $apiResponse->details_url)
+			&& is_string($apiResponse->version) && $apiResponse->version !== ''
+			&& is_string($apiResponse->details_url) && $apiResponse->details_url !== '';
 		if ( !$valid ){
 			return null;
 		}
 		
 		$update = new self();
-		foreach(get_object_vars($apiResponse) as $key => $value){
-			$update->$key = $value;
+		foreach(array('version', 'details_url', 'download_url') as $key){
+			if (isset($apiResponse->$key) && is_string($apiResponse->$key)) {
+				$update->$key = $apiResponse->$key;
+			}
 		}
 		
 		return $update;

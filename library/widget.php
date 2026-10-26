@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) exit;
 
-class FixedWidgetItem extends WP_widget {
+class FixedWidgetItem extends WP_Widget {
 
   function __construct() {
     parent::__construct(
@@ -18,8 +18,8 @@ class FixedWidgetItem extends WP_widget {
     $dest_textarea = !empty($instance['setting_textarea']) ? $instance['setting_textarea'] : "";
 
     echo '<div class="widget_profile">'.$args['before_widget'];
-    echo $args['before_title'].$dest_title.$args['after_title'];
-    echo '<img src="'.$dest_img.'" align="middle"><p>'.$dest_textarea.'</p>';
+    echo $args['before_title'].esc_html($dest_title).$args['after_title'];
+    echo '<img src="'.esc_url($dest_img).'" alt=""><p>'.wp_kses_post($dest_textarea).'</p>';
     echo $args['after_widget'].'</div>';
 
   }
@@ -46,8 +46,8 @@ class FixedWidgetItem extends WP_widget {
           }
       ?>
       <p class="fixed-image-text" <?php echo $show_p; ?>>画像が未選択です</p>
-      <p><img class="fixed-image-view" src="<?php echo $dest_img; ?>" width="260" <?php echo $show_img; ?>></p>
-      <input class="fixed-image-url" id="<?php echo $this->get_field_id('setting_img'); ?>" name="<?php echo $this->get_field_name('setting_img'); ?>" type="text" value="<?php echo $dest_img; ?>">
+      <p><img class="fixed-image-view" src="<?php echo esc_url($dest_img); ?>" alt="" width="260" <?php echo $show_img; ?>></p>
+      <input class="fixed-image-url" id="<?php echo $this->get_field_id('setting_img'); ?>" name="<?php echo $this->get_field_name('setting_img'); ?>" type="text" value="<?php echo esc_attr($dest_img); ?>">
       <button type="button" class="fixed-select-image">画像を選択</button>
       <button type="button" class="fixed-delete-image" <?php echo $show_img; ?>>画像を削除</button>
     </p>
@@ -105,7 +105,7 @@ class FixedWidgetItem extends WP_widget {
     </script>
     <p>
       <label for="<?php echo $this->get_field_id('setting_textarea'); ?>">テキスト</label><br>
-      <textarea id="<?php echo $this->get_field_id('setting_textarea'); ?>" name="<?php echo $this->get_field_name('setting_textarea'); ?>" type="text" width="100%"><?php echo $dest_textarea; ?></textarea>
+      <textarea id="<?php echo $this->get_field_id('setting_textarea'); ?>" name="<?php echo $this->get_field_name('setting_textarea'); ?>"><?php echo esc_textarea($dest_textarea); ?></textarea>
     </p>
 
 <?php
@@ -115,9 +115,9 @@ class FixedWidgetItem extends WP_widget {
   public function update($new_instance, $old_instance) {
 
     $instance = array();
-    $instance['setting_title'] = !empty($new_instance['setting_title']) ? $new_instance['setting_title'] : "";
-    $instance['setting_img'] = !empty($new_instance['setting_img']) ? $new_instance['setting_img'] : "";
-    $instance['setting_textarea'] = !empty($new_instance['setting_textarea']) ? $new_instance['setting_textarea'] : "";
+    $instance['setting_title'] = sanitize_text_field($new_instance['setting_title'] ?? '');
+    $instance['setting_img'] = esc_url_raw($new_instance['setting_img'] ?? '');
+    $instance['setting_textarea'] = wp_kses_post($new_instance['setting_textarea'] ?? '');
 
     return $instance;
   }

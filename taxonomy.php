@@ -16,9 +16,9 @@
 					<?php
 							$thumbnail_id = get_post_thumbnail_id();
 							$eye_img = wp_get_attachment_image_src( $thumbnail_id , 'full' );
-							$url = $eye_img[0];
-							$width = $eye_img[1];
-							$height = $eye_img[2];
+							$url = ($eye_img[0] ?? '');
+							$width = ($eye_img[1] ?? 0);
+							$height = ($eye_img[2] ?? 0);
 							$size = $width.'x'.$height.' size-'.$width.'x'.$height;
 							$attr = array(
 								'class' => "attachment-$size eye-catch-image",

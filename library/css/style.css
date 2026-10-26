@@ -1222,7 +1222,6 @@ a.illust article figure.eye-catch {
 
 .shortcode-illust.default li {
   width: calc(50% - 3px);
-  height: 150px;
   margin-bottom: 3px;
 }
 
@@ -1240,7 +1239,6 @@ a.illust article figure.eye-catch {
 
 .shortcode-illust.small li {
   width: calc(33% - 3px);
-  height: 120px;
   margin-bottom: 3px;
 }
 
@@ -1257,6 +1255,8 @@ a.illust article figure.eye-catch {
 }
 
 .shortcode-illust li {
+  aspect-ratio: 1 / 1;
+  height: auto;
   position: relative;
 }
 
@@ -2489,7 +2489,6 @@ tweeners.
   }
   .shortcode-illust.small li {
     width: calc(25% - 3px);
-    height: 140px;
     margin-bottom: 4px;
   }
   .shortcode-illust.small li:not(:nth-of-type(3n)) {
@@ -2544,7 +2543,6 @@ you can add resource intensive styles.
   }
   .shortcode-illust.default li {
     width: calc(33% - 3px);
-    height: 220px;
   }
   .shortcode-illust.default li:not(:nth-of-type(2n)) {
     margin-right: 0;
@@ -2554,7 +2552,6 @@ you can add resource intensive styles.
   }
   .shortcode-illust.small li {
     width: calc(20% - 4px);
-    height: 150px;
     margin-bottom: 5px;
   }
   .shortcode-illust.small li:not(:nth-of-type(4n)) {
@@ -2862,7 +2859,6 @@ you can add resource intensive styles.
   }
   .shortcode-illust.default li {
     width: calc(25% - 3px);
-    height: 250px;
   }
   .shortcode-illust.default li:not(:nth-of-type(3n)) {
     margin-right: 0;
@@ -2872,7 +2868,6 @@ you can add resource intensive styles.
   }
   .shortcode-illust.small li {
     width: calc(100%/6 - 3px);
-    height: 160px;
   }
   .shortcode-illust.small li:not(:nth-of-type(5n)) {
     margin-right: 0;

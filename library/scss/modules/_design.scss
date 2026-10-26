@@ -309,7 +309,6 @@ a.illust {
 
   &.default li {
     width: calc(50% - 3px);
-    height: 150px;
     margin-bottom: 3px;
     &:not(:nth-of-type(2n)) {
       margin-right: 3px;
@@ -325,7 +324,6 @@ a.illust {
   }
   &.small li {
     width: calc(33% - 3px);
-    height: 120px;
     margin-bottom: 3px;
     &:not(:nth-of-type(3n)) {
       margin-right: 3px;
@@ -340,6 +338,8 @@ a.illust {
     }
   }
   li {
+    aspect-ratio: 1 / 1;
+    height: auto;
     position: relative;
     figure {
       width: 100%;
